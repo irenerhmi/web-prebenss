@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
 session_start();
-if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
+if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
 ?>
@@ -12,7 +12,7 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
     <title>Aments - Car Accessories Shop HTML Template</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
+    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png"> -->
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
@@ -92,11 +92,14 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
                                     <div class="login">
                                         <div class="login_form_container">
                                             <div class="account_login_form">
-                                                <form method="POST" action="user.php">
+                                                <form method="POST" action="user.php" enctype="multipart/form-data">
                                                     <div class="default-form-box mb-20">
-                                                        <label>Image </label>
-                                                        <input type="file" name="imgprofile" > 
-
+                                                        <label>Profile Picture </label>
+                                                        <?php $imgprofile = "../ava.jpg"; ?>                                                       
+                                                        <img src="<?php echo $imgprofile; ?>" alt="" class="" /> 
+                                                        <label> <br></label>
+                                                        <input type="file" name="imgprofile">                         
+                                                        <!--<img src="<?php echo $img_src; ?>" alt="" class="" />-->
                                                         <label> <br> Username</label>
                                                         <div class="header-top--left">
                                                             <span>
@@ -106,18 +109,23 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
                                                             </span> <br>
                                                         </div>
                                                         <!--<input type="text" name="first-name">-->
-                                                    </div>
+                                                    </div>                                                    
                                                     <div class="default-form-box mb-20">
                                                         <label>Nama</label> 
-                                                        <input type="text" name="first-name" placeholder="<?php echo $_SESSION['name'] ?>">
+                                                        <input type="text" name="first-name" value="<?php echo $_SESSION['name'] ?>" required>
+
                                                     </div>
                                                     <div class="default-form-box mb-20">
                                                         <label>Email</label>
-                                                        <input type="text" name="last-name" >
+                                                        <input type="text" name="last-name" value="<?php echo $_SESSION['email'] ?>" required>
+                                                    </div>
+                                                    <div class="default-form-box mb-20">
+                                                        <label>Phone </label> 
+                                                        <input type="text" name="first-name" value="<?php echo $_SESSION['phone'] ?>" required>
                                                     </div>
                                                     <div class="default-form-box mb-20">
                                                         <label>Alamat</label> <br>
-                                                        <input type="text" name="email-name">        
+                                                        <input type="text" name="email-name" value="<?php echo $_SESSION['alamat'] ?>" required>        
                                                     </div>
                                                     <!-- <div class="input-radio">
                                                         <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Laki-Laki </span>

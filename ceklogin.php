@@ -11,13 +11,20 @@ if(isset($_POST['submit'])){
     $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_array($result);
     $email = $row['u_email'];
+    $phone = $row['u_phone'];
+    $alamat = $row['u_alamat'];
 
     //echo $row['u_password'];
 
     if(mysqli_num_rows($result) > 0){
         $_SESSION['username'] = $row['u_username'];
         $_SESSION['name'] = $row['u_name'];
-        $_SESSION[''] = $row['u_name'];
+        $_SESSION['email'] = $row['u_email'];
+        echo $_SESSION['email'];
+        $_SESSION['phone'] = $row['u_phone'];
+        $_SESSION['alamat'] = $row['u_alamat'];
+        echo $_SESSION['phone'];
+        echo $_SESSION['alamat'];
 
 
         // cek password
