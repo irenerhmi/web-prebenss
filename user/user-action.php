@@ -1,11 +1,11 @@
 <?php
 include "../koneksidb.php";
 
-$username = $_POST["username"];
+//$username = $_POST["username"];
 $email = $_POST["email"];
 $nama = $_POST["name"];
-$password = $_POST["pass"];
-$rpassword = $_POST["rpass"];
+//$password = $_POST["pass"];
+//$rpassword = $_POST["rpass"];
 $alamat = $_POST["alamat"];
 $imgprofile = $_FILES["imgprofile"];
 

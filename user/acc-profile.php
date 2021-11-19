@@ -92,22 +92,32 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
                                     <div class="login">
                                         <div class="login_form_container">
                                             <div class="account_login_form">
-                                                <form method="POST"action="userinfo.php">
+                                                <form method="POST" action="user.php">
                                                     <div class="default-form-box mb-20">
-                                                        <label>Username</label>
-                                                        <input type="text" name="first-name">
+                                                        <label>Image </label>
+                                                        <input type="file" name="imgprofile" > 
+
+                                                        <label> <br> Username</label>
+                                                        <div class="header-top--left">
+                                                            <span>
+                                                            <?php
+                                                                echo $_SESSION['username'];
+                                                            ?>
+                                                            </span> <br>
+                                                        </div>
+                                                        <!--<input type="text" name="first-name">-->
                                                     </div>
                                                     <div class="default-form-box mb-20">
-                                                        <label>Nama</label>
-                                                        <input type="text" name="first-name">
+                                                        <label>Nama</label> 
+                                                        <input type="text" name="first-name" placeholder="<?php echo $_SESSION['name'] ?>">
                                                     </div>
                                                     <div class="default-form-box mb-20">
                                                         <label>Email</label>
-                                                        <input type="text" name="last-name">
+                                                        <input type="text" name="last-name" >
                                                     </div>
                                                     <div class="default-form-box mb-20">
-                                                        <label>Alamat</label>
-                                                        <input type="text" name="email-name">
+                                                        <label>Alamat</label> <br>
+                                                        <input type="text" name="email-name">        
                                                     </div>
                                                     <!-- <div class="input-radio">
                                                         <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Laki-Laki </span>

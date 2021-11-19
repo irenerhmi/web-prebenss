@@ -10,12 +10,15 @@ if(isset($_POST['submit'])){
 
     $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_array($result);
+    $email = $row['u_email'];
 
     //echo $row['u_password'];
 
     if(mysqli_num_rows($result) > 0){
         $_SESSION['username'] = $row['u_username'];
         $_SESSION['name'] = $row['u_name'];
+        $_SESSION[''] = $row['u_name'];
+
 
         // cek password
         $hash = $row['u_password'];
