@@ -11,7 +11,7 @@
                                 if(!isset($_SESSION['username']) ){
                                     header("location: ../login.php");
                                 }
-                                echo $_SESSION['name'] 
+                                echo $_SESSION['username'] 
                             ?>
                             !</span>
                         </div>

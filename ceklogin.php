@@ -13,6 +13,7 @@ if(isset($_POST['submit'])){
     $email = $row['u_email'];
     $phone = $row['u_phone'];
     $alamat = $row['u_alamat'];
+    $username = $row['u_username'];
 
     //echo $row['u_password'];
 
@@ -20,11 +21,10 @@ if(isset($_POST['submit'])){
         $_SESSION['username'] = $row['u_username'];
         $_SESSION['name'] = $row['u_name'];
         $_SESSION['email'] = $row['u_email'];
-        echo $_SESSION['email'];
         $_SESSION['phone'] = $row['u_phone'];
         $_SESSION['alamat'] = $row['u_alamat'];
-        echo $_SESSION['phone'];
-        echo $_SESSION['alamat'];
+        $_SESSION['image'] = $row['u_image'];
+        
 
 
         // cek password

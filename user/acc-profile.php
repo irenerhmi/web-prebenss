@@ -5,11 +5,13 @@ session_start();
 if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
+
+require "../koneksidb.php";
 ?>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aments - Car Accessories Shop HTML Template</title>
+    <title>Prebens - My Account </title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
     <!-- <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png"> -->
@@ -91,48 +93,66 @@ if(!isset($_SESSION['username'])){
                                     <h3>Profile </h3> <br>
                                     <div class="login">
                                         <div class="login_form_container">
-                                            <div class="account_login_form">
-                                                <form method="POST" action="user.php" enctype="multipart/form-data">
+                                            <div class="account_login_form">                                                
+                                                <form method="POST" action="user-action.php" enctype="multipart/form-data">                                            
                                                     <div class="default-form-box mb-20">
+                                                        <?php
+
+                                                        $sql = "select * from user where u_username='".$_SESSION['username']."'";
+
+                                                        $result = mysqli_query($conn,$sql);
+
+                                                        $row = mysqli_fetch_array($result);
+                                                        $temail = $row['u_email'];
+                                                        $tnama = $row['u_name'];
+                                                        $tphone = $row['u_phone'];
+                                                        $talamat = $row['u_alamat'];
+                                                        $tusername = $row['u_username'];
+                                                        $timage = $row['u_image'];
+
+
+                                                        ?>
                                                         <label>Profile Picture </label>
-                                                        <?php $imgprofile = "../ava.jpg"; ?>                                                       
-                                                        <img src="<?php echo $imgprofile; ?>" alt="" class="" /> 
-                                                        <label> <br></label>
-                                                        <input type="file" name="imgprofile">                         
-                                                        <!--<img src="<?php echo $img_src; ?>" alt="" class="" />-->
+                                                        <?php $foto = $_SESSION['image']; ?>
+                                                        <img src="../image/user/<?php echo $timage ?>" width="70px" height="70px" style="border-radius:50%;" alt="avatar">
+
+                                                        <label> <br></label>                        
+                                                        <input type="file" name="imgprofile">                                                                              
+                                                        
                                                         <label> <br> Username</label>
                                                         <div class="header-top--left">
-                                                            <span>
+                                                            <input type="text" name="username" value="<?php echo $_SESSION['username'] ?>" disabled>
+                                                            <!--<span>
                                                             <?php
                                                                 echo $_SESSION['username'];
                                                             ?>
-                                                            </span> <br>
+                                                            </span> --> <br>
                                                         </div>
                                                         <!--<input type="text" name="first-name">-->
                                                     </div>                                                    
                                                     <div class="default-form-box mb-20">
                                                         <label>Nama</label> 
-                                                        <input type="text" name="first-name" value="<?php echo $_SESSION['name'] ?>" required>
+                                                        <input type="text" name="nama" value="<?php echo $tnama ?>" required>
 
                                                     </div>
                                                     <div class="default-form-box mb-20">
                                                         <label>Email</label>
-                                                        <input type="text" name="last-name" value="<?php echo $_SESSION['email'] ?>" required>
+                                                        <input type="text" name="email" value="<?php echo $temail ?>" required>
                                                     </div>
                                                     <div class="default-form-box mb-20">
                                                         <label>Phone </label> 
-                                                        <input type="text" name="first-name" value="<?php echo $_SESSION['phone'] ?>" required>
+                                                        <input type="text" name="phone" value="<?php echo $tphone ?>" required>
                                                     </div>
                                                     <div class="default-form-box mb-20">
-                                                        <label>Alamat</label> <br>
-                                                        <input type="text" name="email-name" value="<?php echo $_SESSION['alamat'] ?>" required>        
+                                                        <label>Alamat</label>
+                                                        <input type="text" name="alamat" value="<?php echo $talamat ?>" required>        
                                                     </div>
                                                     <!-- <div class="input-radio">
                                                         <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Laki-Laki </span>
                                                         <span class="custom-radio"><input type="radio" value="1" name="id_gender">Perempuan </span>
                                                     </div> <br> -->
                                                     <div class="save_button primary_btn default_button">
-                                                        <button type="submit">Save</button>
+                                                        <button type="submit" name="submit" value="submit">Save</button>
                                                     </div>
                                                 </form>
                                             </div>
