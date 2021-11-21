@@ -98,6 +98,7 @@ require "../koneksidb.php";
                                                     <div class="default-form-box mb-20">
                                                         <?php
 
+
                                                         $sql = "select * from user where u_username='".$_SESSION['username']."'";
 
                                                         $result = mysqli_query($conn,$sql);
@@ -114,14 +115,14 @@ require "../koneksidb.php";
                                                         ?>
                                                         <label>Profile Picture </label>
                                                         <?php $foto = $_SESSION['image']; ?>
-                                                        <img src="../image/user/<?php echo $timage ?>" width="70px" height="70px" style="border-radius:50%;" alt="avatar">
+                                                        <img src="../image/user/<?php echo $timage ?>" width="70px" height="70px" style="border-radius:50%;">
 
                                                         <label> <br></label>                        
                                                         <input type="file" name="imgprofile">                                                                              
                                                         
                                                         <label> <br> Username</label>
                                                         <div class="header-top--left">
-                                                            <input type="text" name="username" value="<?php echo $_SESSION['username'] ?>" disabled>
+                                                            <input type="text" name="username" value="<?php echo $_SESSION['username'] ?>" >
                                                             <!--<span>
                                                             <?php
                                                                 echo $_SESSION['username'];

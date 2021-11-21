@@ -33,8 +33,9 @@ if (isset($_POST['submit'])) {
     echo $tanggal;
 
     if ($conn->query($sql) === TRUE) {
-        echo '<script>alert ("donasi berhasil diinput!")</script>';
-        header ("location: dashuser.php");
+        echo "<script> 
+        alert('donasi berhasil diinput!'');
+        header ('location: donasi.php'); </script>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

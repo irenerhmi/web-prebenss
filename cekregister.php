@@ -14,6 +14,7 @@ if (isset($_POST['submit'])) {
     $email = test_input($_POST["email"]);
     $nama = test_input($_POST["name"]);
     $password = test_input($_POST["password"]);
+    $phone = test_input($_POST["phone"]);
     $alamat = test_input($_POST["alamat"]);
 
     // cek uname sudah ada tau belum
@@ -33,7 +34,7 @@ if (isset($_POST['submit'])) {
     $password = password_hash($password, PASSWORD_DEFAULT);
 
 
-    $sql = "INSERT INTO user (u_username, u_email, u_name, u_password, u_alamat) VALUES ('" . $username . "','" . $email . "', '" . $nama . "', '" . $password . "', '" . $alamat . "')";
+    $sql = "INSERT INTO user (u_username, u_email, u_name, u_phone, u_password, u_alamat) VALUES ('" . $username . "','" . $email . "', '" . $nama . "', '" . $phone . "', '" . $password . "', '" . $alamat . "')";
 
     echo "<h2>Your Input:</h2>";
     echo $username;

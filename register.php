@@ -70,6 +70,8 @@
                     <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
                         <h3>Register</h3>
                         <form method="POST" action="cekregister.php">
+                            <!-- <label> <br></label>                        
+                            <input type="file" name="imgprofile"> -->                         
                             <div class="default-form-box mb-20">
                                 <label>Username <span>*</span></label>
                                 <input name="username" type="text" placeholder="Masukkan Username">
@@ -81,6 +83,10 @@
                             <div class="default-form-box mb-20">
                                 <label>Name <span>*</span></label>
                                 <input name="name" type="text" placeholder="Masukkan Nama">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>Phone <span>*</span></label>
+                                <input name="phone" type="text" placeholder="Masukkan Nomor Telfon">
                             </div>
                             <div class="default-form-box mb-20">
                                 <label>Passwords <span>*</span></label>
