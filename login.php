@@ -89,7 +89,7 @@
                                     <input type="checkbox" id="offer">
                                     <span>Remember me</span>
                                 </label>
-                                <a href="#">Lost your password?</a>
+                                <a href="forgotpass.php">Lost your password?</a>
                                 <br>
                                 <a href="register.php">Need an account? Sign up!</a>
                             </div>

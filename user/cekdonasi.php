@@ -2,7 +2,7 @@
 include "../koneksidb.php";
 
 session_start();
-if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
+if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
 
@@ -23,19 +23,21 @@ if (isset($_POST['submit'])) {
 
     $sql = "INSERT INTO detail_donasi (nama_donasi, berat, alamatdon, tgl_kirim, u_username) VALUES ('". $barang ."', '" .$berat. "', '" .$alamat. "', '" .$tanggal. "', '" .$_SESSION['username']. "')";
 
-    echo "<h2>Your Input:</h2>";
+    /* echo "<h2>Your Input:</h2>";
     echo $barang;
     echo "<br>";
     echo $berat;
     echo "<br>";
     echo $alamat;
     echo "<br>";
-    echo $tanggal;
+    echo $tanggal; */
 
     if ($conn->query($sql) === TRUE) {
-        echo "<script> 
-        alert('donasi berhasil diinput!'');
-        header ('location: donasi.php'); </script>";
+        echo "<script>
+                window.alert('donasi berhasil diinput'); 
+                window.location ='donasi.php'; 
+              </script>";
+       // header('location: donasi.php');
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

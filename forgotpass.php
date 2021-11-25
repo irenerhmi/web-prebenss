@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-session_start();
-if(!isset($_SESSION['username'])){
-    header("location: login.php");
-}
 
-require "../koneksidb.php";
-?>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prebens - My Account </title>
+    <title>Prebens</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png"> -->
+    <!--<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png"> -->
+
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
@@ -44,25 +38,24 @@ require "../koneksidb.php";
 <body>
 
     <!-- ...:::: Start Header Section:::... -->
-    <?php require "headeruser.php"; ?>
-
-    
+    <?php require "header.php"; ?>
 
     <div class="offcanvas-overlay"></div>
 
     <!-- ...:::: Start Breadcrumb Section:::... -->
+    <!-- navigasi yang home/shop/login -->
     <div class="breadcrumb-section">
         <div class="breadcrumb-wrapper">
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">My Account</h3>
+                        <h3 class="breadcrumb-title">Login</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
                                     <li><a href="shop-grid-sidebar-left.html">Shop</a></li>
-                                    <li class="active" aria-current="page">Profile</li>
+                                    <li class="active" aria-current="page">Login</li>
                                 </ul>
                             </nav>
                         </div>
@@ -72,100 +65,51 @@ require "../koneksidb.php";
         </div>
     </div> <!-- ...:::: End Breadcrumb Section:::... -->
 
-    <!-- ...:::: Start Account Dashboard Section:::... -->
-    <div class="account_dashboard">
+    <!-- ...:::: Start Customer Login Section :::... -->
+    <div class="customer_login">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-3 col-lg-3">
-                    <!-- Nav tabs -->
-                    <div class="dashboard_tab_button" >
-                        <ul  class="nav flex-column dashboard-list">
-                            <li><a href="#account-details"  class="nav-link active">Profile</a></li>
-                            <li><a href="dashboardacc.php"  class="nav-link">Riwayat Transaksi</a></li>
-                            <li><a href="../logout.php" class="nav-link">logout</a></li>
-                        </ul>
+                <!--login area start-->
+                <div class="col-lg-6 col-md-6">
+                    <div class="account_form" data-aos="fade-up"  data-aos-delay="0">
+                        <h3>Reset Password</h3>
+                        <form action="cekreset.php" method="POST">
+                            <div class="default-form-box mb-20">
+                                <label>Email<span>*</span></label>
+                                <input name="email" type="text" placeholder="Masukkan Email">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>New Password <span>*</span></label>
+                                <input name="password" type="password" placeholder="Masukkan Password">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>Confirm Password <span>*</span></label>
+                                <input name="rpassword" type="password" placeholder="Masukkan Confirm Password">
+                            </div>
+                            <div class="login_submit">
+                                <button class="mb-20" type="submit" name="submit" type="checkbox" value="login">Reset Password</button>
+                                <!--<input class="mb-20" type="submit" name="submit" type="checkbox" value="login">-->
+                                <!-- <label class="checkbox-default mb-20" for="offer">
+                                    <input type="checkbox" id="offer">
+                                    <span>Remember me</span>
+                                </label>
+                                <a href="#">Lost your password?</a>
+                                <br>
+                                <a href="register.php">Need an account? Sign up!</a> -->
+                            </div>
+                        </form>
+                        <div class="card-footer text-center py-3">
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-9 col-lg-9">
-                    <!-- Tab panes -->
-                    <div class="tab-content dashboard_content" data-aos="fade-up"  data-aos-delay="200" >
-                        <div class="tab-pane fade show active " id="account-details">
-                                    <h3>Profile </h3> <br>
-                                    <div class="login">
-                                        <div class="login_form_container">
-                                            <div class="account_login_form">                                                
-                                                <form method="POST" action="user-action.php" enctype="multipart/form-data">       
-                                                    <div class="default-form-box mb-20">
-                                                        <?php
+                <!--login area end-->
 
+            </div>
+        </div>
+    </div> <!-- ...:::: End Customer Login Section :::... -->
 
-                                                        $sql = "select * from user where u_username='".$_SESSION['username']."'";
-
-                                                        $result = mysqli_query($conn,$sql);
-
-                                                        $row = mysqli_fetch_array($result);
-                                                        $temail = $row['u_email'];
-                                                        $tnama = $row['u_name'];
-                                                        $tphone = $row['u_phone'];
-                                                        $talamat = $row['u_alamat'];
-                                                        $tusername = $row['u_username'];
-                                                        $timage = $row['u_image'];
-
-
-                                                        ?>
-                                                        <label>Profile Picture </label>
-                                                        <img src="../image/user/<?php echo $timage ?>" width="70px" height="70px" style="border-radius:50%;">
-
-                                                        <label> <br></label>                        
-                                                        <input type="file" name="imgprofile" value="../image/user/<?php echo $timage ?>">
-                                                        <label> <br> Username</label>
-                                                        <div class="header-top--left">
-                                                            <input type="text" name="username" value="<?php echo $_SESSION['username'] ?>">
-                                                            <!--<span>
-                                                            <?php
-                                                                echo $_SESSION['username'];
-                                                            ?>
-                                                            </span> --> <br>
-                                                        </div>
-                                                        <!--<input type="text" name="first-name">-->
-                                                    </div>                                                    
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Nama</label> 
-                                                        <input type="text" name="nama" value="<?php echo $tnama ?>" required>
-
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Email</label>
-                                                        <input type="text" name="email" value="<?php echo $temail ?>" required>
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Phone </label> 
-                                                        <input type="text" name="phone" value="<?php echo $tphone ?>" required>
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Alamat</label>
-                                                        <input type="text" name="alamat" value="<?php echo $talamat ?>" required>        
-                                                    </div>
-                                                    <!-- <div class="input-radio">
-                                                        <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Laki-Laki </span>
-                                                        <span class="custom-radio"><input type="radio" value="1" name="id_gender">Perempuan </span>
-                                                    </div> <br> -->
-                                                    <div class="save_button primary_btn default_button">
-                                                        <button type="submit" name="submit" value="submit">Save</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                            
-                        </div>
-                    </div> 
-                </div>     
-            </div>              
-        </div>   
-    </div> <!-- ...:::: End Account Dashboard Section:::... -->
     <!-- ...:::: Start Footer Section:::... -->
-    <?php require "footer.php"; ?>
+    <?php require "footer.php" ?>
     <!-- ...:::: End Footer Section:::... -->
 
     <!-- material-scrolltop button -->
@@ -370,10 +314,6 @@ require "../koneksidb.php";
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
 
-
-
 </body>
 
 </html>
-
-</body>
