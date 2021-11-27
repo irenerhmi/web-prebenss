@@ -73,7 +73,7 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
                         <h3>Donasi</h3>
-                        <form action="cekdonasi.php" method="POST">
+                        <form action="cekdonasi2.php" method="POST" enctype="multipart/form-data" autocomplete="off">
                             <div class="default-form-box mb-20">
                                 <label>Nama Barang <span>*</span></label>
                                 <input name="barang" type="text" placeholder="Masukkan Nama Barang">
@@ -83,12 +83,21 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
                                 <input name="berat" type="number" placeholder="Masukkan Berat">
                             </div>
                             <div class="default-form-box mb-20">
-                                <label>Alamat Kirim <span>*</span></label>
-                                <input name="alamat" type="text" placeholder="Masukkan Tanggal Kirim">
-                            </div>
-                            <div class="default-form-box mb-20">
                                 <label>Tanggal Kirim <span>*</span></label>
                                 <input name="tglkirim" type="date" placeholder="Masukkan Tanggal Kirim">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>Alamat Pengiriman <span>*</span></label>
+                                <input name="alamat" type="text" placeholder="Masukkan Alamat Kirim" list="listalamat">
+                                    <datalist id="listalamat">
+                                        <option value="Jl. Nangka no.7 Jakarta Barat">
+                                        <option value="Ruko Jeruk, Arcamanik, Bandung">
+                                        <option value="Jl. Bintang 8, Jawa Tengah">
+                                    </datalist>
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>Foto Barang <span>*</span></label>
+                                <input name="imgbarang" type="file" value="">
                             </div>
                             <div class="login_submit">
                                 <button name="submit" type="submit" value="submit">Submit Donasi</button>

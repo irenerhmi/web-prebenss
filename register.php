@@ -69,7 +69,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
                         <h3>Register</h3>
-                        <form method="POST" action="cekregister.php">
+                        <form method="POST" action="cekregister.php" autocomplete="off">
                             <!-- <label> <br></label>                        
                             <input type="file" name="imgprofile"> -->                         
                             <div class="default-form-box mb-20">

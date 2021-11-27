@@ -93,7 +93,27 @@ require "../koneksidb.php";
                                     <h3>Profile </h3> <br>
                                     <div class="login">
                                         <div class="login_form_container">
-                                            <div class="account_login_form">                                                
+                                            <div class="account_login_form">     
+                                                <!--<form method="POST" action="profile-action.php" enctype="multipart/form-data">
+                                                    <div class="default-form-box mb-20">
+                                                        <?php
+                                                        $sql = "select * from user where u_username='".$_SESSION['username']."'";
+
+                                                        $result = mysqli_query($conn,$sql);
+                                                        $row = mysqli_fetch_array($result);
+                                                        $timage = $row['u_image'];
+
+                                                        ?>
+
+                                                        <label>Profile Picture </label>
+                                                        <img src="../image/user/<?php echo $timage ?>" width="70px" height="70px" style="border-radius:50%;">
+                                                        <label> <br></label>                        
+                                                        <input type="file" name="imgprofile" value="../image/user/<?php echo $timage ?>">
+                                                    </div>
+                                                    <div class="save_button primary_btn default_button">
+                                                        <button type="submit" name="submit" value="submit">Save</button>
+                                                    </div>
+                                                </form> -->   
                                                 <form method="POST" action="user-action.php" enctype="multipart/form-data">       
                                                     <div class="default-form-box mb-20">
                                                         <?php

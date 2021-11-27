@@ -73,7 +73,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form" data-aos="fade-up"  data-aos-delay="0">
                         <h3>login</h3>
-                        <form action="ceklogin.php" method="POST">
+                        <form action="ceklogin.php" method="POST" autocomplete="off">
                             <div class="default-form-box mb-20">
                                 <label>Username<span>*</span></label>
                                 <input name="username" type="text" placeholder="Masukkan Username">
