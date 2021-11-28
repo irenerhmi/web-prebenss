@@ -33,7 +33,7 @@ if(!isset($_SESSION['username'])){
     $sql="select count(id_donasi) as urutan from detail_donasi";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    $hasil = $row['urutan'];
+    $hasil = $row['urutan']; 
 
 
     $target_dir = "../image/donasi/";
@@ -86,7 +86,6 @@ if(!isset($_SESSION['username'])){
           $sql = "INSERT INTO detail_donasi (nama_donasi, berat, alamatdon, tgl_kirim, d_image, u_username) VALUES ('". $barang ."', '" .$berat. "', '" .$alamat. "', '" .$tanggal. "', '" .$namafile. "', '" .$_SESSION['username']. "')";
 
           //echo $sql; 
-          $result = mysqli_query($conn, $sql);
 
 
           if ($conn->query($sql) === TRUE) {
