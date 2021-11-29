@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
 session_start();
-if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
+if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
 ?>
@@ -79,7 +79,7 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
                                 <input name="barang" type="text" placeholder="Masukkan Nama Barang">
                             </div>
                             <div class="default-form-box mb-20">
-                                <label>Berat <span>*</span></label>
+                                <label>Berat (Kg)  <span>*</span></label>
                                 <input name="berat" type="number" placeholder="Masukkan Berat">
                             </div>
                             <div class="default-form-box mb-20">
@@ -90,9 +90,11 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
                                 <label>Alamat Pengiriman <span>*</span></label>
                                 <input name="alamat" type="text" placeholder="Masukkan Alamat Kirim" list="listalamat">
                                     <datalist id="listalamat">
-                                        <option value="Jl. Nangka no.7 Jakarta Barat">
-                                        <option value="Ruko Jeruk, Arcamanik, Bandung">
-                                        <option value="Jl. Bintang 8, Jawa Tengah">
+                                        <select>
+                                            <option value="Jl. Nangka no.7 Jakarta Barat">
+                                            <option value="Ruko Jeruk, Arcamanik, Bandung">
+                                            <option value="Jl. Bintang 8, Jawa Tengah">
+                                        </select>
                                     </datalist>
                             </div>
                             <div class="default-form-box mb-20">

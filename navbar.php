@@ -68,11 +68,11 @@
             <a href="login.php">Donasi</a>
         </li>
         <li class="has-dropdown">
-            <a href="blog-single-sidebar-left.html">My Accounts <i class="fa fa-angle-down"></i></a>
+            <a href="login.php">My Accounts <i class="fa fa-angle-down"></i></a>
             <!-- Sub Menu -->
             <ul class="sub-menu">
-                <li><a href="">Profile</a></li>
-                <li><a href="">Riwayat Transaksi</a></li>
+                <li><a href="login.php">Profile</a></li>
+                <li><a href="login.php">Riwayat Transaksi</a></li>
                 <!-- ?php echo "<script> alert('Silahkan Login terlebih dahulu')</script>"?>-->
                 </li>
 

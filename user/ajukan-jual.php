@@ -6,7 +6,6 @@ if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
 
-require "../koneksidb.php";
 ?>
 <head>
     <meta charset="UTF-8" />
@@ -14,7 +13,7 @@ require "../koneksidb.php";
     <title>Prebens - Ajukan Jual</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
+    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png"> -->
 
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
@@ -98,6 +97,10 @@ require "../koneksidb.php";
                             <div class="default-form-box mb-20">
                                 <label>Status <span>*</span></label>
                                 <input name="status" type="text" placeholder="Status Produk">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>Harga <span>*</span></label>
+                                <input name="harga" type="number" placeholder="Status Produk">
                             </div>
                             <div class="default-form-box mb-20" class="has-dropdown">
                                 <label for="select">Kategori <span>*</span></label>

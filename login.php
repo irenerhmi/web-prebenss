@@ -53,8 +53,8 @@
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop-grid-sidebar-left.html">Shop</a></li>
+                                    <li><a href="index.php">Home</a></li>
+                                    <!--<li><a href="shop-grid-sidebar-left.html">Shop</a></li>-->
                                     <li class="active" aria-current="page">Login</li>
                                 </ul>
                             </nav>

@@ -75,13 +75,13 @@
                             <li>
                                 <a href="" class="offcanvas-toggle">
                                     <i class="icon-heart"></i>
-                                    <span class="header-action-icon-item-count">3</span>
+                                    <span class="header-action-icon-item-count">0</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#offcanvas-add-cart" class="offcanvas-toggle">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="header-action-icon-item-count">3</span>
+                                    <span class="header-action-icon-item-count">0</span>
                                 </a>
                             </li>
                         </ul> <!-- End Header Action Icon -->
@@ -148,7 +148,7 @@
                         <!-- Header Top Menu's Dropdown -->
                         <ul class="mobile-user-sub-menu">
                             <li><a href="">Checkout</a></li>
-                            <li><a href="">My Account</a></li>
+                            <li><a href="login.php">My Account</a></li>
                             <li><a href="">Shopping Cart</a></li>
                             <li><a href="">Wishlist</a></li>
                         </ul>

@@ -1,9 +1,10 @@
 <?php
 include "../koneksidb.php";
+session_start();
 
 //$username = $_POST["username"];
 //$imgprofile = "../ava.jpg";
-$username = $_POST["username"];
+$username = $_SESSION["username"];
 $email = $_POST["email"];
 $nama = $_POST["nama"];
 $phone = $_POST["phone"];
@@ -62,7 +63,7 @@ if ($uploadOk == 0) {
   // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($imgprofile["tmp_name"], $target_file)) {
-      $sql = " UPDATE user SET u_username='" . $username . "' , u_email='" . $email . "' , u_name= '" . $nama . "' , u_phone = '" . $phone . "' , u_alamat='" . $alamat . "' , u_image='" . $namafile . "' where u_username='" . $username . "' " ;
+      $sql = " UPDATE user SET u_email='" . $email . "' , u_name= '" . $nama . "' , u_phone = '" . $phone . "' , u_alamat='" . $alamat . "' , u_image='" . $namafile . "' where u_username='" . $username . "' " ;
       echo $sql; 
       $result = mysqli_query($conn, $sql);
 

@@ -140,7 +140,7 @@ require "../koneksidb.php";
                                                         <input type="file" name="imgprofile" value="../image/user/<?php echo $timage ?>">
                                                         <label> <br> Username</label>
                                                         <div class="header-top--left">
-                                                            <input type="text" name="username" value="<?php echo $_SESSION['username'] ?>">
+                                                            <input type="text" name="username" value="<?php echo $_SESSION['username'] ?>" disabled>
                                                             <!--<span>
                                                             <?php
                                                                 echo $_SESSION['username'];

@@ -4,9 +4,7 @@
 include '../koneksidb.php';
 
 session_start();
-if(!isset($_SESSION['username'])){
-    header("location: login.php");
-}
+
 
     $nama = $_POST['nama_produk'];
     $deskripsi = $_POST['deskripsi'];
@@ -15,9 +13,10 @@ if(!isset($_SESSION['username'])){
     $image = $_FILES['image'];
     $status = $_POST['status'];
     $kat = $_POST['kat'];
+    $harga = $_POST['harga'];
 
     $target_dir = "../image/seller/";
-    $namafile = "jual." . $kat . "." . strtolower(pathinfo($image["name"], PATHINFO_EXTENSION));
+    $namafile = "jual." . $nama . "." . strtolower(pathinfo($image["name"], PATHINFO_EXTENSION));
     $target_file = $target_dir . $namafile;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($image["name"], PATHINFO_EXTENSION));
@@ -63,21 +62,26 @@ if(!isset($_SESSION['username'])){
           $sql = "INSERT INTO produk (nama_produk, deskripsi, spesifikasi, berat, image, status, id_kategori, u_username, id_jenis) VALUES ('" . $nama . "','" . $deskripsi . "','" . $spesifikasi . "',  '" . (int)$berat . "'  ,'" . $namafile . "','" . $status . "', '" . (int)$kat . "' ,'" . $_SESSION['username'] . "', 1 )";
             //$sql .= "INSERT INTO detail_penjualan(harga_jual) VALUES ('" . $harga . "')";
             //$result = mysql_query($conn, $sql);
-          $result = mysqli_query($conn, $sql);
 
           if ($conn->query($sql) === TRUE) {
-            echo "<script>
-                    window.alert('produk berhasil diinput'); 
-                    window.location ='ajukan-jual.php'; 
-                  </script>";
-            } 
+            $sql = "select id_produk from produk where u_username = '" . $_SESSION['username'] . "' and image = '" . $namafile . "'";
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_array($result);
+            $idprod = $row['id_produk'];
 
-            else {
+            $sql = "INSERT INTO detail_penjualan (harga_jual, u_username, id_produk) VALUES ('" . (int)$harga . "','" . $_SESSION['username'] . "','" . (int)$idprod . "')";
+
+            if ($conn->query($sql) === TRUE) {
+              echo "<script>
+                      window.alert('produk berhasil diinput'); 
+                      window.location ='ajukan-jual.php'; 
+                    </script>";
+            } else {
               echo "<script>
                     window.alert('produk gagal diinput'); 
-                
-                  </script>";
+                    </script>";
             }
+          }
         } else {
           echo "Sorry, there was an error uploading your file.";
         }

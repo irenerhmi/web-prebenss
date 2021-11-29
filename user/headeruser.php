@@ -1,4 +1,7 @@
 <div>
+<?php
+include "../koneksidb.php";
+?>
 <header class="header-section d-lg-block d-none">
         <!-- Start Header Top Area -->
         <div class="header-top">
@@ -85,9 +88,17 @@
                                 </a>
                             </li>
                             <li>
+                                <?php 
+                                    $sql = "select count(id_cart) as jumlah from cart where u_username = '" . $_SESSION['username'] . "'";
+                                    $result = mysqli_query($conn, $sql);
+                                    $row = mysqli_fetch_array($result);
+                                    $hasil = $row['jumlah']; 
+                                ?>
                                 <a href="#offcanvas-add-cart" class="offcanvas-toggle">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="header-action-icon-item-count">5</span>
+                                    <span class="header-action-icon-item-count">
+                                        <?php echo (int)$hasil ?>
+                                    </span>
                                 </a>
                             </li>
                         </ul> <!-- End Header Action Icon -->
@@ -207,20 +218,17 @@
                         </a>
                     </li>
                     <li class="mobile-action-icon-item">
-                        <a href="cart.html" class="mobile-action-icon-link">
-                            <i class="icon-shopping-cart"></i>
-                            <span class="mobile-action-icon-item-count">
-                            <?php 
-
-                            $sql="select count(id_cart) as jumlah from cart where u_username = '" . $_SESSION['username'] . "'";
+                        <?php 
+                            $sql = "select count(id_cart) as jumlah from cart where u_username = 'asaa'";
                             $result = mysqli_query($conn, $sql);
                             $row = mysqli_fetch_array($result);
                             $hasil = $row['jumlah']; 
-
-                            echo (int)$hasil;
-                            echo 3;
-
-                            ?></span>
+                        ?>
+                        <a href="cart.php" class="mobile-action-icon-link">
+                            <i class="icon-shopping-cart"></i>
+                            <label class="mobile-action-icon-item-count">
+                                <?php echo (int)$hasil ?>                             
+                            </label>
                         </a>
                     </li>
                 </ul> <!-- End Header Action Icon -->
