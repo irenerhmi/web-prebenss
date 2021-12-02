@@ -9,12 +9,16 @@ $email = $_POST["email"];
 $nama = $_POST["nama"];
 $phone = $_POST["phone"];
 $alamat = $_POST["alamat"];
+$password = $_POST["pass"];
+$rpassword = $_POST["rpass"];
 $imgprofile = $_FILES["imgprofile"];
 
-/* if ($password !== $rpassword) {
+if ($password !== $rpassword) {
     echo "password tidak sama";
     die();
-} */
+} 
+
+$password = password_hash($password, PASSWORD_DEFAULT);
 
 $target_dir = "../image/user/";
 $namafile =  "profileimg." . $phone . "." .strtolower(pathinfo($imgprofile["name"], PATHINFO_EXTENSION)); 
@@ -63,7 +67,7 @@ if ($uploadOk == 0) {
   // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($imgprofile["tmp_name"], $target_file)) {
-      $sql = " UPDATE user SET u_email='" . $email . "' , u_name= '" . $nama . "' , u_phone = '" . $phone . "' , u_alamat='" . $alamat . "' , u_image='" . $namafile . "' where u_username='" . $username . "' " ;
+      $sql = " UPDATE user SET u_email='" . $email . "' , u_name= '" . $nama . "' , u_phone = '" . $phone . "' , u_alamat='" . $alamat . "' , u_password='" . $password . "' , u_image='" . $namafile . "' where u_username='" . $username . "' " ;
       echo $sql; 
       $result = mysqli_query($conn, $sql);
 

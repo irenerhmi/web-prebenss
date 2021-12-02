@@ -56,7 +56,7 @@ if(!isset($_SESSION['username'])){
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Shop Grid Sidebar Left</h3>
+                        <h3 class="breadcrumb-title">Produk Dijual</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>

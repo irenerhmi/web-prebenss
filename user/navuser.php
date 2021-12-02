@@ -84,7 +84,7 @@
             </ul>
         </li> -->
         <li>
-            <a href="ajukan-jual.php">Ajukan Jual & Sewa</a>
+            <a href="ajukan-jual.php">Buka Toko</a>
         </li>
     </ul>
 </nav>							

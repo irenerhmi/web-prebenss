@@ -1,6 +1,6 @@
 <div class="offcanvas-add-cart-wrapper">
             <h4 class="offcanvas-title">Shopping Cart</h4>
-            <ul class="offcanvas-cart">
+            <!-- <ul class="offcanvas-cart">
                 <li class="offcanvas-cart-item-single">
                     <div class="offcanvas-cart-item-block">
                         <a href="" class="offcanvas-cart-item-image-link">
@@ -52,10 +52,10 @@
                         <a href="#" class="offcanvas-cart-item-delete"><i class="fa fa-trash-o"></i></a>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
             <div class="offcanvas-cart-total-price">
                 <span class="offcanvas-cart-total-price-text">Subtotal:</span>
-                <span class="offcanvas-cart-total-price-value">$170.00</span>
+                <span class="offcanvas-cart-total-price-value"></span>
             </div>
             <ul class="offcanvas-cart-action-button">
                 <li class="offcanvas-cart-action-button-list"><a href="cart.php" class="offcanvas-cart-action-button-link">View Cart</a></li>

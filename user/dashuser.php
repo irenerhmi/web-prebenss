@@ -4,6 +4,9 @@
 session_start();
 if(!isset($_SESSION['username'])){
     header("location: ../login.php");
+
+require "../koneksidb.php";
+require "act-displaynyoba.php";
 }
 ?>
 <head>
@@ -52,16 +55,16 @@ if(!isset($_SESSION['username'])){
             <!-- Start Hero Slider Single -->
             <div class="hero-area-single">
                 <div class="hero-area-bg">
-                    <img class="hero-img" src="assets/images/slider_images/home_1/aments_home_1_slider_1.jpg" alt="">
+                    <img class="hero-img" src="../header4.jpg" alt="">
                 </div>
                 <div class="hero-content">
                     <div class="container">
                         <div class="row">
                             <div class="col-10 col-md-8 col-xl-6">
-                                <h5>World Best Quality</h5>
-                                <h2>New Car Parts</h2>
+                                <h5>Punya Barang Bekas? Prebens Aja</h5>
+                                <h2>Prebens</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiu</p>
-                                <a href="product-details-default.html" class="hero-button">Shopping Now</a>
+                                <a href="shop-grid-jual.php" class="hero-button">Shopping Now</a>
                             </div>
                         </div>
                     </div>
@@ -70,16 +73,16 @@ if(!isset($_SESSION['username'])){
             <!-- Start Hero Slider Single -->
             <div class="hero-area-single">
                 <div class="hero-area-bg">
-                    <img class="hero-img" src="assets/images/slider_images/home_1/aments_home_1_slider_2.jpg" alt="">
+                    <img class="hero-img" src="../header2.jpg" alt="">
                 </div>
                 <div class="hero-content">
                     <div class="container">
                         <div class="row">
                             <div class="col-10 col-md-8 col-xl-6">
-                                <h5>World Best Quality</h5>
-                                <h2>New Car Parts</h2>
+                                <h5>Punya Barang Bekas? Prebens Aja</h5>
+                                <h2>Prebens</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiu</p>
-                                <a href="product-details-default.html" class="hero-button">Shopping Now</a>
+                                <a href="shop-grid-jual.html" class="hero-button">Shopping Now</a>
                             </div>
                         </div>
                     </div>
@@ -283,7 +286,8 @@ if(!isset($_SESSION['username'])){
                             <div class="tab-pane show active" id="car_and_drive">
                                 <div class="product-default-slider product-default-slider-4grids-1row">
                                     <!-- Start Product Defautlt Single -->
-                                    <div class="product-default-single border-around">
+                                    <!-- <?php  ""; ?> -->
+                                     <div class="product-default-single border-around">
                                         <div class="product-img-warp">
                                             <a href="product-details-default.html" class="product-default-img-link">
                                                 <img src="assets/images/products_images/aments_products_image_2.jpg" alt="" class="product-default-img img-fluid">
@@ -293,14 +297,14 @@ if(!isset($_SESSION['username'])){
                                                     <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
                                                     <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
                                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a href="" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="product-default-content">
                                             <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
                                             <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                        </div>
+                                        </div> 
                                     </div> <!-- End Product Defautlt Single -->
                                     <!-- Start Product Defautlt Single -->
                                     <div class="product-default-single border-around">
@@ -1448,6 +1452,7 @@ if(!isset($_SESSION['username'])){
                                 </button>
                             </div>
                         </div>
+                        <!-- notif barang masuk ke cart -->
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="row">
@@ -1473,6 +1478,7 @@ if(!isset($_SESSION['username'])){
                                 </ul>
                             </div>
                         </div>
+                        <!-- bates -->
                     </div>
                 </div>
             </div>

@@ -129,6 +129,7 @@ require "../koneksidb.php";
                                                         $tphone = $row['u_phone'];
                                                         $talamat = $row['u_alamat'];
                                                         $tusername = $row['u_username'];
+                                                        $tpass = $row['u_password'];
                                                         $timage = $row['u_image'];
 
 
@@ -165,6 +166,14 @@ require "../koneksidb.php";
                                                     <div class="default-form-box mb-20">
                                                         <label>Alamat</label>
                                                         <input type="text" name="alamat" value="<?php echo $talamat ?>" required>        
+                                                    </div>
+                                                    <div class="default-form-box mb-20">
+                                                        <label>Password</label>
+                                                        <input type="password" name="pass" value="<?php echo $tpass ?>" required>        
+                                                    </div>
+                                                    <div class="default-form-box mb-20">
+                                                        <label>Confirm Password</label>
+                                                        <input type="password" name="rpass" value="Confirm Password" required>        
                                                     </div>
                                                     <!-- <div class="input-radio">
                                                         <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Laki-Laki </span>
