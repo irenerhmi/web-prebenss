@@ -9,7 +9,7 @@ $result = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($result);
     
 ?>
-<div class="col-12">
+<div class="col-md-2">
     <!-- <div class="tab-content tab-animate-zoom">
         <div class="tab-pane show active" id="car_and_drive">
             <div class="product-default-slider product-default-slider-4grids-1row">  -->
