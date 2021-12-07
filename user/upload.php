@@ -41,7 +41,7 @@ session_start();
     } */
 
     // Check file size
-    if ($image["size"] > 500000) {
+    if ($image["size"] > 50000000) {
       echo "Sorry, your file is too large.";
       $uploadOk = 0;
     }

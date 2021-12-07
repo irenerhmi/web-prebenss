@@ -9,7 +9,7 @@ $result = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($result);
     
 ?>
-<div class="col-md-2">
+<div class="col-md-12">
     <!-- <div class="tab-content tab-animate-zoom">
         <div class="tab-pane show active" id="car_and_drive">
             <div class="product-default-slider product-default-slider-4grids-1row">  -->
@@ -17,7 +17,7 @@ $row = mysqli_fetch_array($result);
                     <form method="POST" action="cart.php">
                         <div class="product-img-warp">
                             <a href="product-details-default.php" class="product-default-img-link">
-                                <img src="../image/seller/<?php echo $row['image'] ?>" alt="" class="product-default-img img-fluid">
+                                <img src="../image/seller/<?php echo $row['image'] ?>" width="70px" height="70px" alt="" class="product-default-img img-fluid">
                             </a>
                             <div class="product-action-icon-link">
                                 <ul>

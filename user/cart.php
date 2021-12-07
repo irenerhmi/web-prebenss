@@ -6,6 +6,10 @@ if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
 
+/* echo "<pre>";
+print_r($_SESSION['cart']);
+echo "</pre>"; */
+
 require "../koneksidb.php";
 ?>
 <head>
@@ -93,33 +97,23 @@ require "../koneksidb.php";
                                         </tr>
                                     </thead> <!-- End Cart Table Head -->
                                     <tbody>
+                                        <?php foreach($_SESSION['cart'] as $id_produk => $jumlah): ?>
+                                        <?php 
+                                        $ambil = $conn->query("SELECT p.*, d.harga_jual from produk p INNER JOIN detail_penjualan d ON p.id_produk=d.id_produk");
+                                        $pecah = $ambil->fetch_assoc();
+                                        ?>                                    
                                         <!-- Start Cart Single Item-->
                                         <tr>
                                             <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                            <td class="product_thumb"><a href="product-details-default.html"><img src="assets/images/products_images/aments_products_image_1.jpg" alt=""></a></td>
-                                            <td class="product_name"><a href="product-details-default.html">Handbag fringilla</a></td>
-                                            <td class="product-price">$65.00</td>
-                                            <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                            <td class="product_total">$130.00</td>
+                                            <td class="product_thumb"><a href="product-details-default.html"><img src="../image/seller/<?php echo $pecah['image'] ?>" width="320px" height="400px"></a></td>
+                                            <td class="product_name"><a href="product-details-default.html"><?php echo $pecah["nama_produk"] ?></a></td>
+                                            <td class="product-price"><?php echo $pecah["harga_jual"] ?></td>
+                                            <td class="product_quantity"><label><?php echo $jumlah ?></label> <input min="1" max="100" value="1" type="number"></td>
+                                            <td class="product_total">Rp <?php $total= $pecah['harga_jual']*$jumlah;
+                                                echo $total;
+                                            ?></td>
                                         </tr> <!-- End Cart Single Item-->
-                                        <!-- Start Cart Single Item-->
-                                        <tr>
-                                            <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                            <td class="product_thumb"><a href="product-details-default.html"><img src="assets/images/products_images/aments_products_image_2.jpg" alt=""></a></td>
-                                            <td class="product_name"><a href="product-details-default.html">Handbags justo</a></td>
-                                            <td class="product-price">$90.00</td>
-                                            <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                            <td class="product_total">$180.00</td>
-                                        </tr> <!-- End Cart Single Item-->
-                                        <!-- Start Cart Single Item-->
-                                        <tr>
-                                            <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                            <td class="product_thumb"><a href="product-details-default.html"><img src="assets/images/products_images/aments_products_image_3.jpg" alt=""></a></td>
-                                            <td class="product_name"><a href="product-details-default.html">Handbag elit</a></td>
-                                            <td class="product-price">$80.00</td>
-                                            <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                            <td class="product_total">$160.00</td>
-                                        </tr> <!-- End Cart Single Item-->
+                                        <?php endforeach?>
                                     </tbody>
                                 </table>
                             </div>
