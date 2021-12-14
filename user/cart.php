@@ -2,13 +2,13 @@
 <html lang="en">
 <?php
 session_start();
+
 if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
 
-/* echo "<pre>";
-print_r($_SESSION['cart']);
-echo "</pre>"; */
+echo "<pre>";
+echo "</pre>";
 
 require "../koneksidb.php";
 ?>
@@ -97,23 +97,31 @@ require "../koneksidb.php";
                                         </tr>
                                     </thead> <!-- End Cart Table Head -->
                                     <tbody>
-                                        <?php foreach($_SESSION['cart'] as $id_produk => $jumlah): ?>
+
                                         <?php 
-                                        $ambil = $conn->query("SELECT p.*, d.harga_jual from produk p INNER JOIN detail_penjualan d ON p.id_produk=d.id_produk");
+                                        echo "<pre>";
+                                        print_r($_SESSION['cart']);
+                                        echo "<pre>";
+                                        foreach ($_SESSION['cart'] as $id_produk => $jumlah):
+                                        echo $jumlah;
+                                        $ambil = $conn->query("SELECT * from produk WHERE id_produk='$id_produk'");
                                         $pecah = $ambil->fetch_assoc();
-                                        ?>                                    
+                                        $totharga = $pecah['harga'] * $jumlah;
+                                        ?>              
+
                                         <!-- Start Cart Single Item-->
                                         <tr>
-                                            <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                            <td class="product_thumb"><a href="product-details-default.html"><img src="../image/seller/<?php echo $pecah['image'] ?>" width="320px" height="400px"></a></td>
-                                            <td class="product_name"><a href="product-details-default.html"><?php echo $pecah["nama_produk"] ?></a></td>
-                                            <td class="product-price"><?php echo $pecah["harga_jual"] ?></td>
-                                            <td class="product_quantity"><label><?php echo $jumlah ?></label> <input min="1" max="100" value="1" type="number"></td>
-                                            <td class="product_total">Rp <?php $total= $pecah['harga_jual']*$jumlah;
-                                                echo $total;
+                                            <td class="product_remove">
+                                                <a href="hapuscart.php?id=<?= $id_produk;  ?>"><i class="fa fa-trash-o"></i></a></td>
+
+                                            <td class="product_thumb"><a href="product-details-default.html"><img src="../image/seller/<?= $pecah['image']; ?>" width="320px" height="400px"></a></td>
+                                            <td class="product_name"><a href="product-details-default.html"><?= $pecah["nama_produk"]; ?></a></td>
+                                            <td class="product-price"><?= $pecah["harga"] ?></td>
+                                            <td class="product_quantity"><label><?= $jumlah; ?></label> <input min="1" max="100" value="1" type="number"></td>
+                                            <td class="product_total">Rp <?= $total= $pecah['harga'] 
                                             ?></td>
                                         </tr> <!-- End Cart Single Item-->
-                                        <?php endforeach?>
+                                        <?php endforeach?> 
                                     </tbody>
                                 </table>
                             </div>
@@ -146,21 +154,23 @@ require "../koneksidb.php";
                             <div class="coupon_inner">
                                 <div class="cart_subtotal">
                                     <p>Subtotal</p>
-                                    <p class="cart_amount">$215.00</p>
+                                    <p class="cart_amount">Rp?></p>
                                 </div>
                                 <div class="cart_subtotal ">
                                     <p>Shipping</p>
-                                    <p class="cart_amount"><span>Flat Rate:</span> $255.00</p>
+                                    <p class="cart_amount"><span>Flat Rate:</span> Rp 10000</p>
                                 </div>
                                 <a href="#">Calculate shipping</a>
 
                                 <div class="cart_subtotal">
                                     <p>Total</p>
-                                    <p class="cart_amount">$215.00</p>
+                                    <p class="cart_amount">Rp ?></p>
                                 </div>
                                 <div class="checkout_btn">
                                     <a href="#">Proceed to Checkout</a>
                                 </div>
+                            
+                                
                             </div>
                         </div>
                     </div>

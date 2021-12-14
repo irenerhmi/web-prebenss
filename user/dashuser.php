@@ -178,7 +178,7 @@ require "../koneksidb.php";
         <div class="product-tab-wrapper" data-aos="fade-up"  data-aos-delay="50">
             <div class="container">
                 <div class="row g-5">
-                    <?php $ambil = $conn->query("SELECT p.*, d.harga_jual from produk p INNER JOIN detail_penjualan d ON p.id_produk=d.id_produk limit 6"); ?>
+                    <?php $ambil = $conn->query("SELECT * from produk limit 6"); ?>
                     <?php while($perproduk = $ambil->fetch_assoc()){?>
                     <div class="col-4">
                         <div class="tab-content tab-animate-zoom">
@@ -194,17 +194,17 @@ require "../koneksidb.php";
                                                 <ul>
                                                     <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
                                                     <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                                    <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a data-bs-toggle="modal" data-bs-target="#modalQuickview<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
+                                                    <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="product-default-content">
                                             <h6 class="product-default-link"><a href="product-details-default.html"><?php echo $perproduk['nama_produk'] ?></a></h6>
-                                            <span class="product-default-price"><del class="product-default-price-off">Rp <?php echo $perproduk['harga_jual']
+                                            <span class="product-default-price"><del class="product-default-price-off">Rp <?php echo $perproduk['harga']
                                             ?></del> Rp
                                                 <?php 
-                                                $har = $perproduk['harga_jual'];
+                                                $har = $perproduk['harga'];
                                                 $diskon = (int)$har-(5/100*(int)$har);
                                                 echo $diskon;?>
                                             </span>
@@ -271,7 +271,7 @@ require "../koneksidb.php";
         <div class="product-tab-wrapper" data-aos="fade-up" data-aos-delay="50">
             <div class="container">
                 <div class="row g-5">
-                    <?php $tampil = $conn->query("SELECT p.*, d.harga_jual from produk p INNER JOIN detail_penjualan d ON p.id_produk=d.id_produk where p.id_jenis = 1 limit 6"); ?>
+                    <?php $tampil = $conn->query("SELECT * from produk where id_jenis = 1 limit 6"); ?>
                     <?php while($produk = $tampil->fetch_assoc()){?>
                     <div class="col-4">
                         <div class="tab-content tab-animate-zoom">
@@ -288,16 +288,16 @@ require "../koneksidb.php";
                                                     <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
                                                     <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
                                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                                    <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="product-default-content">
                                             <h6 class="product-default-link"><a href="product-details-default.html"><?php echo $produk['nama_produk'] ?></a></h6>
-                                            <span class="product-default-price"><del class="product-default-price-off">Rp <?php echo $produk['harga_jual']
+                                            <span class="product-default-price"><del class="product-default-price-off">Rp <?php echo $produk['harga']
                                             ?></del> Rp
                                                 <?php 
-                                                $har = $produk['harga_jual'];
+                                                $har = $produk['harga'];
                                                 $diskon = (int)$har-(5/100*(int)$har);
                                                 echo $diskon;?>
                                             </span>
@@ -320,6 +320,7 @@ require "../koneksidb.php";
             </div>
         </div> <!-- End Catagory Wrapper -->
     </div> <!-- ...:::: End Product Tab Section:::... -->
+    
 
     <!-- ...:::: Start Company Logo Section:::... -->
     <div class="company-logo-section section-top-gap-100">
@@ -477,7 +478,7 @@ require "../koneksidb.php";
     </div> <!-- End Modal Add cart -->
 
     <!-- Start Modal Quickview cart -->
-    <div class="modal fade" id="modalQuickview" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="modalQuickview<?php echo $perproduk['id_produk']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
