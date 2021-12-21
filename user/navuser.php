@@ -33,14 +33,7 @@
                             <li><a href="shop-grid-sewa.php">Produk Disewa</a></li>
                         </ul>
                     </li>
-                    <!-- Mega Menu Sub Link -->
-                    <li class="mega-menu-item">
-                        <a href="#" class="mega-menu-item-title">Promo Produk</a>
-                        <ul class="mega-menu-sub">
-                            <li><a href="product-details-default.html">Produk Dijual</a></li>
-                            <li><a href="product-details-variable.html">Product Disewa</a></li>
-                        </ul>
-                    </li> 
+                    <!-- Mega Menu Sub Link --> 
                     <!-- Mega Menu Sub Link ->
                     <li class="mega-menu-item">
                         <a href="#" class="mega-menu-item-title">Product Types</a>

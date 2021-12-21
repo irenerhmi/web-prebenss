@@ -27,29 +27,10 @@ include "../koneksidb.php";
                                     <a href="">Setting</a>
                                     <!-- Header Top Menu's Dropdown -->
                                     <ul class="user-sub-menu">
-                                        <li><a href="">Checkout</a></li>
-                                        <li><a href="">Wishlist</a></li>
                                         <li><a href="">Shopping Cart</a></li>
+                                        <li><a href="">Log Out</a></li>
                                     </ul>
                                 </li>
-                                <!-- <li class="has-user-dropdown">
-                                    <a href="">$ USD</a>
-                                    !-- Header Top Menu's Dropdown --
-                                    <ul class="user-sub-menu">
-                                        <li><a href="">EUR – Euro</a></li>
-                                        <li><a href="">GBP – British Pound</a></li>
-                                        <li><a href="">INR – India Rupee</a></li>
-                                    </ul>
-                                </li> 
-                                <li class="has-user-dropdown">
-                                    <a href="">English</a>
-                                    !-- Header Top Menu's Dropdown --
-                                    <ul class="user-sub-menu">
-                                        <li><a href=""><img class="user-sub-menu-in-icon" src="assets/images/icon/lang-en.png" alt=""> English</a></li>
-                                        <li><a href=""><img class="user-sub-menu-in-icon" src="assets/images/icon/lang-gr.png" alt=""> Germany</a></li>
-                                    </ul>
-                                </li> -->
-                                <li><a href=""><i class="icon-repeat"></i> Compare (0)</a></li>
                             </ul> <!-- End Header Top Menu -->
                         </div>
                     </div>
@@ -82,22 +63,16 @@ include "../koneksidb.php";
                         <!-- Start Header Action Icon -->
                         <ul class="header-action-icon">
                             <li>
-                                <a href="#offcanvas-wishlish" class="offcanvas-toggle">
-                                    <i class="icon-heart"></i>
-                                    <span class="header-action-icon-item-count">3</span>
-                                </a>
-                            </li>
-                            <li>
                                 <?php 
                                     $sql = "select count(id_cart) as jumlah from cart where u_username = '" . $_SESSION['username'] . "'";
                                     $result = mysqli_query($conn, $sql);
                                     $row = mysqli_fetch_array($result);
                                     $hasil = $row['jumlah']; 
                                 ?>
-                                <a href="#offcanvas-add-cart" class="offcanvas-toggle">
+                                <a href="cart.php" class="">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="header-action-icon-item-count">
-                                        <?php echo (int)$hasil ?>
+                                    <span class="header-action-icon">
+                                        
                                     </span>
                                 </a>
                             </li>

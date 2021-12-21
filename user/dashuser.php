@@ -192,10 +192,8 @@ require "../koneksidb.php";
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>
-                                                    <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                                    <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#modalQuickview<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
-                                                    <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a type="button"> href="<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
+                                                    <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -288,7 +286,7 @@ require "../koneksidb.php";
                                                     <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
                                                     <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
                                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                                    <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1;?>"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -304,15 +302,7 @@ require "../koneksidb.php";
                                         </div>
                                     </div> <!-- End Product Defautlt Single -->
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="bike">
-                                <div class="product-default-slider product-default-slider">
-                                    <!-- Start Product Defautlt Single -->
-                                    <div>
-                            
-                                    </div> <!-- End Product Defautlt Single -->
-                                </div>
-                            </div>                        
+                            </div>                     
                         </div>
                     </div>
                     <?php } ?>
@@ -320,110 +310,69 @@ require "../koneksidb.php";
             </div>
         </div> <!-- End Catagory Wrapper -->
     </div> <!-- ...:::: End Product Tab Section:::... -->
-    
 
-    <!-- ...:::: Start Company Logo Section:::... -->
-    <div class="company-logo-section section-top-gap-100">
-        <!-- Start Company Logo Wrapper -->
-        <div class="company-logo-wrapper" data-aos="fade-up"  data-aos-delay="50">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="company-logo-slider">
-                            <!-- Start Company logo Single -->
-                            <div class="company-logo-single">
-                                <img src="assets/images/company_logo/company_logo_1.png" alt="" class="img-fluid company-logo-image">
-                            </div> <!-- End Company logo Single -->
-                            <!-- Start Company logo Single -->
-                            <div class="company-logo-single">
-                                <img src="assets/images/company_logo/company_logo_2.png" alt="" class="img-fluid company-logo-image">
-                            </div> <!-- End Company logo Single -->
-                            <!-- Start Company logo Single -->
-                            <div class="company-logo-single">
-                                <img src="assets/images/company_logo/company_logo_3.png" alt="" class="img-fluid company-logo-image">
-                            </div> <!-- End Company logo Single -->
-                            <!-- Start Company logo Single -->
-                            <div class="company-logo-single">
-                                <img src="assets/images/company_logo/company_logo_4.png" alt="" class="img-fluid company-logo-image">
-                            </div> <!-- End Company logo Single -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Company Logo Wrapper -->
-    </div> <!-- ...:::: End Company Logo Section:::... -->
-
-    <!-- ...:::: Start Blog Feed Section:::... -->
-    <div class="blog-feed-section section-top-gap-100">
+    <!-- ...:::: Start Product Tab Section:::... -->
+    <div class="product-tab-section section-top-gap-100">
         <!-- Start Section Content -->
         <div class="section-content-gap">
             <div class="container">
                 <div class="row">
-                    <div class="section-content">
-                        <h3 class="section-title" data-aos="fade-up"  data-aos-delay="0">Latest News</h3>
+                    <div class="section-content d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column">
+                        <h3 class="section-title"  data-aos="fade-up"  data-aos-delay="0">Hot Deals Disewa</h3>
+                        <!-- <ul class="tablist nav product-tab-btn" data-aos="fade-up"  data-aos-delay="200" >
+                            <li><a class="nav-link active" data-bs-toggle="tab" href="#car_and_drive">Dijual </a></li>
+                            <li><a class="nav-link" data-bs-toggle="tab" href="#bike">Disewa </a></li>                          
+                        </ul>-->
                     </div>
                 </div>
             </div>
         </div> <!-- End Section Content -->
 
-        <!-- Start Blog Feed Wrapper -->
-        <div class="blog-feed-wrapper">
+        <!-- Start Tab Wrapper -->
+        <div class="product-tab-wrapper" data-aos="fade-up" data-aos-delay="50">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Blog Feed Single -->
-                        <div class="blog-feed-single" data-aos="fade-up"  data-aos-delay="0" >
-                            <a href="blog-single-sidebar-left.html" class="blog-feed-img-link">
-                                <img src="assets/images/blog_images/aments_blog_01.jpg" alt="" class="blog-feed-img">
-                            </a>
-                            <div class="blog-feed-content">
-                                <div class="blog-feed-post-meta">
-                                    <span>By:</span>
-                                    <a href="" class="blog-feed-post-meta-author">Admin</a> -
-                                    <a href="" class="blog-feed-post-meta-date">Sep 14, 2020</a>
+                <div class="row g-5">
+                    <?php $tampil = $conn->query("SELECT * from produk where id_jenis = 2 limit 6"); ?>
+                    <?php while($produk = $tampil->fetch_assoc()){?>
+                    <div class="col-4">
+                        <div class="tab-content tab-animate-zoom">
+                            <div class="tab-pane show active" >
+                                <div class="product-default-slider product-default-slider">
+                                    <!-- Start Product Defautlt Single -->
+                                    <div class="product-default-single border-around">
+                                        <div class="product-img-warp">
+                                            <a href="product-details-default.html" class="product-default-img-link">
+                                                <img src="../image/seller/<?php echo $produk['image'] ?>" width="320px" height="400px" class="product-default-img img-fluid">
+                                            </a>
+                                            <div class="product-action-icon-link">
+                                                <ul>
+                                                    <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
+                                                    <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
+                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
+                                                    <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1;?>"><i class="icon-shopping-cart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-default-content">
+                                            <h6 class="product-default-link"><a href="product-details-default.html"><?php echo $produk['nama_produk'] ?></a></h6>
+                                            <span class="product-default-price"><del class="product-default-price-off">Rp <?php echo $produk['harga']
+                                            ?></del> Rp
+                                                <?php 
+                                                $har = $produk['harga'];
+                                                $diskon = (int)$har-(5/100*(int)$har);
+                                                echo $diskon;?>
+                                            </span>
+                                        </div>
+                                    </div> <!-- End Product Defautlt Single -->
                                 </div>
-                                <h5 class="blog-feed-link"><a href="blog-single-sidebar-left.html">Lorem ipsum dolor amet cons adipisicing elit</a></h5>
-                            </div>
-                        </div><!-- End Blog Feed Single -->
+                            </div>                     
+                        </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Blog Feed Single -->
-                        <div class="blog-feed-single" data-aos="fade-up"  data-aos-delay="400">
-                            <a href="blog-single-sidebar-left.html" class="blog-feed-img-link">
-                                <img src="assets/images/blog_images/aments_blog_02.jpg" alt="" class="blog-feed-img">
-                            </a>
-                            <div class="blog-feed-content">
-                                <div class="blog-feed-post-meta">
-                                    <span>By:</span>
-                                    <a href="" class="blog-feed-post-meta-author">Admin</a> -
-                                    <a href="" class="blog-feed-post-meta-date">Sep 14, 2020</a>
-                                </div>
-                                <h5 class="blog-feed-link"><a href="blog-single-sidebar-left.html">Lorem ipsum dolor amet cons adipisicing elit</a></h5>
-                            </div>
-                        </div><!-- End Blog Feed Single -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Blog Feed Single -->
-                        <div class="blog-feed-single" data-aos="fade-up"  data-aos-delay="600">
-                            <a href="blog-single-sidebar-left.html" class="blog-feed-img-link">
-                                <img src="assets/images/blog_images/aments_blog_03.jpg" alt="" class="blog-feed-img">
-                            </a>
-                            <div class="blog-feed-content">
-                                <div class="blog-feed-post-meta">
-                                    <span>By:</span>
-                                    <a href="" class="blog-feed-post-meta-author">Admin</a> -
-                                    <a href="" class="blog-feed-post-meta-date">Sep 14, 2020</a>
-                                </div>
-                                <h5 class="blog-feed-link"><a href="blog-single-sidebar-left.html">Lorem ipsum dolor amet cons adipisicing elit</a></h5>
-                            </div>
-                        </div><!-- End Blog Feed Single -->
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
-        </div> <!-- End Blog Feed Wrapper -->
-
-
-    </div> <!-- ...:::: End Blog Feed Section:::... -->
+        </div> <!-- End Catagory Wrapper -->
+    </div> <!-- ...:::: End Product Tab Section:::... -->
 
     <!-- ...:::: Start Footer Section:::... -->
     <?php require "footer.php"; ?>
@@ -631,6 +580,7 @@ require "../koneksidb.php";
 
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+    <script src="scriptcart.js"></script>
 
 </body>
 
