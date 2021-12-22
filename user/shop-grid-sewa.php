@@ -9,10 +9,10 @@ if(!isset($_SESSION['username'])){
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aments - Car Accessories Shop HTML Template</title>
+    <title>Prebens - Produk Jual</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
+    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png"> -->
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
@@ -79,18 +79,19 @@ if(!isset($_SESSION['username'])){
                 <div class="col-lg-3">
                     <!-- Start Sidebar Area -->
                     <div class="siderbar-section" data-aos="fade-up"  data-aos-delay="0">
+                        <h6 class="sidebar-title"> FILTER BY</h6>
 
-                        <!-- Start Single Sidebar Widget -->
+                        <!-- Start Single Sidebar Widget 
                         <div class="sidebar-single-widget">
-                            <h6 class="sidebar-title">FILTER BY PRICE</h6>
-                            <div class="sidebar-content">
+                            <h6 class="sidebar-title"> </h6>
+                             <div class="sidebar-content">
                                 <div id="slider-range"></div>
                                 <div class="filter-type-price">
                                     <label for="amount">Price range:</label>
                                     <input type="text" id="amount">
                                 </div>
                             </div>
-                        </div> <!-- End Single Sidebar Widget -->
+                        </div> End Single Sidebar Widget -->
 
                         <!-- Start Single Sidebar Widget -->
                         <div class="sidebar-single-widget" >
@@ -133,15 +134,6 @@ if(!isset($_SESSION['username'])){
                             </div>
                         </div> <!-- End Single Sidebar Widget -->
 
-                        <!-- Start Single Sidebar Widget -->
-                        <div class="sidebar-single-widget">
-                            <div class="sidebar-content">
-                                <a href="product-details-default.html" class="sidebar-banner">
-                                    <img class="img-fluid" src="assets/images/banner_images/aments_banner_04.jpg" alt="">
-                                </a>
-                            </div>
-                        </div> <!-- End Single Sidebar Widget -->
-
                     </div> <!-- End Sidebar Area -->
                 </div>
                 <div class="col-lg-9">
@@ -155,11 +147,10 @@ if(!isset($_SESSION['username'])){
                                     <div class="sort-tablist">
                                         <ul class="tablist nav sort-tab-btn">
                                             <li><a class="nav-link active" data-bs-toggle="tab" href="#layout-3-grid"><img src="assets/images/icon/bkg_grid.png" alt=""></a></li>
-                                            <li><a class="nav-link" data-bs-toggle="tab" href="#layout-list"><img src="assets/images/icon/bkg_list.png" alt=""></a></li>
                                         </ul>
                                     </div> <!-- End Sort tab Button -->
 
-                                    <!-- Start Sort Select Option -->
+                                    <!-- Start Sort Select Option 
                                     <div class="sort-select-list">
                                         <form action="#">
                                             <fieldset>
@@ -173,7 +164,7 @@ if(!isset($_SESSION['username'])){
                                                 </select>
                                             </fieldset>
                                         </form>
-                                    </div> <!-- End Sort Select Option -->
+                                    </div> End Sort Select Option -->
 
                                     <!-- Start Page Amount -->
                                     <div class="page-amount">
@@ -194,7 +185,7 @@ if(!isset($_SESSION['username'])){
                                         <!-- Start Grid View Product -->
                                         <div class="tab-pane active show sort-layout-single" id="layout-3-grid">
                                             <div class="row">
-                                            <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 limit 9"); ?>
+                                            <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 limit 12"); ?>
                                             <?php while($perproduk = $ambil->fetch_assoc()){?>
                                                 <div class="col-xl-4 col-sm-6 col-12">
                                                     <!-- Start Product Defautlt Single -->
@@ -205,8 +196,6 @@ if(!isset($_SESSION['username'])){
                                                             </a>
                                                             <div class="product-action-icon-link">
                                                                 <ul>
-                                                                    <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                                                    <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
                                                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
                                                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
                                                                 </ul>
@@ -227,39 +216,6 @@ if(!isset($_SESSION['username'])){
                                             </div>
                                         </div> <!-- End Grid View Product -->
                                         <!-- Start List View Product -->
-                                        <div class="tab-pane sort-layout-single" id="layout-list">
-                                            <div class="row">
-                                                <?php $ambil = $conn->query("SELECT * from produk limit 6"); ?>
-                                                <?php while($perproduk = $ambil->fetch_assoc()){?>
-                                                <div class="col-12">
-                                                    <!-- Start Product Defautlt Single -->
-                                                    <div class="product-list-single border-around">
-                                                        <a href="product-details-default.html" class="product-list-img-link">
-                                                            <img src="../image/seller/<?php echo $perproduk['image'] ?>" alt="" class="img-fluid">
-                                                        </a>
-                                                        <div class="product-list-content">
-                                                            <h5 class="product-list-link"><a href="product-details-default.html"><?php echo $perproduk['nama_produk'] ?></a></h5>
-                                                            <span class="product-list-price"><del class="product-list-price-off">Rp <?php echo $perproduk['harga']
-                                                            ?></del> Rp
-                                                                <?php 
-                                                                $har = $perproduk['harga'];
-                                                                $diskon = (int)$har-(5/100*(int)$har);
-                                                                echo $diskon;?></span>
-                                                            <p><?php echo $perproduk['deskripsi'] ?></p>
-                                                            <div class="product-action-icon-link-list">
-                                                                <ul>
-                                                                    <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                                                    <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- End Product Defautlt Single -->                                                
-                                                </div>
-                                                <?php } ?>
-                                            </div>
-                                        </div> <!-- End List View Product -->
                                     </div>
                                 </div>
                             </div>
@@ -282,89 +238,8 @@ if(!isset($_SESSION['username'])){
     </div> <!-- ...:::: End Shop Section:::... -->
 
     <!-- ...:::: Start Footer Section:::... -->
-    <footer class="footer-section section-top-gap-100">
-        <!-- Start Footer Top Area -->
-        <div class="footer-top section-inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-5">
-                        <div class="footer-widget footer-widget-contact" data-aos="fade-up"  data-aos-delay="0">
-                            <div class="footer-logo">
-                                <a href="index.html"><img src="assets/images/logo/logo.png" alt="" class="img-fluid"></a>
-                            </div>
-                            <div class="footer-contact">
-                                <p>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart...</p>
-                                <div class="customer-support">
-                                    <div class="customer-support-icon">
-                                        <img src="assets/images/icon/support-icon.png" alt="">
-                                    </div>
-                                    <div class="customer-support-text">
-                                        <span>Customer Support</span>
-                                        <a class="customer-support-text-phone" href="tel:(08)123456789">(08) 123 456 789</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-7">
-                        <div class="footer-widget footer-widget-subscribe" data-aos="fade-up"  data-aos-delay="200">
-                            <h3 class="footer-widget-title">Subscribe newsletter to get updated</h3>
-                            <form action="#" method="post">
-                                <div class="footer-subscribe-box default-search-style d-flex">
-                                    <input class="default-search-style-input-box border-around border-right-none subscribe-form" type="email" placeholder="Search entire store here ..." required>
-                                    <button class="default-search-style-input-btn" type="submit">Subscribe</button>
-                                </div>
-                            </form>
-                            <p class="footer-widget-subscribe-note">We’ll never share your email address <br> with a third-party.</p>
-                            <ul class="footer-social">
-                                <li><a href="" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="" class="youtube"><i class="fa fa-youtube"></i></a></li>
-                                <li><a href="" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
-                                <li><a href="" class="instagram"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="footer-widget footer-widget-menu" data-aos="fade-up"  data-aos-delay="600">
-                            <h3 class="footer-widget-title">Information</h3>
-                            <div class="footer-menu">
-                                <ul class="footer-menu-nav">
-                                    <li><a href="">Delivery</a></li>
-                                    <li><a href="about-us.html">About Us</a></li>
-                                    <li><a href="contact-us.html">Contact us</a></li>
-                                    <li><a href="">Stores</a></li>
-                                </ul>
-                                <ul class="footer-menu-nav">
-                                    <li><a href="">Legal Notice</a></li>
-                                    <li><a href="">Secure payment</a></li>
-                                    <li><a href="">Sitemap</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Footer Top Area -->
-        <!-- Start Footer Bottom Area -->
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="copyright-area">
-                            <p class="copyright-area-text">Copyright &copy; 2021 <a class="copyright-link" href="https://hasthemes.com/">Hasthemes</a></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="footer-payment">
-                            <a href=""><img class="img-fluid" src="assets/images/icon/payment-icon.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Footer Bottom Area -->
-    </footer> <!-- ...:::: End Footer Section:::... -->
+    <?php require "footer.php";?>
+    <!-- ...:::: End Footer Section:::... -->
 
     <!-- material-scrolltop button -->
     <button class="material-scrolltop" type="button"></button>

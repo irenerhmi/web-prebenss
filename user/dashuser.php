@@ -192,7 +192,7 @@ require "../koneksidb.php";
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>
-                                                    <li><a type="button"> href="<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
+                                                    <li><a type="button" href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
                                                     <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
@@ -283,9 +283,7 @@ require "../koneksidb.php";
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>
-                                                    <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                                    <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
+                                                    <li><a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
                                                     <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1;?>"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
@@ -346,9 +344,7 @@ require "../koneksidb.php";
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>
-                                                    <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                                    <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
+                                                    <li><a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
                                                     <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1;?>"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>

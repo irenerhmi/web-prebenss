@@ -63,16 +63,10 @@ include "../koneksidb.php";
                         <!-- Start Header Action Icon -->
                         <ul class="header-action-icon">
                             <li>
-                                <?php 
-                                    $sql = "select count(id_cart) as jumlah from cart where u_username = '" . $_SESSION['username'] . "'";
-                                    $result = mysqli_query($conn, $sql);
-                                    $row = mysqli_fetch_array($result);
-                                    $hasil = $row['jumlah']; 
-                                ?>
                                 <a href="cart.php" class="">
                                     <i class="icon-shopping-cart"></i>
                                     <span class="header-action-icon">
-                                        
+
                                     </span>
                                 </a>
                             </li>

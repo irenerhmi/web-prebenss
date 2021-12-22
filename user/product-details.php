@@ -614,13 +614,12 @@ require "../koneksidb.php";
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Product Details Default</h3>
+                        <h3 class="breadcrumb-title">Product Details</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop-grid-sidebar-left.html">Shop</a></li>
-                                    <li class="active" aria-current="page">Product Details Default</li>
+                                    <li class="active" aria-current="page">Product Details</li>
                                 </ul>
                             </nav>
                         </div>
@@ -634,46 +633,19 @@ require "../koneksidb.php";
     <div class="product-details-section">
         <div class="container">
             <div class="row">
+                <?php
+                $result = mysqli_query($conn,"SELECT * from produk WHERE id_produk='". $_GET['id'] ."'");
+                $pecah = $ambil->fetch_assoc(); 
+                $row = mysqli_fetch_array($result);
+                $temail = $row['nama_prpduk'];
+                $tnama = $row['deskripsi'];
+                                                        
+                ?>
                 <div class="col-md-6">
                     <div class="product-details-gallery-area" data-aos="fade-up"  data-aos-delay="0">
                         <div class="product-large-image product-large-image-horaizontal">
                             <div class="product-image-large-single zoom-image-hover">
                                 <img src="assets/images/products_images/aments_products_large_image_1.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="assets/images/products_images/aments_products_large_image_2.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="assets/images/products_images/aments_products_large_image_3.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="assets/images/products_images/aments_products_large_image_4.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="assets/images/products_images/aments_products_large_image_5.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="assets/images/products_images/aments_products_large_image_6.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="product-image-thumb product-image-thumb-horizontal pos-relative">
-                            <div class="zoom-active product-image-thumb-single">
-                                <img class="img-fluid" src="assets/images/products_images/aments_products_image_1.jpg" alt="">
-                            </div>
-                            <div class="product-image-thumb-single">
-                                <img class="img-fluid" src="assets/images/products_images/aments_products_image_2.jpg" alt="">
-                            </div>
-                            <div class="product-image-thumb-single">
-                                <img class="img-fluid" src="assets/images/products_images/aments_products_image_3.jpg" alt="">
-                            </div>
-                            <div class="product-image-thumb-single">
-                                <img class="img-fluid" src="assets/images/products_images/aments_products_image_4.jpg" alt="">
-                            </div>
-                            <div class="product-image-thumb-single">
-                                <img class="img-fluid" src="assets/images/products_images/aments_products_image_5.jpg" alt="">
-                            </div>
-                            <div class="product-image-thumb-single">
-                                <img class="img-fluid" src="assets/images/products_images/aments_products_image_6.jpg" alt="">
                             </div>
                         </div>
                     </div>

@@ -585,6 +585,24 @@ require "../koneksidb.php";
                                         <?php $total+=$subtotal; ?>
                                         <?php endforeach?> 
                                 </table>
+                                <div class="payment_method">
+                                    <div class="default-form-box">
+                                        <br> <label>Ongkos Kirim </label>
+                                        <select class="form-control">
+                                            <option value="">Pilih Ongkos Kirim</option>
+                                            <?php
+                                            $ambil = $conn->query("SELECT * from ongkir");
+                                            while($pecah = $ambil->fetch_assoc()){
+                                            ?>                                      
+                                            <option value="">
+                                                <?php echo $pecah['daerah']?> - 
+                                                Rp. <?php echo number_format($pecah['tarif'])?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
+                                    <br>
+                                </div>
+                            </div>
                             </div>
                             <div class="order_table table-responsive">
                                 <table>
@@ -595,7 +613,7 @@ require "../koneksidb.php";
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Rp. <?php echo number_format($subtotal); ?> </td>
+                                            <td>Rp. <?php echo number_format($total); ?> </td>
                                         </tr>
                                     </tbody>
                                 </table>

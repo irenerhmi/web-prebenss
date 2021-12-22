@@ -147,7 +147,6 @@ if(!isset($_SESSION['username'])){
                                     <div class="sort-tablist">
                                         <ul class="tablist nav sort-tab-btn">
                                             <li><a class="nav-link active" data-bs-toggle="tab" href="#layout-3-grid"><img src="assets/images/icon/bkg_grid.png" alt=""></a></li>
-                                            <li><a class="nav-link" data-bs-toggle="tab" href="#layout-list"><img src="assets/images/icon/bkg_list.png" alt=""></a></li>
                                         </ul>
                                     </div> <!-- End Sort tab Button -->
 
@@ -217,37 +216,6 @@ if(!isset($_SESSION['username'])){
                                             </div>
                                         </div> <!-- End Grid View Product -->
                                         <!-- Start List View Product -->
-                                        <div class="tab-pane sort-layout-single" id="layout-list">
-                                            <div class="row">
-                                                <?php $ambil = $conn->query("SELECT * from produk limit 6"); ?>
-                                                <?php while($perproduk = $ambil->fetch_assoc()){?>
-                                                <div class="col-12">
-                                                    <!-- Start Product Defautlt Single -->
-                                                    <div class="product-list-single border-around">
-                                                        <a href="product-details-default.html" class="product-list-img-link">
-                                                            <img src="../image/seller/<?php echo $perproduk['image'] ?>" alt="" class="img-fluid">
-                                                        </a>
-                                                        <div class="product-list-content">
-                                                            <h5 class="product-list-link"><a href="product-details-default.html"><?php echo $perproduk['nama_produk'] ?></a></h5>
-                                                            <span class="product-list-price"><del class="product-list-price-off">Rp <?php echo $perproduk['harga']
-                                                            ?></del> Rp
-                                                                <?php 
-                                                                $har = $perproduk['harga'];
-                                                                $diskon = (int)$har-(5/100*(int)$har);
-                                                                echo $diskon;?></span>
-                                                            <p><?php echo $perproduk['deskripsi'] ?></p>
-                                                            <div class="product-action-icon-link-list">
-                                                                <ul>
-                                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- End Product Defautlt Single -->                                                
-                                                </div>
-                                                <?php } ?>
-                                            </div>
-                                        </div> <!-- End List View Product -->
                                     </div>
                                 </div>
                             </div>

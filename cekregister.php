@@ -48,6 +48,8 @@ if (isset($_POST['submit'])) {
     echo $alamat;
 
     if ($conn->query($sql) === TRUE) {
+        $result1 = mysqli_query($conn,"INSERT INTO pelanggan (u_username) VALUES ('" . $username . "')");
+        $result2 = mysqli_query($conn,"INSERT INTO supplier (u_username) VALUES ('" . $username . "')");
         header ("location: login.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
