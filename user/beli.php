@@ -18,9 +18,8 @@ echo "<pre>";
 
 
 //pindah ke halaman cart
-echo "<script>location='cart.php'; </script>";
 echo "<script>
         window.alert('produk berhasil dimasukkan ke keranjang !'); 
-        window.location ='cart.php'; 
+        window.location ='dashuser.php'; 
       </script>";
 ?>

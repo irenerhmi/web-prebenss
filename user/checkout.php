@@ -7,9 +7,6 @@ if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
 
-echo "<pre>";
-echo "</pre>";
-
 require "../koneksidb.php";
 ?>
 
@@ -19,7 +16,6 @@ require "../koneksidb.php";
     <title>Aments - Car Accessories Shop HTML Template</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
@@ -437,28 +433,6 @@ require "../koneksidb.php";
     <!-- ...:::: Start Checkout Section:::... -->
     <div class="checkout_section">
         <div class="container">
-            <div class="row">
-                <!-- User Quick Action Form -->
-                <div class="col-12">
-                    <div class="user-actions accordion" data-aos="fade-up"  data-aos-delay="200">
-                        <h3>
-                            <i class="fa fa-file-o" aria-hidden="true"></i>
-                            Returning customer?
-                            <a class="Returning" href="#" data-bs-toggle="collapse" data-bs-target="#checkout_coupon" aria-expanded="true">Click here to enter your code</a>
-
-                        </h3>
-                        <div id="checkout_coupon" class="collapse" data-parent="#checkout_coupon">
-                            <div class="checkout_info">
-                                <form action="#">
-                                    <input placeholder="Coupon code" type="text">
-                                    <button type="submit">Apply coupon</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- User Quick Action Form -->
-            </div>
             <!-- Start User Details Checkout Form -->
             <div class="checkout_form" data-aos="fade-up"  data-aos-delay="400">
                 <div class="row">
@@ -479,7 +453,7 @@ require "../koneksidb.php";
                         $timage = $row['u_image'];
 
                         ?>
-                        <form action="#">
+                        <form action="#" method="POST">
                             <h3>Billing Details</h3>
                             <div class="row">
                                 <div class="col-lg-6 mb-20">
@@ -556,7 +530,7 @@ require "../koneksidb.php";
                         </form>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <form action="#">
+                        
                             <h3>Your order</h3>
                             <div class="order_table table-responsive">
                                 <table>
@@ -584,17 +558,30 @@ require "../koneksidb.php";
                                     </tbody>
                                         <?php $total+=$subtotal; ?>
                                         <?php endforeach?> 
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+                                                <strong> Total </strong>
+                                            </td>
+                                            <td>
+                                                Rp. <?php 
+                                                echo number_format($total); ?> 
+                                            </td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
-                                <div class="payment_method">
-                                    <div class="default-form-box">
-                                        <br> <label>Ongkos Kirim </label>
-                                        <select class="form-control">
+                            </div>
+                        <form method="POST">
+                            <div class="payment_method">
+                                <div class="default-form-box">
+                                    <br> <label>Ongkos Kirim </label>
+                                        <select name="id_ongkir" class="form-control">
                                             <option value="">Pilih Ongkos Kirim</option>
                                             <?php
                                             $ambil = $conn->query("SELECT * from ongkir");
                                             while($pecah = $ambil->fetch_assoc()){
                                             ?>                                      
-                                            <option value="">
+                                            <option value="<?php echo $pecah['id_ongkir'] ?>">
                                                 <?php echo $pecah['daerah']?> - 
                                                 Rp. <?php echo number_format($pecah['tarif'])?>
                                             </option>
@@ -602,76 +589,62 @@ require "../koneksidb.php";
                                         </select>
                                     <br>
                                 </div>
-                            </div>
-                            </div>
-                            <div class="order_table table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Rp. <?php echo number_format($total); ?> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="payment_method">
+                                <br>
                                 <div class="default-form-box">
-                                    <label> Metode Pembayaran</label>
-                                </div>
-                                <div class="panel-default">
-                                    <label class="checkbox-default" for="currencyCod" data-bs-toggle="collapse" data-bs-target="#methodCod">
-                                        <input type="checkbox" id="currencyCod">
-                                        <span>Gopay</span>
-                                    </label>
-                                    <div id="methodCod" class="collapse" data-parent="#methodCod">
-                                        <div class="card-body1">
-                                            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-default">
-                                    <label class="checkbox-default" for="currencyCod" data-bs-toggle="collapse" data-bs-target="#methodCod">
-                                        <input type="checkbox" id="currencyCod">
-                                        <span>Ovo</span>
-                                    </label>
-                                    <div id="methodCod" class="collapse" data-parent="#methodCod">
-                                        <div class="card-body1">
-                                            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-default">
-                                    <label class="checkbox-default" for="currencyCod" data-bs-toggle="collapse" data-bs-target="#methodCod">
-                                        <input type="checkbox" id="currencyCod">
-                                        <span>Dana</span>
-                                    </label>
-                                    <div id="methodCod" class="collapse" data-parent="#methodCod">
-                                        <div class="card-body1">
-                                            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-default">
-                                    <label class="checkbox-default" for="currencyPaypal" data-bs-toggle="collapse" data-bs-target="#methodPaypal">
-                                        <input type="checkbox" id="currencyPaypal">
-                                        <span>Transfer Bank</span>
-                                    </label>
-                                    <div id="methodPaypal" class="collapse " data-parent="#methodPaypal">
-                                        <div class="card-body1">
-                                            <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                        </div>
-                                    </div>
+                                    <br> <label>Metode Pembayaran</label>
+                                        <select name="id_metode" class="form-control">
+                                            <option value="">Pilih Metode</option>
+                                            <?php
+                                            $ambil = $conn->query("SELECT * from metode_bayar");
+                                            while($pecah = $ambil->fetch_assoc()){
+                                            ?>                                      
+                                            <option value="<?php echo $pecah['id_metode'] ?>">
+                                                <?php echo $pecah['nama_metode']?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
+                                    <br>
                                 </div>
                                 <div class="order_button pt-15">
-                                    <button type="submit">Proceed to Payment</button>
+                                    <br>
+                                    <button name="checkout">Proceed to Paayment</button>
                                 </div>
                             </div>
                         </form>
+
+                        <?php
+                        if (isset($_POST['checkout'])) 
+                        {
+                            $id_pelanggan = $_SESSION['id_pelanggan'];
+                            $id_ongkir = $_POST['id_ongkir'];
+                            $tanggal_trans =  date("Y-m-d");
+                            
+                            echo $id_ongkir;
+
+                            $result1 = mysqli_query($conn,"select * from ongkir
+                            where id_ongkir='$id_ongkir'");
+                            $row1 = mysqli_fetch_array($result1);
+                            $jumong = $row1['tarif'];
+                            $totaltrans = 0;
+                            $totaltrans = $total + $jumong;
+                            
+
+                            //menyimpan data ke table transaski
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, total_trans, id_pelanggan, id_ongkir) VALUES ('" . $tanggal_trans . "','" . $totaltrans . "','" . $id_pelanggan . "','" . $id_ongkir . "')");
+
+                            //menyimpan data ke table detail dilakukan
+                            $id_baru = $conn->insert_id; 
+                            foreach ($_SESSION['cart'] as $id => $qty){
+                                $resultd = mysqli_query($conn,"INSERT INTO dilakukan (id_transaksi, id_produk, jumlah_p) VALUES ('" . $id_baru . "','" . $id . "','" . $qty . "')");
+                            //menyimpan data ke table pembayaran
+
+                                
+                            }
+                                
+                            
+                        }
+
+                        ?>
                     </div>
                 </div>
             </div> <!-- Start User Details Checkout Form -->

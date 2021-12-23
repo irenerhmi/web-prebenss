@@ -6,7 +6,8 @@ session_start();
 if(isset($_POST['submit'])){
     $username = mysqli_real_escape_string($conn,$_POST['username']);
     $password1 = mysqli_real_escape_string($conn,$_POST['password']);
-    $sql = "select * from user where u_username='".$username."'";
+    $sql = "select * from user 
+            where u_username='".$username."'";
 
     $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_array($result);
@@ -24,6 +25,20 @@ if(isset($_POST['submit'])){
         $_SESSION['phone'] = $row['u_phone'];
         $_SESSION['alamat'] = $row['u_alamat'];
         $_SESSION['image'] = $row['u_image'];
+
+        //query untuk memunculkan id_pelanggan
+        $result1 = mysqli_query($conn,"select * from pelanggan
+            where u_username='".$username."'");
+        $row1 = mysqli_fetch_array($result1);
+        $idpel = $row1['id_pelanggan'];
+        $_SESSION['id_pelanggan'] = $row1['id_pelanggan'];
+
+        //query untuk memunculkan id_supplier
+        $result2 = mysqli_query($conn,"select * from supplier
+            where u_username='".$username."'");
+        $row2 = mysqli_fetch_array($result2);
+        $idsup = $row2['id_supplier'];
+        $_SESSION['id_supplier'] = $row2['id_supplier'];
         
 
 

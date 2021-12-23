@@ -6,5 +6,9 @@ session_start();
 
 unset($_SESSION['cart'][$_GET['id']]);
 
+echo "<script>
+        window.location ='cart.php'; 
+      </script>";
+
 
 ?>
