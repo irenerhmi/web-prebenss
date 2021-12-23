@@ -413,14 +413,13 @@ require "../koneksidb.php";
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Checkout</h3>
+                        <h3 class="breadcrumb-title">Pembayaran</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop-grid-jual.php">Shop</a></li>
                                     <li><a href="cart.php">Cart</a></li>
-                                    <li class="active" aria-current="page">Checkout</li>
+                                    <li><a href="checkout.php">Checkout</a></li>
+                                    <li class="active" aria-current="page">Pembayaran</li>
                                 </ul>
                             </nav>
                         </div>
@@ -436,68 +435,9 @@ require "../koneksidb.php";
             <!-- Start User Details Checkout Form -->
             <div class="checkout_form" data-aos="fade-up"  data-aos-delay="400">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <?php
-
-                        $sql = "select * from user where u_username='".$_SESSION['username']."'";
-
-                        $result = mysqli_query($conn,$sql);
-
-                        $row = mysqli_fetch_array($result);
-                        $temail = $row['u_email'];
-                        $tnama = $row['u_name'];
-                        $tphone = $row['u_phone'];
-                        $talamat = $row['u_alamat'];
-                        $tusername = $row['u_username'];
-                        $tpass = $row['u_password'];
-                        $timage = $row['u_image'];
-
-                        ?>
-                        <form action="#" method="POST">
-                            <h3>Billing Details</h3>
-                            <div class="row">
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Nama Lengkap <span>*</span></label>
-                                        <input type="text" value="<?php echo $tnama; ?>">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <label for="country">Tempat <span>*</span></label>
-                                        <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Alamat <span>*</span></label>
-                                        <input placeholder="House number and street name" type="text" value="<?php echo $talamat; ?> ">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Nomor Telfon <span>*</span></label>
-                                        <input type="text" value="<?php echo $tphone; ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Email <span>*</span></label>
-                                        <input type="text" value="<?php echo $temail; ?>">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="order-notes">
-                                        <label for="order_note">Order Notes</label>
-                                        <textarea id="order_note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
+                    <div class="col-lg ">
                         
-                            <h3>Your order</h3>
+                            <h3>Pesanan</h3>
                             <div class="order_table table-responsive">
                                 <table>
                                     <thead>
@@ -512,99 +452,120 @@ require "../koneksidb.php";
                                         $total = 0;
                                         foreach ($_SESSION['cart'] as $id => $qty):
                                                         
-                                        $ambil = $conn->query("SELECT * from produk WHERE id_produk='$id'");
+                                        $ambil = $conn->query("SELECT * from dilakukan WHERE id_produk='$id'");
                                         $pecah = $ambil->fetch_assoc();
-                                        $subtotal = $qty*$pecah['harga'];
+                                        $subtotal = $pecah['jumlah_p']*$pecah['harga_p'];
+                                        $idtrans = $pecah['id_transaksi'];
                                   
                                         ?> 
                                         <tr>
-                                            <td> <?= $pecah["nama_produk"]; ?> <strong> x<?= $qty; ?> </strong></td>
+                                            <td> <?= $pecah["nama_p"]; ?> <strong> x<?= $qty; ?> </strong></td>
                                             <td>Rp. <?php echo number_format($subtotal); ?> </td>
                                         </tr>
                                     </tbody>
                                         <?php $total+=$subtotal; ?>
-                                        <?php endforeach?> 
-                                    <tfoot>
+                                        <?php 
+                                        //query ambil ongkir
+                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");
+                                        $rowtr = mysqli_fetch_array($resultr);
+                                        $daerah = $rowtr['daerah'];
+                                        $jumong = $rowtr['tarif'];
+                                        ?>
+                                        <?php endforeach?>
+                                </table>
+                                <br>
+                            </div>
+                            <h3>Tagihan</h3>
+                            <div class="order_table table-responsive">
+                                <table> 
+                                    <tbody>
                                         <tr>
                                             <td>
-                                                <strong> SubTotal </strong>
+                                                SubTotal
                                             </td>
                                             <td>
                                                 Rp. <?php 
                                                 echo number_format($total); ?> 
+                                                
                                             </td>
                                         </tr>
-                                    </tfoot>
+                                        <tr>
+                                            <td>
+                                                Ongkir 
+                                            </td>
+                                            <td>
+                                                Rp. <?php 
+                                                echo number_format($jumong); ?> 
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong> Total Pembayaran </strong>
+                                            </td>
+                                            <td>
+                                                <strong> Rp. <?php 
+                                                echo number_format($total+$jumong); ?> 
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
-                        <form method="POST">
-                            <div class="payment_method">
-                                <div class="default-form-box">
-                                    <br> <label>Ongkos Kirim </label>
-                                        <select name="id_ongkir" class="form-control">
-                                            <option value="">Pilih Ongkos Kirim</option>
-                                            <?php
-                                            $ambil = $conn->query("SELECT * from ongkir");
-                                            while($pecah = $ambil->fetch_assoc()){
-                                            ?>                                      
-                                            <option value="<?php echo $pecah['id_ongkir'] ?>">
-                                                <?php echo $pecah['daerah']?> - 
-                                                Rp. <?php echo number_format($pecah['tarif'])?>
-                                            </option>
-                                            <?php } ?>
-                                        </select>
-                                    <br>
-                                </div>
-                                <br>
-                                <div class="default-form-box">
-                                    <br> <label>Metode Pembayaran</label>
-                                        <select name="id_metode" class="form-control">
-                                            <option value="">Pilih Metode Pembayaran</option>
-                                            <?php
-                                            $ambil = $conn->query("SELECT * from metode_bayar");
-                                            while($pecah = $ambil->fetch_assoc()){
-                                            ?>                                      
-                                            <option value="<?php echo $pecah['id_metode'] ?>">
-                                                <?php echo $pecah['nama_metode']?>
-                                            </option>
-                                            <?php } ?>
-                                        </select>
-                                    <br>
-                                </div>
-                                <div class="order_button pt-15">
-                                    <br>
-                                    <button name="checkout">Proceed to Paayment</button>
-                                </div>
+                            <br>
+                            <h3>Pembayaran </h3>
+                            <div class="card-text m-3 outline">
+                                <?php 
+                                //query select pembayaran buat ambil metode
+                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='$idtrans'");
+                                $rowm = mysqli_fetch_array($resultr);
+                                $idmet = $rowm['id_metode'];
+                                echo $idmet;
+                                //query select metode bayar
+                                $resulme = mysqli_query($conn,"SELECT * from metode_bayar where id_metode='$idmet'");
+                                $rowb = mysqli_fetch_array($resulme);
+                                $namab = $rowb['nama_metode'];
+                                $ketb = $rowb['keterangan'];
+                                ?>
+                                <br> <h6>Silahkan lakukan pembayaran dengan metode pembayaran yang Anda pilih, yaitu <strong> <?php echo $namab; ?> </strong>.
+                                </h6>
                             </div>
-                        </form>
+                            <div class="card-text m-3">
+                                <br>
+                                <h6>
+                                    Tata Cara Pembayaran
+                                </h6>
+                                <br>
+                                <h6>
+                                    1. Pilih Transfer.<br> 
+                                    <br>2. Pilih <strong> <?php echo $ketb; ?> </strong> <br>
+                                    <br>3. Masukkan no rekening <strong> 137-9087689-000 A/N Prebens Store </strong> <br>
+                                    <br>4. Masukkan nominal pembayaran <br>
+                                </h6>
+                            </div>
 
                         <?php
                         if (isset($_POST['checkout'])) 
                         {
                             $id_pelanggan = $_SESSION['id_pelanggan'];
                             $id_ongkir = $_POST['id_ongkir'];
-                            $metode = $_POST['id_metode'];
                             $tanggal_trans =  date("Y-m-d");
                             
-                            //select table ongkir
+                            echo $id_ongkir;
+
                             $result1 = mysqli_query($conn,"select * from ongkir
                             where id_ongkir='$id_ongkir'");
                             $row1 = mysqli_fetch_array($result1);
-                            $daerah = $row1['daerah'];
                             $jumong = $row1['tarif'];
-
                             $totaltrans = 0;
                             $totaltrans = $total + $jumong;
                             
 
                             //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, total_trans, daerah, tarif, id_pelanggan, id_ongkir) VALUES ('" . $tanggal_trans . "','" . $totaltrans . "','" . $daerah . "','" . $jumong . "','" . $id_pelanggan . "','" . $id_ongkir . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, total_trans, id_pelanggan, id_ongkir) VALUES ('" . $tanggal_trans . "','" . $totaltrans . "','" . $id_pelanggan . "','" . $id_ongkir . "')");
 
                             //menyimpan data ke table detail dilakukan
                             $id_baru = $conn->insert_id; 
-
-                            //menyimpan data ke table pembayaran
-                            $resulttr = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, status_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','Menunggu Pembayaran','" . $metode . "','" . $id_baru . "')");
 
                             foreach ($_SESSION['cart'] as $id => $qty){
                                 //menambahkan data produk biar harganya fix
@@ -615,11 +576,12 @@ require "../koneksidb.php";
                                 $hargat = $rowsl['harga'];
 
                                 $resultd = mysqli_query($conn,"INSERT INTO dilakukan (id_transaksi, id_produk, nama_p, harga_p, jumlah_p) VALUES ('" . $id_baru . "','" . $id . "', '" . $namat . "', '" . $hargat . "', '" . $qty . "')");
+
+                            //menyimpan data ke table pembayaran
+
                                 
                             }
-                            echo "<script> 
-                                    window.location ='nota.php'; 
-                                  </script>";   
+                                
                             
                         }
 
