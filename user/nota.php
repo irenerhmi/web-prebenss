@@ -9,6 +9,11 @@ if(!isset($_SESSION['username'])){
 
 require "../koneksidb.php";
 ?>
+<?php 
+
+print_r($_SESSION);
+
+?>
 
 <head>
     <meta charset="UTF-8" />
@@ -470,6 +475,7 @@ require "../koneksidb.php";
                                         $rowtr = mysqli_fetch_array($resultr);
                                         $daerah = $rowtr['daerah'];
                                         $jumong = $rowtr['tarif'];
+                                        $idtrans_baru = $conn->insert_id; 
                                         ?>
                                         <?php endforeach?>
                                 </table>
@@ -517,10 +523,10 @@ require "../koneksidb.php";
                             <div class="card-text m-3 outline">
                                 <?php 
                                 //query select pembayaran buat ambil metode
-                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='$idtrans'");
+                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='".$_SESSION['idtransbaru']."'");
                                 $rowm = mysqli_fetch_array($resultr);
                                 $idmet = $rowm['id_metode'];
-                                echo $idmet;
+                    
                                 //query select metode bayar
                                 $resulme = mysqli_query($conn,"SELECT * from metode_bayar where id_metode='$idmet'");
                                 $rowb = mysqli_fetch_array($resulme);
@@ -542,48 +548,24 @@ require "../koneksidb.php";
                                     <br>3. Masukkan no rekening <strong> 137-9087689-000 A/N Prebens Store </strong> <br>
                                     <br>4. Masukkan nominal pembayaran <br>
                                 </h6>
+                                <form method="POST">
+                                    <div class="order_button pt-15">
+                                        <br>
+                                        <button name="riwayat">Lihat Riwayat Pesanan</button>
+                                    </div>
+                                </form>
                             </div>
 
                         <?php
-                        if (isset($_POST['checkout'])) 
-                        {
-                            $id_pelanggan = $_SESSION['id_pelanggan'];
-                            $id_ongkir = $_POST['id_ongkir'];
-                            $tanggal_trans =  date("Y-m-d");
-                            
-                            echo $id_ongkir;
+                        if (isset($_POST['riwayat'])) {
 
-                            $result1 = mysqli_query($conn,"select * from ongkir
-                            where id_ongkir='$id_ongkir'");
-                            $row1 = mysqli_fetch_array($result1);
-                            $jumong = $row1['tarif'];
-                            $totaltrans = 0;
-                            $totaltrans = $total + $jumong;
-                            
-
-                            //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, total_trans, id_pelanggan, id_ongkir) VALUES ('" . $tanggal_trans . "','" . $totaltrans . "','" . $id_pelanggan . "','" . $id_ongkir . "')");
-
-                            //menyimpan data ke table detail dilakukan
-                            $id_baru = $conn->insert_id; 
-
-                            foreach ($_SESSION['cart'] as $id => $qty){
-                                //menambahkan data produk biar harganya fix
-                                $results = mysqli_query($conn,"select * from produk
-                                where id_produk='$id'");
-                                $rowsl = mysqli_fetch_array($results);
-                                $namat = $rowsl['nama_produk'];
-                                $hargat = $rowsl['harga'];
-
-                                $resultd = mysqli_query($conn,"INSERT INTO dilakukan (id_transaksi, id_produk, nama_p, harga_p, jumlah_p) VALUES ('" . $id_baru . "','" . $id . "', '" . $namat . "', '" . $hargat . "', '" . $qty . "')");
-
-                            //menyimpan data ke table pembayaran
-
-                                
-                            }
-                                
+                            unset($_SESSION['cart']);
+                            echo "<script>
+                                    window.location ='riwayat.php'; 
+                                  </script>";              
                             
                         }
+
 
                         ?>
                     </div>

@@ -10,6 +10,7 @@ if(!isset($_SESSION['username'])){
 require "../koneksidb.php";
 ?>
 
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -602,6 +603,7 @@ require "../koneksidb.php";
 
                             //menyimpan data ke table detail dilakukan
                             $id_baru = $conn->insert_id; 
+                            $_SESSION['idtransbaru'] = $id_baru;
 
                             //menyimpan data ke table pembayaran
                             $resulttr = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, status_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','Menunggu Pembayaran','" . $metode . "','" . $id_baru . "')");
@@ -617,6 +619,7 @@ require "../koneksidb.php";
                                 $resultd = mysqli_query($conn,"INSERT INTO dilakukan (id_transaksi, id_produk, nama_p, harga_p, jumlah_p) VALUES ('" . $id_baru . "','" . $id . "', '" . $namat . "', '" . $hargat . "', '" . $qty . "')");
                                 
                             }
+                            unset($_SESSION['cart'][$_GET['id']]);
                             echo "<script> 
                                     window.location ='nota.php'; 
                                   </script>";   
