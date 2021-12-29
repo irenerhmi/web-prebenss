@@ -80,116 +80,128 @@ require "../koneksidb.php";
                     <!-- Nav tabs -->
                     <div class="dashboard_tab_button" >
                         <ul  class="nav flex-column dashboard-list">
-                            <li><a href="#account-details"  class="nav-link active">Profile</a></li>
-                            <li><a href="riwayat.php"  class="nav-link">Riwayat Pesanan</a></li>
+                            <li><a href="acc-profile.php"  class="nav-link">Profile</a></li>
+                            <li><a href="#orders"  class="nav-link active">Riwayat Pesanan</a></li>
                             <li><a href="../logout.php" class="nav-link">logout</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-9 col-lg-9">
-                    <!-- Tab panes -->
+                    <!-- Tab panes Riwayat Pending -->
                     <div class="tab-content dashboard_content" data-aos="fade-up"  data-aos-delay="200" >
-                        <div class="tab-pane fade show active " id="account-details">
-                                    <h3>Profile </h3> <br>
-                                    <div class="login">
-                                        <div class="login_form_container">
-                                            <div class="account_login_form">     
-                                                <!--<form method="POST" action="profile-action.php" enctype="multipart/form-data">
-                                                    <div class="default-form-box mb-20">
-                                                        <?php
-                                                        $sql = "select * from user where u_username='".$_SESSION['username']."'";
-
-                                                        $result = mysqli_query($conn,$sql);
-                                                        $row = mysqli_fetch_array($result);
-                                                        $timage = $row['u_image'];
-
-                                                        ?>
-
-                                                        <label>Profile Picture </label>
-                                                        <img src="../image/user/<?php echo $timage ?>" width="70px" height="70px" style="border-radius:50%;">
-                                                        <label> <br></label>                        
-                                                        <input type="file" name="imgprofile" value="../image/user/<?php echo $timage ?>">
-                                                    </div>
-                                                    <div class="save_button primary_btn default_button">
-                                                        <button type="submit" name="submit" value="submit">Save</button>
-                                                    </div>
-                                                </form> -->   
-                                                <form method="POST" action="user-action.php" enctype="multipart/form-data">       
-                                                    <div class="default-form-box mb-20">
-                                                        <?php
-
-
-                                                        $sql = "select * from user where u_username='".$_SESSION['username']."'";
-
-                                                        $result = mysqli_query($conn,$sql);
-
-                                                        $row = mysqli_fetch_array($result);
-                                                        $temail = $row['u_email'];
-                                                        $tnama = $row['u_name'];
-                                                        $tphone = $row['u_phone'];
-                                                        $talamat = $row['u_alamat'];
-                                                        $tusername = $row['u_username'];
-                                                        $tpass = $row['u_password'];
-                                                        $timage = $row['u_image'];
-
-
-                                                        ?>
-                                                        <label>Profile Picture </label>
-                                                        <img src="../image/user/<?php echo $timage ?>" width="70px" height="70px" style="border-radius:50%;">
-
-                                                        <label> <br></label>                        
-                                                        <input type="file" name="imgprofile" value="../image/user/<?php echo $timage ?>">
-                                                        <label> <br> Username</label>
-                                                        <div class="header-top--left">
-                                                            <input type="text" name="username" value="<?php echo $_SESSION['username'] ?>" disabled>
-                                                            <!--<span>
-                                                            <?php
-                                                                echo $_SESSION['username'];
-                                                            ?>
-                                                            </span> --> <br>
-                                                        </div>
-                                                        <!--<input type="text" name="first-name">-->
-                                                    </div>                                                    
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Nama</label> 
-                                                        <input type="text" name="nama" value="<?php echo $tnama ?>" required>
-
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Email</label>
-                                                        <input type="text" name="email" value="<?php echo $temail ?>" required>
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Phone </label> 
-                                                        <input type="text" name="phone" value="<?php echo $tphone ?>" required>
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Alamat</label>
-                                                        <input type="text" name="alamat" value="<?php echo $talamat ?>" required>        
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Password</label>
-                                                        <input type="password" name="pass" value="<?php echo $tpass ?>" required>        
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Confirm Password</label>
-                                                        <input type="password" name="rpass" value="Confirm Password" required>        
-                                                    </div>
-                                                    <!-- <div class="input-radio">
-                                                        <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Laki-Laki </span>
-                                                        <span class="custom-radio"><input type="radio" value="1" name="id_gender">Perempuan </span>
-                                                    </div> <br> -->
-                                                    <div class="save_button primary_btn default_button">
-                                                        <button type="submit" name="submit" value="submit">Save</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                            
+                        <div class="tab-pane fade show active" id="orders">
+                            <h4>Transaksi Pending</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Total</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        $nomor = 1;
+                                        $tung = "Menunggu Pembayaran";
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' and status_trans ='Menunggu Pembayaran'"); 
+                                        while($perproduk = $ambil->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk['tgl_transaksi']; ?></td>
+                                            <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
+                                            <td>
+                                                <a href="notariwayat.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="diterima">Nota</a>
+                                                <a href="bayar.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="diterima">Bayar</a>
+                                            </td>
+                                        </tr>
+                                        <?php 
+                                        $nomor++;
+                                        } 
+                                        ?>   
+                                    </tbody>
+                                </table>
+                            </div>
+                    <!-- Tab panes Riwayat Dikirim -->
+                            <br>
+                            <br>
+                            <h4>Transaksi Diproses</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Total</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        $nomor = 1;
+                                        $tung = "Menunggu Pembayaran";
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' and status_trans='Pesanan Dikirim'"); 
+                                        while($perproduk = $ambil->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk['tgl_transaksi']; ?></td>
+                                            <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
+                                            <td><a href="diterima.php" class="btn btn-danger" name="diterima">Pesanan Diterima</a></td>
+                                        </tr>
+                                        <?php 
+                                        $nomor++;
+                                        } 
+                                        ?>   
+                                    </tbody>
+                                </table>
+                            </div>
+                    <!-- Tab panes Riwayat Selesai -->
+                            <br>
+                            <br>
+                            <h4>Transaksi Selesai</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Total</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <form method="POST">
+                                    <tbody>
+                                        <?php 
+                                        $nomor = 1;
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' and status_trans ='Selesai'"); 
+                                        while($perproduk = $ambil->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk['tgl_transaksi']; ?></td>
+                                            <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
+                                            <td><button name="diterima"><a href="diterima.php" class="btn btn-danger" name="diterima">Beri Review</a></button></td>
+                                        </tr>
+                                        <?php 
+                                        $nomor++;
+                                        } 
+                                        ?>   
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div> 
-                </div>     
+                    </div>
+
+                </div>  
             </div>              
         </div>   
     </div> <!-- ...:::: End Account Dashboard Section:::... -->

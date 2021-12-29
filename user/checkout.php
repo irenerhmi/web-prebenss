@@ -606,7 +606,7 @@ require "../koneksidb.php";
                             $_SESSION['idtransbaru'] = $id_baru;
 
                             //menyimpan data ke table pembayaran
-                            $resulttr = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, status_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','Menunggu Pembayaran','" . $metode . "','" . $id_baru . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_baru . "')");
 
                             foreach ($_SESSION['cart'] as $id => $qty){
                                 //menambahkan data produk biar harganya fix

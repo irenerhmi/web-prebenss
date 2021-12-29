@@ -199,12 +199,8 @@ require "../koneksidb.php";
                                         </div>
                                         <div class="product-default-content">
                                             <h6 class="product-default-link"><a href="product-details-default.html"><?php echo $perproduk['nama_produk'] ?></a></h6>
-                                            <span class="product-default-price"><del class="product-default-price-off">Rp <?php echo $perproduk['harga']
-                                            ?></del> Rp
-                                                <?php 
-                                                $har = $perproduk['harga'];
-                                                $diskon = (int)$har-(5/100*(int)$har);
-                                                echo $diskon;?>
+                                            <span class="product-default-price">Rp <?php echo $perproduk['harga']
+                                            ?>
                                             </span>
                                         </div> 
                                     </div> <!-- End Product Defautlt Single -->

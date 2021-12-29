@@ -11,6 +11,8 @@ require "../koneksidb.php";
 ?>
 <?php 
 
+$idtrans = $_GET['id'];
+echo $idtrans;
 print_r($_SESSION);
 
 ?>
@@ -454,17 +456,15 @@ print_r($_SESSION);
                                     <tbody>
                                         <?php 
                                         
-                                        $total = 0;
-                                        foreach ($_SESSION['cart'] as $id => $qty):
-                                                        
-                                        $ambil = $conn->query("SELECT * from dilakukan WHERE id_produk='$id'");
+                                        $total = 0;                                                        
+                                        $ambil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
                                         $pecah = $ambil->fetch_assoc();
                                         $subtotal = $pecah['jumlah_p']*$pecah['harga_p'];
                                         $idtrans = $pecah['id_transaksi'];
                                   
                                         ?> 
                                         <tr>
-                                            <td> <?= $pecah["nama_p"]; ?> <strong> x<?= $qty; ?> </strong></td>
+                                            <td> <?= $pecah["nama_p"]; ?> <strong> x<?= $pecah["jumlah_p"];; ?> </strong></td>
                                             <td>Rp. <?php echo number_format($subtotal); ?> </td>
                                         </tr>
                                     </tbody>
@@ -477,7 +477,6 @@ print_r($_SESSION);
                                         $jumong = $rowtr['tarif'];
                                         $idtrans_baru = $conn->insert_id; 
                                         ?>
-                                        <?php endforeach?>
                                 </table>
                                 <br>
                             </div>
