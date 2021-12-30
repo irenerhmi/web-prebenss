@@ -5,6 +5,7 @@ session_start();
 if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
+$keyword = $_GET['keyword'];
 ?>
 <head>
     <meta charset="UTF-8" />
@@ -56,13 +57,13 @@ if(!isset($_SESSION['username'])){
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Produk Dijual</h3>
+                        <h3 class="breadcrumb-title">Hasil Pencarian Produk "<?php echo $keyword;?>"</h3>
+                        
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop-grid-sidebar-left.html">Produk</a></li>
-                                    <li class="active" aria-current="page">Produk Dijual</li>
+                                    <li class="active" aria-current="page">Produk</li>
                                 </ul>
                             </nav>
                         </div>
@@ -98,20 +99,38 @@ if(!isset($_SESSION['username'])){
                             <h6 class="sidebar-title">CATEGORIES</h6>
                             <div class="sidebar-content">
                                 <div class="filter-type-select">
-                                    <?php
-                                    $ambil = $conn->query("SELECT * from kategori");
-                                    while($pecah = $ambil->fetch_assoc()){
-                                    ?>
                                     <ul>
                                         <li>
                                             <label class="checkbox-default" for="catagory_1">
-                                                <a href="shop-kat-sewa.php?id=<?php echo $pecah['id_kategori']; ?>"><?php echo $pecah['k_name']; ?></a>
+                                                <input type="checkbox" id="catagory_1">
+                                                <span>Elektronik & Gadget</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox-default" for="catagory_2">
+                                                <input type="checkbox" id="catagory_2">
+                                                <span>Olahraga </span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox-default" for="catagory_3">
+                                                <input type="checkbox" id="catagory_3">
+                                                <span>Mobil </span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox-default" for="catagory_4">
+                                                <input type="checkbox" id="catagory_4">
+                                                <span>Motor </span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox-default" for="catagory_5">
+                                                <input type="checkbox" id="catagory_5">
+                                                <span>Keperluan Rumah Tangga</span>
                                             </label>
                                         </li>
                                     </ul>
-                                    <?php 
-                                    }
-                                    ?>
                                 </div>
                             </div>
                         </div> <!-- End Single Sidebar Widget -->
@@ -130,17 +149,10 @@ if(!isset($_SESSION['username'])){
                                         <ul class="tablist nav sort-tab-btn">
                                             <li><a class="nav-link active" data-bs-toggle="tab" href="#layout-3-grid"><img src="assets/images/icon/bkg_grid.png" alt=""></a></li>
                                         </ul>
-                                    </div> <!-- End Sort tab Button -->
+                                    </div> 
                                     <!-- Start Page Amount -->
                                     <div class="page-amount">
-                                        <span>Showing 
-                                        <?php
-                                        $sql = "select count(id_produk) as jumlahprod from produk where id_jenis=2";
-                                        $result = mysqli_query($conn,$sql);
-                                        $row = mysqli_fetch_array($result);
-                                        echo $row['jumlahprod'] ;
-                                        ?>
-                                         results</span>
+                                        <span>Showing 1–9 of 21 results</span>
                                     </div> <!-- End Page Amount -->
 
                                 </div> <!-- Start Sort Wrapper Box -->
@@ -157,7 +169,7 @@ if(!isset($_SESSION['username'])){
                                         <!-- Start Grid View Product -->
                                         <div class="tab-pane active show sort-layout-single" id="layout-3-grid">
                                             <div class="row">
-                                            <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 limit 12"); ?>
+                                            <?php $ambil = $conn->query("SELECT * from produk where nama_produk LIKE '%$keyword%' and id_jenis=1 limit 12"); ?>
                                             <?php while($perproduk = $ambil->fetch_assoc()){?>
                                                 <div class="col-xl-4 col-sm-6 col-12">
                                                     <!-- Start Product Defautlt Single -->
@@ -180,7 +192,10 @@ if(!isset($_SESSION['username'])){
                                                         </div>
                                                     </div> <!-- End Product Defautlt Single -->
                                                 </div>                                               
-                                            <?php } ?>
+                                            <?php } 
+                                            if (empty($perproduk)){
+
+                                            }?>
                                             </div>
                                         </div> <!-- End Grid View Product -->
                                         <!-- Start List View Product -->

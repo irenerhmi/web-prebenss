@@ -98,38 +98,20 @@ if(!isset($_SESSION['username'])){
                             <h6 class="sidebar-title">CATEGORIES</h6>
                             <div class="sidebar-content">
                                 <div class="filter-type-select">
+                                    <?php
+                                    $ambil = $conn->query("SELECT * from kategori");
+                                    while($pecah = $ambil->fetch_assoc()){
+                                    ?>
                                     <ul>
                                         <li>
                                             <label class="checkbox-default" for="catagory_1">
-                                                <input type="checkbox" id="catagory_1">
-                                                <span>Elektronik & Gadget</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_2">
-                                                <input type="checkbox" id="catagory_2">
-                                                <span>Olahraga </span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_3">
-                                                <input type="checkbox" id="catagory_3">
-                                                <span>Mobil </span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_4">
-                                                <input type="checkbox" id="catagory_4">
-                                                <span>Motor </span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_5">
-                                                <input type="checkbox" id="catagory_5">
-                                                <span>Keperluan Rumah Tangga</span>
+                                                <a href="shop-kat-jual.php?id=<?php echo $pecah['id_kategori']; ?>"><?php echo $pecah['k_name']; ?></a>
                                             </label>
                                         </li>
                                     </ul>
+                                    <?php 
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div> <!-- End Single Sidebar Widget -->
@@ -149,26 +131,16 @@ if(!isset($_SESSION['username'])){
                                             <li><a class="nav-link active" data-bs-toggle="tab" href="#layout-3-grid"><img src="assets/images/icon/bkg_grid.png" alt=""></a></li>
                                         </ul>
                                     </div> <!-- End Sort tab Button -->
-
-                                    <!-- Start Sort Select Option 
-                                    <div class="sort-select-list">
-                                        <form action="#">
-                                            <fieldset>
-                                                <select name="speed" id="speed">
-                                                    <option>Sort by average rating</option>
-                                                    <option>Sort by popularity</option>
-                                                    <option selected="selected">Sort by newness</option>
-                                                    <option>Sort by price: low to high</option>
-                                                    <option>Sort by price: high to low</option>
-                                                    <option>Product Name: Z</option>
-                                                </select>
-                                            </fieldset>
-                                        </form>
-                                    </div> End Sort Select Option -->
-
                                     <!-- Start Page Amount -->
                                     <div class="page-amount">
-                                        <span>Showing 1–9 of 21 results</span>
+                                        <span>Showing 
+                                        <?php
+                                        $sql = "select count(id_produk) as jumlahprod from produk where id_jenis=1";
+                                        $result = mysqli_query($conn,$sql);
+                                        $row = mysqli_fetch_array($result);
+                                        echo $row['jumlahprod'] ;
+                                        ?>
+                                        results</span>
                                     </div> <!-- End Page Amount -->
 
                                 </div> <!-- Start Sort Wrapper Box -->
@@ -203,12 +175,8 @@ if(!isset($_SESSION['username'])){
                                                         </div>
                                                         <div class="product-default-content">
                                                             <h6 class="product-default-link"><a href="product-details-default.php"><?php echo $perproduk['nama_produk'] ?></a></h6>
-                                                            <span class="product-default-price"><del class="product-default-price-off">Rp <?php echo $perproduk['harga']
-                                                            ?></del> Rp
-                                                                <?php 
-                                                                $har = $perproduk['harga'];
-                                                                $diskon = (int)$har-(5/100*(int)$har);
-                                                                echo $diskon;?></span>
+                                                            <span class="product-default-price">Rp <?php echo $perproduk['harga']
+                                                            ?></span>
                                                         </div>
                                                     </div> <!-- End Product Defautlt Single -->
                                                 </div>                                               

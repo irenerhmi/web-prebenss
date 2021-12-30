@@ -420,13 +420,13 @@ print_r($_SESSION);
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Pembayaran</h3>
+                        <h3 class="breadcrumb-title">Nota</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="cart.php">Cart</a></li>
-                                    <li><a href="checkout.php">Checkout</a></li>
-                                    <li class="active" aria-current="page">Pembayaran</li>
+                                    <li><a href="dashuser.php">Home</a></li>
+                                    <li><a href="riwayat.php">Riwayat</a></li>
+                                    <li class="active" aria-current="page">Nota</li>
                                 </ul>
                             </nav>
                         </div>
@@ -474,8 +474,7 @@ print_r($_SESSION);
                                         $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");
                                         $rowtr = mysqli_fetch_array($resultr);
                                         $daerah = $rowtr['daerah'];
-                                        $jumong = $rowtr['tarif'];
-                                        $idtrans_baru = $conn->insert_id; 
+                                        $jumong = $rowtr['tarif'];                                        
                                         ?>
                                 </table>
                                 <br>
@@ -522,7 +521,7 @@ print_r($_SESSION);
                             <div class="card-text m-3 outline">
                                 <?php 
                                 //query select pembayaran buat ambil metode
-                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='".$_SESSION['idtransbaru']."'");
+                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='".$idtrans."'");
                                 $rowm = mysqli_fetch_array($resultr);
                                 $idmet = $rowm['id_metode'];
                     

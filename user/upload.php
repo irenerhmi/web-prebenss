@@ -8,10 +8,8 @@ session_start();
 
     $nama = $_POST['nama_produk'];
     $deskripsi = $_POST['deskripsi'];
-    $spesifikasi = $_POST['spesifikasi'];
     $berat = $_POST['berat']; 
     $image = $_FILES['image'];
-    $status = $_POST['status'];
     $kat = $_POST['kat'];
     $harga = $_POST['harga'];
 
@@ -59,17 +57,13 @@ session_start();
       // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($image["tmp_name"], $target_file)) {
-          $sql = "INSERT INTO produk (nama_produk, deskripsi, spesifikasi, berat, image, status, id_kategori, u_username, id_jenis) VALUES ('" . $nama . "','" . $deskripsi . "','" . $spesifikasi . "',  '" . (int)$berat . "'  ,'" . $namafile . "','" . $status . "', '" . (int)$kat . "' ,'" . $_SESSION['username'] . "', 1 )";
+          $sql = mysqli_query($conn, "INSERT INTO produk (nama_produk, deskripsi, berat, harga, image, id_kategori, id_jenis) VALUES ('" . $nama . "','" . $deskripsi . "', '" . (int)$berat . "' , '" . (int)$harga . "','" . $namafile . "', '" . (int)$kat . "' , 1 )");
             //$sql .= "INSERT INTO detail_penjualan(harga_jual) VALUES ('" . $harga . "')";
             //$result = mysql_query($conn, $sql);
-
-          if ($conn->query($sql) === TRUE) {
-            $sql = "select id_produk from produk where u_username = '" . $_SESSION['username'] . "' and image = '" . $namafile . "'";
-            $result = mysqli_query($conn, $sql);
-            $row = mysqli_fetch_array($result);
-            $idprod = $row['id_produk'];
-
-            $sql = "INSERT INTO detail_penjualan (harga_jual, u_username, id_produk) VALUES ('" . (int)$harga . "','" . $_SESSION['username'] . "','" . (int)$idprod . "')";
+          $id_probaru = $conn->insert_id; 
+          echo $id_probaru;
+          if ($sql === TRUE) {
+            $sql = "INSERT INTO menginput (id_produk, id_pelanggan, id_supplier) VALUES ('" . $id_probaru . "','" . $_SESSION['id_pelanggan'] . "','" . $_SESSION['id_supplier'] . "')";
 
             if ($conn->query($sql) === TRUE) {
               echo "<script>
@@ -81,6 +75,8 @@ session_start();
                     window.alert('produk gagal diinput'); 
                     </script>";
             }
+          } else {
+            echo $sql;
           }
         } else {
           echo "Sorry, there was an error uploading your file.";

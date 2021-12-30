@@ -5,6 +5,11 @@ session_start();
 if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
+
+include "../koneksidb.php";
+
+$idkat = $_GET['id'];
+
 ?>
 <head>
     <meta charset="UTF-8" />
@@ -56,7 +61,13 @@ if(!isset($_SESSION['username'])){
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Produk Dijual</h3>
+                        <h3 class="breadcrumb-title">Produk Jual Kategori <?php 
+                        $sql = "select * from kategori where id_kategori='".$idkat."'";
+                        $result = mysqli_query($conn,$sql);
+                        $row = mysqli_fetch_array($result);
+                        $namakat = $row['k_name'];
+
+                        echo $namakat;?></h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
@@ -105,7 +116,7 @@ if(!isset($_SESSION['username'])){
                                     <ul>
                                         <li>
                                             <label class="checkbox-default" for="catagory_1">
-                                                <a href="shop-kat-sewa.php?id=<?php echo $pecah['id_kategori']; ?>"><?php echo $pecah['k_name']; ?></a>
+                                                <a href="shop-kat-jual.php?id=<?php echo $pecah['id_kategori']; ?>"><?php echo $pecah['k_name']; ?></a>
                                             </label>
                                         </li>
                                     </ul>
@@ -135,12 +146,11 @@ if(!isset($_SESSION['username'])){
                                     <div class="page-amount">
                                         <span>Showing 
                                         <?php
-                                        $sql = "select count(id_produk) as jumlahprod from produk where id_jenis=2";
+                                        $sql = "select count(id_produk) as jumlahprod from produk where id_jenis=1 and id_kategori='".$idkat."'";
                                         $result = mysqli_query($conn,$sql);
                                         $row = mysqli_fetch_array($result);
                                         echo $row['jumlahprod'] ;
-                                        ?>
-                                         results</span>
+                                        ?> results</span>
                                     </div> <!-- End Page Amount -->
 
                                 </div> <!-- Start Sort Wrapper Box -->
@@ -157,7 +167,7 @@ if(!isset($_SESSION['username'])){
                                         <!-- Start Grid View Product -->
                                         <div class="tab-pane active show sort-layout-single" id="layout-3-grid">
                                             <div class="row">
-                                            <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 limit 12"); ?>
+                                            <?php $ambil = $conn->query("SELECT * from produk where id_jenis=1 and id_kategori='$idkat' limit 12");?>
                                             <?php while($perproduk = $ambil->fetch_assoc()){?>
                                                 <div class="col-xl-4 col-sm-6 col-12">
                                                     <!-- Start Product Defautlt Single -->

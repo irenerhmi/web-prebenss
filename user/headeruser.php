@@ -51,9 +51,10 @@ include "../koneksidb.php";
                     <div class="col-6">
                         <!-- Start Header Search -->
                         <div class="header-search">
-                            <form action="#" method="post">
+                            <form action="pencarian.php" method="GET">
                                 <div class="header-search-box default-search-style d-flex">
-                                    <input class="default-search-style-input-box border-around border-right-none" type="search" placeholder="Search the product..." required>
+                                    <input class="form-control" 
+                                     placeholder="Search the product..." type="text" name="keyword" required>
                                     <button class="default-search-style-input-btn" type="submit"><i class="icon-search"></i></button>
                                 </div>
                             </form>

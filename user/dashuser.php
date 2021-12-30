@@ -112,7 +112,7 @@ require "../koneksidb.php";
                     <?php while($kategori = $ambil->fetch_assoc()){?>
                     <div class="col-4">
                         <!-- Start Product Catagory Single -->
-                        <a href="product-details-default.html" class="product-catagory-single" data-aos="fade-up"  data-aos-delay="0">
+                        <a href="shop-kat-jual.php?id=<?php echo $kategori['id_kategori']; ?>" class="product-catagory-single" data-aos="fade-up"  data-aos-delay="0">
                             <div class="product-catagory-img">
                                 <img src="../image/kategori/<?php echo $kategori['k_name'] ?>.jpg" width="70px" height="100px" alt="">
                             </div>
@@ -133,30 +133,6 @@ require "../koneksidb.php";
         </div> <!-- End Catagory Wrapper -->
     </div> <!-- ...:::: End Product Catagory Section:::... -->
 
-    <!-- ...:::: Start Banner Section:::... -->
-    <div class="banner-section section-top-gap-100">
-        <!-- Start Banner Wrapper -->
-        <div class="banner-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Banner Single 
-                        <div class="banner-single" data-aos="fade-up"  data-aos-delay="0">
-                            <a href="product-details-default.html" class="banner-img-link">
-                                <img class="banner-img" src="assets/images/banner_images/aments_banner_01.jpg" alt="">
-                            </a>
-                            <div class="banner-content">
-                                <span class="banner-text-tiny">Car Wheel</span>
-                                <h3 class="banner-text-large">30% Off</h3>
-                                <a href="product-details-default.html" class="banner-link">Shop Now</a>
-                            </div>
-                        </div> <!- End Banner Single -->
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Banner Wrapper -->
-    </div> <!-- ...:::: End Banner Section:::... -->
-
     <!-- ...:::: Start Product Tab Section:::... -->
     <div class="product-tab-section section-top-gap-100">
         <!-- Start Section Content -->
@@ -165,10 +141,6 @@ require "../koneksidb.php";
                 <div class="row">
                     <div class="section-content d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column">
                         <h3 class="section-title" data-aos="fade-up" data-aos-delay="0">New Arrivals</h3>
-                        <!-- <ul class="tablist nav product-tab-btn" data-aos="fade-up"  data-aos-delay="400">
-                            <li><a class="nav-link active" data-bs-toggle="tab" href="#car_and_drive">Dijual </a></li>
-                            <li><a class="nav-link" data-bs-toggle="tab" href="#motorcycle">Disewa</a></li>                        
-                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -220,30 +192,6 @@ require "../koneksidb.php";
             </div>
         </div> <!-- End Catagory Wrapper -->
     </div> <!-- ...:::: End Product Tab Section:::... -->
-
-    <!-- ...:::: Start Product Catagory Section:::... -->
-    <div class="banner-section section-top-gap-100">
-        <!-- Start Banner Wrapper -->
-        <!-- <div class="banner-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <!- Start Banner Single ->
-                        <div class="banner-single" data-aos="fade-up"  data-aos-delay="0">
-                            <a href="product-details-default.html" class="banner-img-link">
-                                <img class="banner-img banner-img-big" src="assets/images/banner_images/aments_big-banner.jpg" alt="">
-                            </a>
-                            <div class="banner-content">
-                                <span class="banner-text-small">2021 Latest Collection</span>
-                                <h2 class="banner-text-big"><span class="banner-text-big-highlight">-40%</span> Offer All Car Parts</h2>
-                            </div>
-                        </div> <!- End Banner Single ->
-                    </div>
-                </div>
-            </div>
-        </div> --> <!-- End Banner Wrapper -->
-    </div> <!-- ...:::: End Product Catagory Section:::... -->
-
     <!-- ...:::: Start Product Tab Section:::... -->
     <div class="product-tab-section section-top-gap-100">
         <!-- Start Section Content -->
@@ -275,7 +223,7 @@ require "../koneksidb.php";
                                     <div class="product-default-single border-around">
                                         <div class="product-img-warp">
                                             <a href="product-details-default.html" class="product-default-img-link">
-                                                <img src="../image/seller/<?php echo $produk['image'] ?>" width="320px" height="400px" class="product-default-img img-fluid">
+                                                <img src="../image/seller/<?php echo $produk['image'] ?>" width="320px" height="400px">
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>
@@ -336,7 +284,7 @@ require "../koneksidb.php";
                                     <div class="product-default-single border-around">
                                         <div class="product-img-warp">
                                             <a href="product-details-default.html" class="product-default-img-link">
-                                                <img src="../image/seller/<?php echo $produk['image'] ?>" width="320px" height="400px" class="product-default-img img-fluid">
+                                                <img src="../image/seller/<?php echo $produk['image'] ?>" width="320px" height="400px">
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>

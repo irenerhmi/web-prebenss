@@ -1,13 +1,14 @@
+<?php
+
+if(!isset($_SESSION['username'])){
+    header("location: login.php");
+}
+?>
 <div>
 <nav>
     <ul>
         <li class="has-dropdown">
-            <a class="active main-menu-link" href="dashuser.php">Home <!--<i class="fa fa-angle-down"> --> </i></a>
-            <!-- !-- Sub Menu --
-            <ul class="sub-menu">
-            <li><a href="index.html">Home 1</a></li>
-            <li><a href="index-2.html">Home 2</a></li>
-            </ul> -->
+            <a class="main-menu-link" href="dashuser.php">Home</i></a>
         </li>
         <li class="has-dropdown has-megaitem">
             <a href="product-details-default.html">Produk <i class="fa fa-angle-down"></i></a> 
@@ -16,13 +17,25 @@
                 <ul class="mega-menu-inner">
                     <!-- Mega Menu Sub Link -->
                     <li class="mega-menu-item">
-                        <a href="#" class="mega-menu-item-title">Kategori </a>
+                        <a href="#" class="mega-menu-item-title">Kategori Produk Dijual</a>
                         <ul class="mega-menu-sub">
-                            <li><a href="shop-grid-sidebar-left.html">Elektronik & Gadget</a></li>
-                            <li><a href="shop-grid-sidebar-right.html">Olahraga</a></li>
-                            <li><a href="shop-full-width.html">Mobil</a></li>
-                            <li><a href="shop-list-sidebar-left.html">Motor</a></li>
-                            <li><a href="shop-list-sidebar-right.html">Keperluan Rumah Tangga</a></li>
+                            <?php
+                            $ambil = $conn->query("SELECT * from kategori");
+                            while($pecah = $ambil->fetch_assoc()){
+                            ?>
+                            <li><a href="shop-kat-jual.php?id=<?php echo $pecah['id_kategori'];?>"><?php echo $pecah['k_name']; ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                    <li class="mega-menu-item">
+                        <a href="#" class="mega-menu-item-title">Kategori Produk Disewa</a>
+                        <ul class="mega-menu-sub">
+                            <?php
+                            $ambil = $conn->query("SELECT * from kategori");
+                            while($pecah = $ambil->fetch_assoc()){
+                            ?>
+                            <li><a href="shop-kat-sewa.php?id=<?php echo $pecah['id_kategori'];?>"><?php echo $pecah['k_name']; ?></a></li>
+                            <?php } ?>
                         </ul>
                     </li>
                     <!-- Mega Menu Sub Link -->
@@ -33,25 +46,7 @@
                             <li><a href="shop-grid-sewa.php">Produk Disewa</a></li>
                         </ul>
                     </li>
-                    <!-- Mega Menu Sub Link --> 
-                    <!-- Mega Menu Sub Link ->
-                    <li class="mega-menu-item">
-                        <a href="#" class="mega-menu-item-title">Product Types</a>
-                        <ul class="mega-menu-sub">
-                            <li><a href="product-details-tab-left.html">Product Tab Left</a></li>
-                            <li><a href="product-details-tab-right.html">Product Tab Right</a></li>
-                            <li><a href="product-details-gallery-left.html">Product Gallery Left</a></li>
-                            <li><a href="product-details-gallery-right.html">Product Gallery Right</a></li>
-                            <li><a href="product-details-sticky-left.html">Product Sticky Left</a></li>
-                            <li><a href="product-details-sticky-right.html">Product Sticky right</a></li>
-                         </ul>
-                    <li> -->
                 </ul>
-                <!--<div class="menu-banner">
-                    <a href="" class="menu-banner-link">
-                        <img class="menu-banner-img" src="assets/images/banner/menu-banner.jpg" alt="">
-                    </a>
-                </div>-->
             </div>
         </li>
         <li>
@@ -66,16 +61,6 @@
                 <li><a href="../logout.php">Log Out</a></li>
             </ul>
         </li>
-        <!-- <li class="has-dropdown">
-            <a href="#">Pages <i class="fa fa-angle-down"></i></a>
-            !-- Sub Menu --
-            <ul class="sub-menu">
-                <li><a href="service.html">Service</a></li>
-                <li><a href="faq.html">Frequently Questions</a></li>
-                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="404.html">404 Page</a></li>
-            </ul>
-        </li> -->
         <li>
             <a href="ajukan-jual.php">Buka Toko</a>
         </li>

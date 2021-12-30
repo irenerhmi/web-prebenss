@@ -83,20 +83,12 @@ if(!isset($_SESSION['username'])){
                                 <input name="deskripsi" type="text" placeholder="Masukkan Deskripsi">
                             </div>
                             <div class="default-form-box mb-20">
-                                <label>Spesifikasi <span>*</span></label>
-                                <input name="spesifikasi" type="text" placeholder="Masukkan Spesifikasi">
-                            </div>
-                            <div class="default-form-box mb-20">
                                 <label>Berat <span>*</span></label>
                                 <input name="berat" type="number" placeholder="Masukkan Berat">
                             </div>
                             <div class="default-form-box mb-20">
                                 <label for="inputGambar">Select image to upload: <span>*</span></label>
                                 <input type="file" name="image" id="image">
-                            </div>
-                            <div class="default-form-box mb-20">
-                                <label>Status <span>*</span></label>
-                                <input name="status" type="text" placeholder="Status Produk">
                             </div>
                             <div class="default-form-box mb-20">
                                 <label>Harga <span>*</span></label>

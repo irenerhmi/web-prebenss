@@ -75,8 +75,26 @@ if(!isset($_SESSION['username'])){
                         <h3>Donasi</h3>
                         <form action="cekdonasi2.php" method="POST" enctype="multipart/form-data" autocomplete="off">
                             <div class="default-form-box mb-20">
+                                <label>Foto Barang <span>*</span></label>
+                                <input name="imgbarang" type="file" value="">
+                            </div>
+                            <div class="default-form-box mb-20">
                                 <label>Nama Barang <span>*</span></label>
                                 <input name="barang" type="text" placeholder="Masukkan Nama Barang">
+                            </div>
+                            <div class="default-form-box mb-20" class="has-dropdown">
+                                <label for="select">Kategori <span>*</span></label>
+                                <br>
+                                <input type="text" name="kat" list="listkat" placeholder="Pilih Kategori Produk">
+                                <datalist id="listkat">
+                                    <select>
+                                        <option value=1>Elektronik & Gadget</option>
+                                        <option value=2>Olahraga</option>
+                                        <option value=3>Mobil</option>
+                                        <option value=4>Motor</option>
+                                        <option value=5>Keperluan Rumah Tangga</option>
+                                    </select>
+                               </datalist>
                             </div>
                             <div class="default-form-box mb-20">
                                 <label>Berat (g)  <span>*</span></label>
@@ -96,10 +114,6 @@ if(!isset($_SESSION['username'])){
                                             <option value="Jl. Bintang 8, Jawa Tengah">
                                         </select>
                                     </datalist>
-                            </div>
-                            <div class="default-form-box mb-20">
-                                <label>Foto Barang <span>*</span></label>
-                                <input name="imgbarang" type="file" value="">
                             </div>
                             <div class="login_submit">
                                 <button name="submit" type="submit" value="submit">Submit Donasi</button>

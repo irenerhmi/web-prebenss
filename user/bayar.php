@@ -5,11 +5,20 @@ session_start();
 if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
+
+require "../koneksidb.php";
+?>
+<?php
+$idtrans = $_GET['id'];
+$_SESSION['cekbayar'] = $idtrans;
+
+print_r($_SESSION);
+echo $idtrans;
 ?>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prebens - Donasi</title>
+    <title>Prebens - Konfirmsi Pembayaran</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
     <!--<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">-->
@@ -52,13 +61,13 @@ if(!isset($_SESSION['username'])){
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Bayar Pesanan</h3>
+                        <h3 class="breadcrumb-title">Konfirmasi Pembayaran</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="dashuser.php">Home</a></li>                            
-                                    <li class="active" aria-current="page">Riwayat Pesanan</li>
-                                    <li class="active" aria-current="page">Bayar Pesanan</li>
+                                    <li ><a href="riwayat.php">Riwayat Transaksi</a></li>
+                                    <li class="active" aria-current="page">Konfirmasi Pembayaran</li>
                                 </ul>
                             </nav>
                         </div>
@@ -73,39 +82,25 @@ if(!isset($_SESSION['username'])){
                 <!--register area start-->
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
-                        <h3>Donasi</h3>
-                        <form action="cekdonasi2.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        <h3>Konfirmasi Pembayaran</h3>
+                        <form action="cekbayar.php" method="POST" enctype="multipart/form-data" autocomplete="off">
                             <div class="default-form-box mb-20">
-                                <label>Nama Barang <span>*</span></label>
-                                <input name="barang" type="text" placeholder="Masukkan Nama Barang">
+                                <label>Nama Rekening <span>*</span></label>
+                                <input name="barang" type="text" placeholder="Masukkan Nama Rekening">
                             </div>
                             <div class="default-form-box mb-20">
-                                <label>Berat (g)  <span>*</span></label>
-                                <input name="berat" type="number" placeholder="Masukkan Berat">
+                                <label>Nomor Rekening<span>*</span></label>
+                                <input name="berat" type="number" placeholder="Masukkan Nomor Rekening">
                             </div>
                             <div class="default-form-box mb-20">
-                                <label>Tanggal Kirim <span>*</span></label>
-                                <input name="tglkirim" type="date" placeholder="Masukkan Tanggal Kirim">
-                            </div>
-                            <div class="default-form-box mb-20">
-                                <label>Alamat Pengiriman <span>*</span></label>
-                                <input name="alamat" type="text" placeholder="Masukkan Alamat Kirim" list="listalamat">
-                                    <datalist id="listalamat">
-                                        <select>
-                                            <option value="Jl. Nangka no.7 Jakarta Barat">
-                                            <option value="Ruko Jeruk, Arcamanik, Bandung">
-                                            <option value="Jl. Bintang 8, Jawa Tengah">
-                                        </select>
-                                    </datalist>
-                            </div>
-                            <div class="default-form-box mb-20">
-                                <label>Foto Barang <span>*</span></label>
-                                <input name="imgbarang" type="file" value="">
+                                <label>Bukti Transfer <span>*</span></label>
+                                <input name="imgbukti" type="file" value="">
                             </div>
                             <div class="login_submit">
-                                <button name="submit" type="submit" value="submit">Submit Donasi</button>
+                                <button name="submit" type="submit" value="submit">Kirim</a></button>
                             </div>
                         </form>
+                        
                     </div>
                 </div>
                 <!--register area end-->

@@ -2,22 +2,27 @@
 <html lang="en">
 <?php
 session_start();
+
 if(!isset($_SESSION['username'])){
-    header("location: ../login.php");
+    header("location: login.php");
 }
 
 require "../koneksidb.php";
-$id = $_GET['id'];
-echo $id;
+?>
+<?php 
+
+$idtrans = $_GET['id'];
+echo $idtrans;
+print_r($_SESSION);
+
 ?>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aments - Car Accessories Shop HTML Template</title>
+    <title>Prebens - Review </title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
@@ -47,11 +52,8 @@ echo $id;
 <body>
 
     <!-- ...:::: Start Header Section:::... -->
-    <header class="header-section d-lg-block d-none">
-        <!-- Start Header Top Area -->
-        <?php require "headeruser.php"; ?>
-        <!-- End Bottom Area -->
-    </header> <!-- ...:::: End Header Section:::... -->
+    <?php require "headeruser.php"; ?>
+    <!-- ...:::: End Header Section:::... -->
 
     <!-- ...:::: Start Mobile Header Section:::... -->
     <div class="mobile-header-section d-block d-lg-none">
@@ -418,12 +420,13 @@ echo $id;
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Product Details</h3>
+                        <h3 class="breadcrumb-title">Review Pesanan</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li class="active" aria-current="page">Product Details</li>
+                                    <li><a href="dashuser.php">Home</a></li>
+                                    <li><a href="riwayat.php">Riwayat</a></li>
+                                    <li class="active" aria-current="page"> Review Pesanan</li>
                                 </ul>
                             </nav>
                         </div>
@@ -433,407 +436,66 @@ echo $id;
         </div>
     </div> <!-- ...:::: End Breadcrumb Section:::... -->
 
-    <!-- Start Product Details Section -->
-    <div class="product-details-section">
+    <!-- ...:::: Start Checkout Section:::... -->
+    <div class="checkout_section">
         <div class="container">
-            <div class="row">
-                <?php
-                $result = mysqli_query($conn,"SELECT * from produk WHERE id_produk='$id'");
-                $row = mysqli_fetch_array($result);
-                $tnamapro = $row['nama_produk'];
-                $tdeskripsi = $row['deskripsi'];
-                $thargapro = $row['harga'];
-                $timgpro = $row['image'];                                              
-                ?>
-                <div class="col-md-6">
-                    <div class="product-details-gallery-area" data-aos="fade-up"  data-aos-delay="0">
-                        <div class="product-large-image product-large-image-horaizontal">
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="../image/seller/<?php echo $timgpro ?>" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="product-details-content-area" data-aos="fade-up"  data-aos-delay="200">
-                        <!-- Start  Product Details Text Area-->
-                        <div class="product-details-text">
-                            <h4 class="title"><?php echo $tnamapro; ?></h4>
-                            <div class="d-flex align-items-center">
-                                <div class="product-review">
-                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                    <span class="review-empty"><i class="fa fa-star"></i></span>
-                                </div>
-                                <a href="#" class="customer-review">(customer review )</a>
-                            </div>
-                            <div class="price">Rp. <?php echo number_format($thargapro); ?></div>
-                            <p><?php echo $tdeskripsi; ?></p>
-                        </div> <!-- End  Product Details Text Area-->
-                        <!-- Start Product Variable Area -->
-                        <div class="product-details-variable">
-                            <h4 class="title">Available Options</h4>
-                            <!-- Product Variable Single Item -->
-                            <div class="d-flex align-items-center">
-                                <div class="product-add-to-cart-btn">
-                                    <a href="beli.php?id=<?php echo $id; ?>&qty=1">Masukkan Keranjang</a>
-                                </div>
-                            </div>
-                        </div> <!-- End Product Variable Area -->
-                        <!-- Start  Product Details Meta Area-->
-                        <!-- End  Product Details Meta Area-->
-                        <!-- Start  Product Details Social Area-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End Product Details Section -->
-
-    <!-- Start Product Content Tab Section -->
-    <div class="product-details-content-tab-section section-inner-bg section-top-gap-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="product-details-content-tab-wrapper" data-aos="fade-up"  data-aos-delay="0">
-
-                        <!-- Start Product Details Tab Button -->
-                        <ul class="nav tablist product-details-content-tab-btn d-flex justify-content-center">
-                            <li><a class="nav-link active" data-bs-toggle="tab" href="#description">
-                                    <h5>Description</h5>
-                                </a></li>
-                            <li><a class="nav-link" data-bs-toggle="tab" href="#review">
-                                    <h5>Reviews (1)</h5>
-                                </a></li>
-                        </ul> <!-- End Product Details Tab Button -->
-
-                        <!-- Start Product Details Tab Content -->
-                        <div class="product-details-content-tab">
-                            <div class="tab-content">
-                                <!-- Start Product Details Tab Content Singel -->
-                                <div class="tab-pane active show" id="description">
-                                    <div class="single-tab-content-item">
-                                        <p><?php echo $tdeskripsi; ?></p>
-                                    </div>
-                                </div> <!-- End Product Details Tab Content Singel -->
-                
-                                <!-- Start Product Details Tab Content Singel -->
-                                <div class="tab-pane" id="review">
-                                    <div class="single-tab-content-item">
-                                        <!-- Start - Review Comment -->
-                                        <ul class="comment">
-                                            <!-- Start - Review Comment list-->
-                                            <li class="comment-list">
-                                                <div class="comment-wrapper">
-                                                    <div class="comment-img">
-                                                        <img src="assets/images/user/image-1.png" alt="">
-                                                    </div>
-                                                    <div class="comment-content">
-                                                        <div class="comment-content-top">
-                                                            <div class="comment-content-left">
-                                                                <h6 class="comment-name">Kaedyn Fraser</h6>
-                                                                <div class="product-review">
-                                                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                                                    <span class="review-empty"><i class="fa fa-star"></i></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="comment-content-right">
-                                                                <a href="#"><i class="fa fa-reply"></i>Reply</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="para-content">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora inventore dolorem a unde modi iste odio amet, fugit fuga aliquam, voluptatem maiores animi dolor nulla magnam ea! Dignissimos aspernatur cumque nam quod sint provident modi alias culpa, inventore deserunt accusantium amet earum soluta consequatur quasi eum eius laboriosam, maiores praesentium explicabo enim dolores quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam officia, saepe repellat. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Start - Review Comment Reply-->
-                                                <ul class="comment-reply">
-                                                    <li class="comment-reply-list">
-                                                        <div class="comment-wrapper">
-                                                            <div class="comment-img">
-                                                                <img src="assets/images/user/image-2.png" alt="">
-                                                            </div>
-                                                            <div class="comment-content">
-                                                                <div class="comment-content-top">
-                                                                    <div class="comment-content-left">
-                                                                        <h6 class="comment-name">Oaklee Odom</h6>
-                                                                    </div>
-                                                                    <div class="comment-content-right">
-                                                                        <a href="#"><i class="fa fa-reply"></i>Reply</a>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="para-content">
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora inventore dolorem a unde modi iste odio amet, fugit fuga aliquam, voluptatem maiores animi dolor nulla magnam ea! Dignissimos aspernatur cumque nam quod sint provident modi alias culpa, inventore deserunt accusantium amet earum soluta consequatur quasi eum eius laboriosam, maiores praesentium explicabo enim dolores quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam officia, saepe repellat. </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul> <!-- End - Review Comment Reply-->
-                                            </li> <!-- End - Review Comment list-->
-                                            <!-- Start - Review Comment list-->
-                                            <li class="comment-list">
-                                                <div class="comment-wrapper">
-                                                    <div class="comment-img">
-                                                        <img src="assets/images/user/image-3.png" alt="">
-                                                    </div>
-                                                    <div class="comment-content">
-                                                        <div class="comment-content-top">
-                                                            <div class="comment-content-left">
-                                                                <h6 class="comment-name">Jaydin Jones</h6>
-                                                                <div class="product-review">
-                                                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                                                    <span class="review-empty"><i class="fa fa-star"></i></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="comment-content-right">
-                                                                <a href="#"><i class="fa fa-reply"></i>Reply</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="para-content">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora inventore dolorem a unde modi iste odio amet, fugit fuga aliquam, voluptatem maiores animi dolor nulla magnam ea! Dignissimos aspernatur cumque nam quod sint provident modi alias culpa, inventore deserunt accusantium amet earum soluta consequatur quasi eum eius laboriosam, maiores praesentium explicabo enim dolores quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam officia, saepe repellat. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li> <!-- End - Review Comment list-->
-                                        </ul> <!-- End - Review Comment -->
-                                        <div class="review-form">
-                                            <div class="review-form-text-top">
-                                                <h5>ADD A REVIEW</h5>
-                                                <p>Your email address will not be published. Required fields are marked *</p>
+            <!-- Start User Details Checkout Form -->
+            <div class="checkout_form" data-aos="fade-up"  data-aos-delay="400">
+                <div class="row">
+                    <div class="col-lg ">
+                        
+                            <h3>Pesanan</h3>
+                            <div class="order_table table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Produk</th>
+                                            <th>Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        
+                                        $total = 0;                                                        
+                                        $ambil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
+                                        $pecah = $ambil->fetch_assoc();
+                                        $subtotal = $pecah['jumlah_p']*$pecah['harga_p'];
+                                        $idtrans = $pecah['id_transaksi'];
+                                  
+                                        ?> 
+                                        <tr>
+                                            <td><a href="product-details.php?id=<?php echo $idtrans;?>"><?= $pecah["nama_p"]; ?><strong> x<?= $pecah["jumlah_p"];?> </strong></td>
+                                            <td>Rp. <?php echo number_format($subtotal); ?> </td>
+                                        </tr>
+                                        <td>
+                                            <div class="default-form-box">
+                                                <label>Masukkan Review <span>*</span></label>
+                                                <input type="text" value="">
                                             </div>
+                                            <div class="order_button pt-7">
+                                                <button name="riwayat">Submit Review</button>
+                                            </div>
+                                        </td>
 
-                                            <form action="#" method="post">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="default-form-box mb-20">
-                                                            <label for="comment-name">Your name <span>*</span></label>
-                                                            <input id="comment-name" type="text" placeholder="Enter your name" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="default-form-box mb-20">
-                                                            <label for="comment-email">Your Email <span>*</span></label>
-                                                            <input id="comment-email" type="email" placeholder="Enter your email" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="default-form-box mb-20">
-                                                            <label for="comment-review-text">Your review <span>*</span></label>
-                                                            <textarea id="comment-review-text" placeholder="Write a review" required></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <button class="form-submit-btn" type="submit">Submit</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
-                                </div> <!-- End Product Details Tab Content Singel -->
+                                    </tbody>
+                                        <?php $total+=$subtotal; ?>
+                                        <?php 
+                                        //query ambil ongkir
+                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");
+                                        $rowtr = mysqli_fetch_array($resultr);
+                                        $daerah = $rowtr['daerah'];
+                                        $jumong = $rowtr['tarif'];
+                                        $idtrans_baru = $conn->insert_id; 
+                                        ?>
+                                </table>
+                                <br>
                             </div>
-                        </div> <!-- End Product Details Tab Content -->
-
                     </div>
                 </div>
-            </div>
+            </div> <!-- Start User Details Checkout Form -->
         </div>
-    </div> <!-- End Product Content Tab Section -->
-
-    <!-- ...:::: Start Product  Section:::... -->
-    <div class="product-section section-top-gap-100">
-        <!-- Start Section Content -->
-        <div class="section-content-gap">
-            <div class="container">
-                <div class="row">
-                    <div class="section-content">
-                        <h3 class="section-title" data-aos="fade-up"  data-aos-delay="0">Produk Lain Dari Toko</h3>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Section Content -->
-
-        <!-- Start Product Wrapper -->
-        <div class="product-wrapper" data-aos="fade-up"  data-aos-delay="200">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="product-default-slider product-default-slider-4grids-1row">
-                            <!-- Start Product Defautlt Single -->
-                            <div class="product-default-single border-around">
-                                <div class="product-img-warp">
-                                    <a href="product-details-default.html" class="product-default-img-link">
-                                        <img src="assets/images/products_images/aments_products_image_1.jpg" alt="" class="product-default-img img-fluid">
-                                    </a>
-                                    <div class="product-action-icon-link">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                            <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-default-content">
-                                    <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
-                                    <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                </div>
-                            </div> <!-- End Product Defautlt Single -->
-                            <!-- Start Product Defautlt Single -->
-                            <div class="product-default-single border-around">
-                                <div class="product-img-warp">
-                                    <a href="product-details-default.html" class="product-default-img-link">
-                                        <img src="assets/images/products_images/aments_products_image_2.jpg" alt="" class="product-default-img img-fluid">
-                                    </a>
-                                    <div class="product-action-icon-link">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                            <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-default-content">
-                                    <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
-                                    <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                </div>
-                            </div> <!-- End Product Defautlt Single -->
-                            <!-- Start Product Defautlt Single -->
-                            <div class="product-default-single border-around">
-                                <div class="product-img-warp">
-                                    <a href="product-details-default.html" class="product-default-img-link">
-                                        <img src="assets/images/products_images/aments_products_image_3.jpg" alt="" class="product-default-img img-fluid">
-                                    </a>
-                                    <div class="product-action-icon-link">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                            <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-default-content">
-                                    <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
-                                    <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                </div>
-                            </div> <!-- End Product Defautlt Single -->
-                            <!-- Start Product Defautlt Single -->
-                            <div class="product-default-single border-around">
-                                <div class="product-img-warp">
-                                    <a href="product-details-default.html" class="product-default-img-link">
-                                        <img src="assets/images/products_images/aments_products_image_4.jpg" alt="" class="product-default-img img-fluid">
-                                    </a>
-                                    <div class="product-action-icon-link">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                            <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-default-content">
-                                    <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
-                                    <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                </div>
-                            </div> <!-- End Product Defautlt Single -->
-                            <!-- Start Product Defautlt Single -->
-                            <div class="product-default-single border-around">
-                                <div class="product-img-warp">
-                                    <a href="product-details-default.html" class="product-default-img-link">
-                                        <img src="assets/images/products_images/aments_products_image_5.jpg" alt="" class="product-default-img img-fluid">
-                                    </a>
-                                    <div class="product-action-icon-link">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                            <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-default-content">
-                                    <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
-                                    <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                </div>
-                            </div> <!-- End Product Defautlt Single -->
-                            <!-- Start Product Defautlt Single -->
-                            <div class="product-default-single border-around">
-                                <div class="product-img-warp">
-                                    <a href="product-details-default.html" class="product-default-img-link">
-                                        <img src="assets/images/products_images/aments_products_image_6.jpg" alt="" class="product-default-img img-fluid">
-                                    </a>
-                                    <div class="product-action-icon-link">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                            <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-default-content">
-                                    <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
-                                    <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                </div>
-                            </div> <!-- End Product Defautlt Single -->
-                            <!-- Start Product Defautlt Single -->
-                            <div class="product-default-single border-around">
-                                <div class="product-img-warp">
-                                    <a href="product-details-default.html" class="product-default-img-link">
-                                        <img src="assets/images/products_images/aments_products_image_8.jpg" alt="" class="product-default-img img-fluid">
-                                    </a>
-                                    <div class="product-action-icon-link">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                            <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-default-content">
-                                    <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
-                                    <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                </div>
-                            </div> <!-- End Product Defautlt Single -->
-                            <!-- Start Product Defautlt Single -->
-                            <div class="product-default-single border-around">
-                                <div class="product-img-warp">
-                                    <a href="product-details-default.html" class="product-default-img-link">
-                                        <img src="assets/images/products_images/aments_products_image_7.jpg" alt="" class="product-default-img img-fluid">
-                                    </a>
-                                    <div class="product-action-icon-link">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
-                                            <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-default-content">
-                                    <h6 class="product-default-link"><a href="product-details-default.html">New Balance Fresh Foam Kaymin Car Purts</a></h6>
-                                    <span class="product-default-price"><del class="product-default-price-off">$30.12</del> $25.12</span>
-                                </div>
-                            </div> <!-- End Product Defautlt Single -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Product Wrapper -->
-    </div> <!-- ...:::: End Product Section:::... -->
+    </div><!-- ...:::: End Checkout Section:::... -->
 
     <!-- ...:::: Start Footer Section:::... -->
     <footer class="footer-section section-top-gap-100">
