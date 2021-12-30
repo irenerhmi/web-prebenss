@@ -8,6 +8,7 @@ if(!isset($_SESSION['username'])){
 }
 
 echo "<pre>";
+print_r($_SESSION);
 echo "</pre>";
 
 require "../koneksidb.php";
@@ -84,6 +85,8 @@ require "../koneksidb.php";
                     <div class="col-12">
                         <div class="table_desc">
                             <div class="table_page table-responsive">
+                                <h4 class="breadcrumb-title">Cart Produk Jual</h4>
+                                <br>
                                 <table>
                                     <!-- Start Cart Table Head -->
                                     <thead>
@@ -144,9 +147,10 @@ require "../koneksidb.php";
                     </div>
                 </div>
             </div>
-        </div> <!-- End Cart Table 
-        
-        -->
+        </div> <!-- End Cart Table-->
+    </div>
+
+    <div class="cart-section">
         <!-- Start Coupon Start -->
         <div class="coupon_area">
             <div class="container">
@@ -180,35 +184,113 @@ require "../koneksidb.php";
                 </div>
             </div>
         </div> <!-- End Coupon Start -->
+        <br>
+        <br>
+        <!-- Start Cart Sewa Table -->
+        <div class="cart-table-wrapper"  data-aos="fade-up"  data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table_desc">
+                            <div class="table_page table-responsive">
+                                <h4 class="breadcrumb-title">Cart Produk Sewa</h4>
+                                <br>
+                                <table>
+                                    <!-- Start Cart Table Head -->
+                                    <thead>
+                                        <tr>
+                                            <th class="product_remove">Delete</th>
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product_quantity">Quantity</th>
+                                            <th class="product_total">SubTotal</th>
+                                        </tr>
+                                    </thead> <!-- End Cart Table Head -->
+                                    <tbody>
 
-        <!--<script>
-        gt=0;
-        let iprice=document.getElementsByClassName('iprice');
-        let iquantity=document.getElementsByClassName('iquantity');
-        let itotal=document.getElementsByClassName('itotal');
-        let grandtotal=document.getElementById('grandtotal');
+                                        <?php 
+                                        /*echo "<pre>";
+                                        print_r($_SESSION['cart']);
+                                        echo "<pre>";*/
+                                        if (isset($_SESSION['carts'])) {
+                                            # code...
+                                        $totals = 0;
+                                        foreach ($_SESSION['carts'] as $ids => $qtys):
+                                        
+                                        $ambils = $conn->query("SELECT * from produk WHERE id_produk='$ids'");
+                                        $pecahs = $ambils->fetch_assoc();                                  
+                                        $subtotals = $pecahs['harga']*$qtys;
+                                        
+                                    
+                                        ?>              
 
-        console.log(iprice)
-    
-        function subTotal()
-        {
-            
-            for(i=0; i<iprice.length; i++)
-            {
-                itotal[i].innerText=(iprice[i].value)*(iquantity[i].value);
-                gt=gt+((iprice[i].value)*(iquantity[i].value));
+                                        <!-- Start Cart Single Item-->
+                                        <tr>
+                                        <form>
+                                            <td class="product_remove">
+                                                <a href="hapusewacart.php?id=<?= $ids;?>"><i class="fa fa-trash-o"></i></a></td>
+                                            <td class="product_thumb"><a href="product-details-default.html"><img src="../image/seller/<?= $pecahs['image']; ?>" width="320px" height="400px"></a></td>
 
+                                            <td class="product_name"><a href="product-details-default.html"><?= $pecahs["nama_produk"]; ?></a></td>
 
+                                            <td class="product-price">Rp. <?= number_format($pecahs['harga']); ?><input type="hidden" class="iprice" value="<?php echo $pecah['harga']; ?>"></td>
 
-            }
-            console.log(gt);
-            document.getElementById('grandtotal').innerHTML = gt;
-        }
-        subTotal();
-        console.log(iquantity);
+                                            <td class="product_quantity"><?= $qtys; ?><input type="hidden" class="iquantity"  value="<?= $qty; ?>"> </td>
 
+                                            <td class="product_total" >Rp. <?php echo number_format($subtotals); ?>
+                                            <input class="product_total" type="hidden" value="<?php echo $subtotal; ?>"></td>
+                                        </form>
+                                        </tr> <!-- End Cart Single Item-->
+
+                                        <?php $totals+=$subtotals; ?>
+                                        <?php endforeach?> 
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Cart Table 
         
-        </script> -->
+        -->
+        <!-- Start Coupon Start -->
+        <div class="coupon_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code right"  data-aos="fade-up"  data-aos-delay="400">
+                            <h3>Cart Totals</h3>
+                            <div class="coupon_inner">
+                                <div class="cart_subtotal">
+                                    <p>Total
+                                        <div class="cart_amount">
+                                            <div id="grandtotal">Rp. <?php echo number_format($totals); ?></div>
+                                        </div>
+                                    </p>
+                                </div>
+                                <div class="checkout_btn">
+                                    <a href="checkouts.php">Proceed to Checkout</a>
+                                </div>
+                            
+                                <?php } 
+                                else { 
+                                ?>
+                                    <!-- Start Cart Table -->
+                                   <div class="text-center m-5">
+                                        <h5>Belum ada Barang</h5>
+                                   </div>
+                            <?php }?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Coupon Start -->
 
     </div> <!-- ...:::: End Cart Section:::... -->
 

@@ -511,7 +511,7 @@ require "../koneksidb.php";
                                         <?php 
                                         
                                         $total = 0;
-                                        foreach ($_SESSION['cart'] as $id => $qty):
+                                        foreach ($_SESSION['carts'] as $id => $qty):
                                                         
                                         $ambil = $conn->query("SELECT * from produk WHERE id_produk='$id'");
                                         $pecah = $ambil->fetch_assoc();
@@ -540,6 +540,10 @@ require "../koneksidb.php";
                             </div>
                         <form method="POST">
                             <div class="payment_method">
+                                <div class="default-form-box">
+                                    <label>Tanggal Pengembalian</label>
+                                        <input type="date" name="pengembalian" min="<?php echo date('Y-m-d'); ?>" value="">
+                                </div>
                                 <div class="default-form-box">
                                     <br> <label>Ongkos Kirim </label>
                                         <select name="id_ongkir" class="form-control">
@@ -585,7 +589,9 @@ require "../koneksidb.php";
                             $id_pelanggan = $_SESSION['id_pelanggan'];
                             $id_ongkir = $_POST['id_ongkir'];
                             $metode = $_POST['id_metode'];
+                            $tglkem = $_POST['pengembalian'];
                             $tanggal_trans =  date("Y-m-d");
+                            echo $tglkem;
                             
                             //select table ongkir
                             $result1 = mysqli_query($conn,"select * from ongkir
@@ -599,29 +605,28 @@ require "../koneksidb.php";
                             
 
                             //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, total_trans, daerah, tarif, id_pelanggan, id_ongkir) VALUES ('" . $tanggal_trans . "','" . $totaltrans . "','" . $daerah . "','" . $jumong . "','" . $id_pelanggan . "','" . $id_ongkir . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, tgl_pengembalian, total_trans, daerah, tarif, id_pelanggan, id_ongkir) VALUES ('" . $tanggal_trans . "', '" . $tglkem . "','" . $totaltrans . "','" . $daerah . "','" . $jumong . "','" . $id_pelanggan . "','" . $id_ongkir . "')");
 
                             //menyimpan data ke table detail dilakukan
-                            $id_baru = $conn->insert_id; 
-                            $_SESSION['idtransbaru'] = $id_baru;
+                            $id_barus = $conn->insert_id; 
+                            $_SESSION['idtransbarus'] = $id_barus;
 
                             //menyimpan data ke table pembayaran
-                            $resulttr = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_baru . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_barus . "')");
 
-                            foreach ($_SESSION['cart'] as $id => $qty){
+                            foreach ($_SESSION['carts'] as $ids => $qtys){
                                 //menambahkan data produk biar harganya fix
                                 $results = mysqli_query($conn,"select * from produk
-                                where id_produk='$id'");
+                                where id_produk='$ids'");
                                 $rowsl = mysqli_fetch_array($results);
                                 $namat = $rowsl['nama_produk'];
                                 $hargat = $rowsl['harga'];
 
-                                $resultd = mysqli_query($conn,"INSERT INTO dilakukan (id_transaksi, id_produk, nama_p, harga_p, jumlah_p) VALUES ('" . $id_baru . "','" . $id . "', '" . $namat . "', '" . $hargat . "', '" . $qty . "')");
+                                $resultd = mysqli_query($conn,"INSERT INTO dilakukan (id_transaksi, id_produk, nama_p, harga_p, jumlah_p) VALUES ('" . $id_barus . "','" . $ids . "', '" . $namat . "', '" . $hargat . "', '" . $qtys . "')");
                                 
                             }
-                            // unset($_SESSION['cart'][$_GET['id']]);
                             echo "<script> 
-                                    window.location ='nota.php'; 
+                                    window.location ='notas.php'; 
                                   </script>";   
                             
                         }

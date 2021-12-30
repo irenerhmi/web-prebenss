@@ -288,8 +288,8 @@ require "../koneksidb.php";
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>
-                                                    <li><a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
-                                                    <li><a href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1;?>"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a href="product-details.php?id=<?php echo $produk['id_produk'];?>"><i class="icon-eye"></i></a></li>
+                                                    <li><a href="sewa.php?ids=<?php echo $produk['id_produk'];?>&qtys=1;?>"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
