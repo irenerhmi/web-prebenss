@@ -152,7 +152,13 @@ $keyword = $_GET['keyword'];
                                     </div> 
                                     <!-- Start Page Amount -->
                                     <div class="page-amount">
-                                        <span>Showing 1–9 of 21 results</span>
+                                        <span>Showing 
+                                        <?php
+                                        $sql = "select count(id_produk) as jumlahprod from produk where nama_produk LIKE '%$keyword%' and id_jenis=1";
+                                        $result = mysqli_query($conn,$sql);
+                                        $row = mysqli_fetch_array($result);
+                                        echo $row['jumlahprod'] ;
+                                        ?> Results</span>
                                     </div> <!-- End Page Amount -->
 
                                 </div> <!-- Start Sort Wrapper Box -->
@@ -167,9 +173,9 @@ $keyword = $_GET['keyword'];
                                 <div class="col-12">
                                     <div class="tab-content tab-animate-zoom">
                                         <!-- Start Grid View Product -->
-                                        <div class="tab-pane active show sort-layout-single" id="layout-3-grid">
+                                        <div class="tab-pane active show sort-layout-single" id="layout-3-grid"><h3>Produk Dijual</h3>
                                             <div class="row">
-                                            <?php $ambil = $conn->query("SELECT * from produk where nama_produk LIKE '%$keyword%' and id_jenis=1 limit 12"); ?>
+                                            <?php $ambil = $conn->query("SELECT * from produk where nama_produk LIKE '%$keyword%' and id_jenis=1"); ?>
                                             <?php while($perproduk = $ambil->fetch_assoc()){?>
                                                 <div class="col-xl-4 col-sm-6 col-12">
                                                     <!-- Start Product Defautlt Single -->

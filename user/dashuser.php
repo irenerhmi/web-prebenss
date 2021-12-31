@@ -8,6 +8,8 @@ if(!isset($_SESSION['username'])){
 require "../koneksidb.php";
 /* require "act-displaynyoba.php"; */
 }
+
+print_r($_SESSION);
 ?>
 <head>
     <meta charset="UTF-8" />
@@ -92,46 +94,7 @@ require "../koneksidb.php";
     </div> <!-- ...:::: End Hero Area Section:::... -->
 
     <!-- ...:::: Start Product Catagory Section:::... -->
-    <div class="product-catagory-section section-top-gap-100">
-        <!-- Start Section Content -->
-        <div class="section-content-gap">
-            <div class="container">
-                <div class="row">
-                    <div class="section-content">
-                        <h3 class="section-title" data-aos="fade-up" data-aos-delay="50">Categories</h3>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Section Content -->
-
-        <!-- Start Catagory Wrapper -->
-        <div class="product-catagory-wrapper">
-            <div class="container">
-                <div class="row g-5">
-                    <?php $ambil = $conn->query("SELECT * from kategori"); ?>
-                    <?php while($kategori = $ambil->fetch_assoc()){?>
-                    <div class="col-4">
-                        <!-- Start Product Catagory Single -->
-                        <a href="shop-kat-jual.php?id=<?php echo $kategori['id_kategori']; ?>" class="product-catagory-single" data-aos="fade-up"  data-aos-delay="0">
-                            <div class="product-catagory-img">
-                                <img src="../image/kategori/<?php echo $kategori['k_name'] ?>.jpg" width="70px" height="100px" alt="">
-                            </div>
-                            <div class="product-catagory-content">
-                                <h5 class="product-catagory-title"><?php echo $kategori['k_name'] ?></h5>
-                                <span class="product-catagory-items">
-                                    <?php 
-
-                                    ?>                                          
-                                </span>
-
-                            </div>
-                        </a> <!-- End Product Catagory Single -->
-                    </div>
-                    <?php } ?>         
-                </div>
-            </div>
-        </div> <!-- End Catagory Wrapper -->
-    </div> <!-- ...:::: End Product Catagory Section:::... -->
+    <!-- ...:::: End Product Catagory Section:::... -->
 
     <!-- ...:::: Start Product Tab Section:::... -->
     <div class="product-tab-section section-top-gap-100">
@@ -140,7 +103,7 @@ require "../koneksidb.php";
             <div class="container">
                 <div class="row">
                     <div class="section-content d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column">
-                        <h3 class="section-title" data-aos="fade-up" data-aos-delay="0">New Arrivals</h3>
+                        <h3 class="section-title" data-aos="fade-up" data-aos-delay="0">New Arrivals Produk Dijual</h3>
                     </div>
                 </div>
             </div>
@@ -150,7 +113,66 @@ require "../koneksidb.php";
         <div class="product-tab-wrapper" data-aos="fade-up"  data-aos-delay="50">
             <div class="container">
                 <div class="row g-5">
-                    <?php $ambil = $conn->query("SELECT * from produk limit 6"); ?>
+                    <?php $ambil = $conn->query("SELECT * from produk where id_jenis=1 limit 6"); ?>
+                    <?php while($perproduk = $ambil->fetch_assoc()){?>
+                    <div class="col-4">
+                        <div class="tab-content tab-animate-zoom">
+                            <div class="tab-pane show active">
+                                <div class="product-default-slider product-default-slider-1rows">
+                                    <!-- Start Product Defautlt Single -->
+                                    <div class="product-default-single border-around">
+                                        <div class="product-img-warp">
+                                            <a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>" class="product-default-img-link">
+                                                <img src="../image/seller/<?php echo $perproduk['image'] ?>" width="320px" height="400px">
+                                            </a>
+                                            <div class="product-action-icon-link">
+                                                <ul>
+                                                    <li><a type="button" href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
+                                                    <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1"><i class="icon-shopping-cart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-default-content">
+                                            <h6 class="product-default-link"><a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><?php echo $perproduk['nama_produk'] ?></a></h6>
+                                            <span class="product-default-price">Rp <?php echo $perproduk['harga']
+                                            ?>
+                                            </span>
+                                        </div> 
+                                    </div> <!-- End Product Defautlt Single -->
+                                      <!-- Start Product Defautlt Single -->
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="Sewa">
+                                <div class="product-default-slider product-default-slider-4grids-1row">
+                                    <!-- Start Product Defautlt Single -->
+                                     <!-- End Product Defautlt Single -->   
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                <?php } ?>
+                </div>
+            </div>
+        </div> <!-- End Catagory Wrapper -->
+    </div> <!-- ...:::: End Product Tab Section:::... -->
+    <!-- ...:::: Start Product Tab Section:::... -->
+    <div class="product-tab-section section-top-gap-100">
+        <!-- Start Section Content -->
+        <div class="section-content-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="section-content d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column">
+                        <h3 class="section-title" data-aos="fade-up" data-aos-delay="0">New Arrivals Produk Disewa</h3>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Section Content -->
+
+        <!-- Start Tab Wrapper -->
+        <div class="product-tab-wrapper" data-aos="fade-up"  data-aos-delay="50">
+            <div class="container">
+                <div class="row g-5">
+                    <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 limit 6"); ?>
                     <?php while($perproduk = $ambil->fetch_assoc()){?>
                     <div class="col-4">
                         <div class="tab-content tab-animate-zoom">

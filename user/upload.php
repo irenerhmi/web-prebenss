@@ -57,28 +57,24 @@ session_start();
       // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($image["tmp_name"], $target_file)) {
-          $sql = mysqli_query($conn, "INSERT INTO produk (nama_produk, deskripsi, berat, harga, image, id_kategori, id_jenis) VALUES ('" . $nama . "','" . $deskripsi . "', '" . (int)$berat . "' , '" . (int)$harga . "','" . $namafile . "', '" . (int)$kat . "' , 1 )");
+          $sql = mysqli_query($conn, "INSERT INTO produk (nama_produk, deskripsi, berat, harga, image, id_kategori, id_jenis, id_supplier) VALUES ('" . $nama . "','" . $deskripsi . "', '" . (int)$berat . "' , '" . (int)$harga . "','" . $namafile . "', '" . (int)$kat . "' , 1 ,'" . $_SESSION['id_supplier'] . "')");
             //$sql .= "INSERT INTO detail_penjualan(harga_jual) VALUES ('" . $harga . "')";
             //$result = mysql_query($conn, $sql);
-          $id_probaru = $conn->insert_id; 
-          echo $id_probaru;
-          if ($sql === TRUE) {
-            $sql = "INSERT INTO menginput (id_produk, id_pelanggan, id_supplier) VALUES ('" . $id_probaru . "','" . $_SESSION['id_pelanggan'] . "','" . $_SESSION['id_supplier'] . "')";
-
-            if ($conn->query($sql) === TRUE) {
-              echo "<script>
-                      window.alert('produk berhasil diinput'); 
-                      window.location ='ajukan-jual.php'; 
-                    </script>";
-            } else {
-              echo "<script>
-                    window.alert('produk gagal diinput'); 
-                    </script>";
-            }
-          } else {
+  
+          if ($conn->query($sql) === TRUE) {
+            echo "<script>
+                    window.alert('produk berhasil diinput'); 
+                    window.location ='ajukan-jual.php'; 
+                  </script>";
+          } 
+          else {
+            
             echo $sql;
           }
-        } else {
+
+        } 
+        else {
+          
           echo "Sorry, there was an error uploading your file.";
         }
     }

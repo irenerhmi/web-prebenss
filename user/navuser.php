@@ -11,7 +11,7 @@ if(!isset($_SESSION['username'])){
             <a class="main-menu-link" href="dashuser.php">Home</i></a>
         </li>
         <li class="has-dropdown has-megaitem">
-            <a href="product-details-default.html">Produk <i class="fa fa-angle-down"></i></a> 
+            <a href="#">Kategori Produk <i class="fa fa-angle-down"></i></a> 
             <!-- Mega Menu -->
             <div class="mega-menu">
                 <ul class="mega-menu-inner">
@@ -36,14 +36,6 @@ if(!isset($_SESSION['username'])){
                             ?>
                             <li><a href="shop-kat-sewa.php?id=<?php echo $pecah['id_kategori'];?>"><?php echo $pecah['k_name']; ?></a></li>
                             <?php } ?>
-                        </ul>
-                    </li>
-                    <!-- Mega Menu Sub Link -->
-                    <li class="mega-menu-item">
-                        <a href="#" class="mega-menu-item-title">Produk</a>
-                        <ul class="mega-menu-sub">
-                            <li><a href="shop-grid-jual.php">Produk Dijual</a></li>
-                            <li><a href="shop-grid-sewa.php">Produk Disewa</a></li>
                         </ul>
                     </li>
                 </ul>
