@@ -8,7 +8,7 @@ if(!isset($_SESSION['username'])){
 
 include "../koneksidb.php";
 
-$idkats = $_GET['ids'];
+$idkat = $_GET['id'];
 
 ?>
 <head>
@@ -61,7 +61,7 @@ $idkats = $_GET['ids'];
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Produk Jual Kategori <?php 
+                        <h3 class="breadcrumb-title">Produk Sewa Kategori <?php 
                         $sql = "select * from kategori where id_kategori='".$idkat."'";
                         $result = mysqli_query($conn,$sql);
                         $row = mysqli_fetch_array($result);
@@ -146,7 +146,7 @@ $idkats = $_GET['ids'];
                                     <div class="page-amount">
                                         <span>Showing 
                                         <?php
-                                        $sql = "select count(id_produk) as jumlahprod from produk where id_jenis=2 and id_kategori='".$idkats."'";
+                                        $sql = "select count(id_produk) as jumlahprod from produk where id_jenis=2 and id_kategori='".$idkat."'";
                                         $result = mysqli_query($conn,$sql);
                                         $row = mysqli_fetch_array($result);
                                         echo $row['jumlahprod'] ;
@@ -167,7 +167,7 @@ $idkats = $_GET['ids'];
                                         <!-- Start Grid View Product -->
                                         <div class="tab-pane active show sort-layout-single" id="layout-3-grid">
                                             <div class="row">
-                                            <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 and id_kategori='$idkats' limit 12");?>
+                                            <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 and id_kategori='$idkat' limit 12");?>
                                             <?php while($perproduk = $ambil->fetch_assoc()){?>
                                                 <div class="col-xl-4 col-sm-6 col-12">
                                                     <!-- Start Product Defautlt Single -->
@@ -201,7 +201,7 @@ $idkats = $_GET['ids'];
                     </div> <!-- End Tab Wrapper -->
 
                     <!-- Start Pagination -->
-                    <div class="page-pagination text-center" data-aos="fade-up"  data-aos-delay="0">
+                    <!-- <div class="page-pagination text-center" data-aos="fade-up"  data-aos-delay="0">
                         <ul>
                             <li><a href="#">Previous</a></li>
                             <li><a class="active" href="#">1</a></li>
@@ -209,7 +209,7 @@ $idkats = $_GET['ids'];
                             <li><a href="#">3</a></li>
                             <li><a href="#">Next</a></li>
                         </ul>
-                    </div> <!-- End Pagination -->
+                    </div> --> <!-- End Pagination -->
                 </div> <!-- End Shop Product Sorting Section  -->
             </div>
         </div>

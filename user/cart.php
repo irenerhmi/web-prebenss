@@ -190,7 +190,7 @@ require "../koneksidb.php";
                     <div class="col-12">
                         <div class="table_desc">
                             <div class="table_page table-responsive">
-                                <h4>Cart Produk Sewa</h4>
+                                <h4>Cart Sewa Produk</h4>
                                 <br>
                                 <?php if (isset($_SESSION['carts'])) { ?>
                                 <table>

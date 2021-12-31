@@ -57,7 +57,7 @@ session_start();
       // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($image["tmp_name"], $target_file)) {
-          $sql = mysqli_query($conn, "INSERT INTO produk (nama_produk, deskripsi, berat, harga, image, id_kategori, id_jenis, id_supplier) VALUES ('" . $nama . "','" . $deskripsi . "', '" . (int)$berat . "' , '" . (int)$harga . "','" . $namafile . "', '" . (int)$kat . "' , 2 ,'" . $_SESSION['id_supplier'] . "')");
+          $sql = mysqli_query($conn, "INSERT INTO produk (nama_produk, deskripsi, berat, harga, image, id_kategori, id_jenis, id_supplier) VALUES ('" . $nama . "','" . $deskripsi . "', '" . (int)$berat . "' , '" . (int)$harga . "','" . $namafile . "', '" . (int)$kat . "' , 1 ,'" . $_SESSION['id_supplier'] . "')");
             //$sql .= "INSERT INTO detail_penjualan(harga_jual) VALUES ('" . $harga . "')";
             //$result = mysql_query($conn, $sql);
   

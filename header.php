@@ -6,7 +6,7 @@
                 <div class="row d-flex justify-content-between align-items-center">
                     <div class="col-6">
                         <div class="header-top--left">
-                            <span>Welcome to our store!</span>
+                            <span>Welcome to our store</span>
                         </div>
                     </div>
                     <div class="col-6">
@@ -17,30 +17,10 @@
                                     <a href="">Setting</a>
                                     <!-- Header Top Menu's Dropdown -->
                                     <ul class="user-sub-menu">
-                                        <li><a href="">Checkout</a></li>
-                                        <li><a href="">My Account</a></li>
-                                        <li><a href="">Shopping Cart</a></li>
-                                        <li><a href="">Wishlist</a></li>
+                                        <li><a href="login.php">Shopping Cart</a></li>
+                                        <li><a href="login.php">Log Out</a></li>
                                     </ul>
                                 </li>
-                                <!-- <li class="has-user-dropdown">
-                                    <a href="">$ USD</a>
-                                    !-- Header Top Menu's Dropdown --
-                                    <ul class="user-sub-menu">
-                                        <li><a href="">EUR – Euro</a></li>
-                                        <li><a href="">GBP – British Pound</a></li>
-                                        <li><a href="">INR – India Rupee</a></li>
-                                    </ul>
-                                </li> 
-                                <li class="has-user-dropdown">
-                                    <a href="">English</a>
-                                    !-- Header Top Menu's Dropdown --
-                                    <ul class="user-sub-menu">
-                                        <li><a href=""><img class="user-sub-menu-in-icon" src="assets/images/icon/lang-en.png" alt=""> English</a></li>
-                                        <li><a href=""><img class="user-sub-menu-in-icon" src="assets/images/icon/lang-gr.png" alt=""> Germany</a></li>
-                                    </ul>
-                                </li> -->
-                                <li><a href=""><i class="icon-repeat"></i> Compare (0)</a></li>
                             </ul> <!-- End Header Top Menu -->
                         </div>
                     </div>
@@ -61,9 +41,10 @@
                     <div class="col-6">
                         <!-- Start Header Search -->
                         <div class="header-search">
-                            <form action="#" method="post">
+                            <form action="pencarian.php" method="GET">
                                 <div class="header-search-box default-search-style d-flex">
-                                    <input class="default-search-style-input-box border-around border-right-none" type="search" placeholder="Search entire store here ..." required>
+                                    <input class="form-control" 
+                                     placeholder="Search the product..." type="text" name="keyword" required>
                                     <button class="default-search-style-input-btn" type="submit"><i class="icon-search"></i></button>
                                 </div>
                             </form>
@@ -73,15 +54,11 @@
                         <!-- Start Header Action Icon -->
                         <ul class="header-action-icon">
                             <li>
-                                <a href="" class="offcanvas-toggle">
-                                    <i class="icon-heart"></i>
-                                    <span class="header-action-icon-item-count">0</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#offcanvas-add-cart" class="offcanvas-toggle">
+                                <a href="login.php" class="">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="header-action-icon-item-count">0</span>
+                                    <span class="header-action-icon">
+
+                                    </span>
                                 </a>
                             </li>
                         </ul> <!-- End Header Action Icon -->
@@ -103,9 +80,11 @@
                 </div>
             </div>
         </div> <!-- End Bottom Area -->
-</header> <!-- ...:::: End Header Section:::... -->	
+</header> <!-- ...:::: End Header Section:::... --> 
 
-<div class="mobile-header-section d-block d-lg-none">
+
+    <!-- ...:::: Start Mobile Header Section:::... -->
+    <div class="mobile-header-section d-block d-lg-none">
         <!-- Start Mobile Header Wrapper -->
         <div class="mobile-header-wrapper">
             <div class="container">
@@ -148,7 +127,7 @@
                         <!-- Header Top Menu's Dropdown -->
                         <ul class="mobile-user-sub-menu">
                             <li><a href="">Checkout</a></li>
-                            <li><a href="login.php">My Account</a></li>
+                            <li><a href="">My Account</a></li>
                             <li><a href="">Shopping Cart</a></li>
                             <li><a href="">Wishlist</a></li>
                         </ul>
@@ -199,9 +178,10 @@
                         </a>
                     </li>
                     <li class="mobile-action-icon-item">
-                        <a href="cart.html" class="mobile-action-icon-link">
+                        <a href="cart.php" class="mobile-action-icon-link">
                             <i class="icon-shopping-cart"></i>
-                            <span class="mobile-action-icon-item-count">3</span>
+                            <label class="mobile-action-icon-item-count">                             
+                            </label>
                         </a>
                     </li>
                 </ul> <!-- End Header Action Icon -->
@@ -323,73 +303,8 @@
             <button class="offcanvas-close"><i class="fa fa-times"></i></button>
         </div> <!-- End Offcanvas Header -->
 
+        <!-- Edit buat preview cart -->
         <!-- Start  Offcanvas Addcart Wrapper -->
-        <div class="offcanvas-add-cart-wrapper">
-            <h4 class="offcanvas-title">Shopping Cart</h4>
-            <ul class="offcanvas-cart">
-                <li class="offcanvas-cart-item-single">
-                    <div class="offcanvas-cart-item-block">
-                        <a href="" class="offcanvas-cart-item-image-link">
-                            <img src="assets/images/products_images/aments_products_image_6.jpg" alt="" class="offcanvas-cart-image">
-                        </a>
-                        <div class="offcanvas-cart-item-content">
-                            <a href="" class="offcanvas-cart-item-link">Car Wheel</a>
-                            <div class="offcanvas-cart-item-details">
-                                <span class="offcanvas-cart-item-details-quantity">1 x </span>
-                                <span class="offcanvas-cart-item-details-price">$49.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offcanvas-cart-item-delete text-end">
-                        <a href="#" class="offcanvas-cart-item-delete"><i class="fa fa-trash-o"></i></a>
-                    </div>
-                </li>
-                <li class="offcanvas-cart-item-single">
-                    <div class="offcanvas-cart-item-block">
-                        <a href="" class="offcanvas-cart-item-image-link">
-                            <img src="assets/images/categories_images/aments_categories_08.jpg" alt="" class="offcanvas-cart-image">
-                        </a>
-                        <div class="offcanvas-cart-item-content">
-                            <a href="" class="offcanvas-cart-item-link">Car Vails</a>
-                            <div class="offcanvas-cart-item-details">
-                                <span class="offcanvas-cart-item-details-quantity">3 x </span>
-                                <span class="offcanvas-cart-item-details-price">$500.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offcanvas-cart-item-delete text-end">
-                        <a href="#" class="offcanvas-cart-item-delete"><i class="fa fa-trash-o"></i></a>
-                    </div>
-                </li>
-                <li class="offcanvas-cart-item-single">
-                    <div class="offcanvas-cart-item-block">
-                        <a href="" class="offcanvas-cart-item-image-link">
-                            <img src="assets/images/products_images/aments_products_image_2.jpg" alt="" class="offcanvas-cart-image">
-                        </a>
-                        <div class="offcanvas-cart-item-content">
-                            <a href="" class="offcanvas-cart-item-link">Shock Absorber</a>
-                            <div class="offcanvas-cart-item-details">
-                                <span class="offcanvas-cart-item-details-quantity">1 x </span>
-                                <span class="offcanvas-cart-item-details-price">$350.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offcanvas-cart-item-delete text-end">
-                        <a href="#" class="offcanvas-cart-item-delete"><i class="fa fa-trash-o"></i></a>
-                    </div>
-                </li>
-            </ul>
-            <div class="offcanvas-cart-total-price">
-                <span class="offcanvas-cart-total-price-text">Subtotal:</span>
-                <span class="offcanvas-cart-total-price-value">$170.00</span>
-            </div>
-            <ul class="offcanvas-cart-action-button">
-                <li class="offcanvas-cart-action-button-list"><a href="" class="offcanvas-cart-action-button-link">View Cart</a></li>
-                <li class="offcanvas-cart-action-button-list"><a href="" class="offcanvas-cart-action-button-link">Checkout</a></li>
-            </ul>
-        </div> <!-- End  Offcanvas Addcart Wrapper -->
-
-    </div> <!-- ...:::: End  Offcanvas Addcart Section :::... -->
 
     <!-- ...:::: Start Offcanvas Mobile Menu Section:::... -->
     <div id="offcanvas-wishlish" class="offcanvas offcanvas-rightside offcanvas-add-cart-section">
@@ -459,6 +374,7 @@
             </ul>
         </div> <!-- End Offcanvas Mobile Menu Wrapper -->
 
-    </div> <!-- ...:::: End Offcanvas Mobile Menu -->
+    </div> <!-- ...:::: End Offcanvas Mobile Menu Section:::... -->
+
 
 </div>

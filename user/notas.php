@@ -456,7 +456,7 @@ print_r($_SESSION);
                                         
                                         $total = 0;
                                         //query ambil produk
-                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='".$_SESSION['idtransbarus']."'");
+                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='".$_SESSION['idtransbaruse']."'");
                                         while($produk = $tampil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -473,9 +473,8 @@ print_r($_SESSION);
                                     </tbody>
                                         <?php 
                                         //query ambil ongkir
-                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='".$_SESSION['idtransbarus']."'");
+                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='".$_SESSION['idtransbaruse']."'");
                                         $rowtr = mysqli_fetch_array($resultr);
-                                        $daerah = $rowtr['daerah'];
                                         $jumong = $rowtr['tarif'];                                        
                                         ?>
                                 </table>
@@ -491,7 +490,7 @@ print_r($_SESSION);
                                             </td>
                                             <td>
                                                 Rp. <?php 
-                                                echo number_format($totals); ?> 
+                                                echo number_format($total); ?> 
                                                 
                                             </td>
                                         </tr>
@@ -511,7 +510,7 @@ print_r($_SESSION);
                                             </td>
                                             <td>
                                                 <strong> Rp. <?php 
-                                                echo number_format($totals+$jumong); ?> 
+                                                echo number_format($total+$jumong); ?> 
                                                 </strong>
                                             </td>
                                         </tr>

@@ -201,7 +201,7 @@ $idkat = $_GET['id'];
                     </div> <!-- End Tab Wrapper -->
 
                     <!-- Start Pagination -->
-                    <div class="page-pagination text-center" data-aos="fade-up"  data-aos-delay="0">
+<!--                     <div class="page-pagination text-center" data-aos="fade-up"  data-aos-delay="0">
                         <ul>
                             <li><a href="#">Previous</a></li>
                             <li><a class="active" href="#">1</a></li>
@@ -209,7 +209,7 @@ $idkat = $_GET['id'];
                             <li><a href="#">3</a></li>
                             <li><a href="#">Next</a></li>
                         </ul>
-                    </div> <!-- End Pagination -->
+                    </div> --> <!-- End Pagination -->
                 </div> <!-- End Shop Product Sorting Section  -->
             </div>
         </div>

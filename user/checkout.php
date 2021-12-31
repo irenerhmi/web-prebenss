@@ -8,7 +8,9 @@ if(!isset($_SESSION['username'])){
 }
 
 require "../koneksidb.php";
+print_r($_SESSION);
 ?>
+
 
 
 <head>
@@ -604,24 +606,25 @@ require "../koneksidb.php";
                             $id_baru = $conn->insert_id; 
                             $_SESSION['idtransbaru'] = $id_baru;
 
+                            //menambahkan data produk biar harganya fix
+                            foreach ($_SESSION['cart'] as $id => $qty):
+                                $results = mysqli_query($conn,"SELECT * from produk where id_produk='$id'");
+                                $rowsl = mysqli_fetch_array($results);
+                                $namat = $rowsl['nama_produk'];
+                                echo $namat;
+                                echo $id;
+                                $hargat = $rowsl['harga'];
+
+                                $resultd = mysqli_query($conn,"INSERT INTO dilakukan (nama_p, harga_p, id_transaksi, id_produk, jumlah_p) VALUES ('" . $namat . "','" . $hargat . "', '" . $id_baru . "', '" . $id . "', '" . $qty . "')");
+                                
+                            endforeach;
+
                             // //menyimpan data ke table pembayaran
                             $resultpb = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_baru . "')");
 
-
-                            foreach ($_SESSION['cart'] as $id => $qty){
-                                //menambahkan data produk biar harganya fix
-                                $results = mysqli_query($conn,"select * from produk
-                                where id_produk='$id'");
-                                $rowsl = mysqli_fetch_array($results);
-                                $namat = $rowsl['nama_produk'];
-                                $hargat = $rowsl['harga'];
-
-                                $resultd = mysqli_query($conn,"INSERT INTO dilakukan (id_transaksi, id_produk, nama_p, harga_p, jumlah_p) VALUES ('" . $id_baru . "','" . $id . "', '" . $namat . "', '" . $hargat . "', '" . $qty . "')");
-                                
-                            }
                             // unset($_SESSION['cart'][$_GET['id']]);
                             echo "<script> 
-                                    window.location ='nota.php'; 
+                                     window.location ='nota.php'; 
                                   </script>";   
                             
                         }

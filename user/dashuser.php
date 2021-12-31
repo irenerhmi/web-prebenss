@@ -181,18 +181,18 @@ print_r($_SESSION);
                                     <!-- Start Product Defautlt Single -->
                                     <div class="product-default-single border-around">
                                         <div class="product-img-warp">
-                                            <a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>" class="product-default-img-link">
+                                            <a href="product-detailse.php?ids=<?php echo $perproduk['id_produk'];?>" class="product-default-img-link">
                                                 <img src="../image/seller/<?php echo $perproduk['image'] ?>" width="320px" height="400px">
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>
-                                                    <li><a type="button" href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
-                                                    <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a type="button" href="product-detailse.php?ids=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
+                                                    <li><a type="button" href="sewa.php?ids=<?php echo $perproduk['id_produk'];?>&qtys=1"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="product-default-content">
-                                            <h6 class="product-default-link"><a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><?php echo $perproduk['nama_produk'] ?></a></h6>
+                                            <h6 class="product-default-link"><a href="product-detailse.php?ids=<?php echo $perproduk['id_produk'];?>"><?php echo $perproduk['nama_produk'] ?></a></h6>
                                             <span class="product-default-price">Rp <?php echo $perproduk['harga']
                                             ?>
                                             </span>
@@ -300,18 +300,18 @@ print_r($_SESSION);
                                     <!-- Start Product Defautlt Single -->
                                     <div class="product-default-single border-around">
                                         <div class="product-img-warp">
-                                            <a href="product-details.php?ids=<?php echo $produk['id_produk'];?>" class="product-default-img-link">
+                                            <a href="product-detailse.php?ids=<?php echo $produk['id_produk'];?>" class="product-default-img-link">
                                                 <img src="../image/seller/<?php echo $produk['image'] ?>" width="320px" height="400px">
                                             </a>
                                             <div class="product-action-icon-link">
                                                 <ul>
-                                                    <li><a href="product-details.php?ids=<?php echo $produk['id_produk'];?>"><i class="icon-eye"></i></a></li>
+                                                    <li><a href="product-detailse.php?ids=<?php echo $produk['id_produk'];?>"><i class="icon-eye"></i></a></li>
                                                     <li><a href="sewa.php?ids=<?php echo $produk['id_produk'];?>&qtys=1;?>"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="product-default-content">
-                                            <h6 class="product-default-link"><a href="product-details.php?id=<?php echo $produk['id_produk'];?>"><?php echo $produk['nama_produk'] ?></a></h6>
+                                            <h6 class="product-default-link"><a href="product-detailse.php?ids=<?php echo $produk['id_produk'];?>"><?php echo $produk['nama_produk'] ?></a></h6>
                                             <span class="product-default-price">Rp <?php echo $produk['harga']
                                             ?>
                                             </span>

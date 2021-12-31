@@ -27,8 +27,8 @@ include "../koneksidb.php";
                                     <a href="">Setting</a>
                                     <!-- Header Top Menu's Dropdown -->
                                     <ul class="user-sub-menu">
-                                        <li><a href="">Shopping Cart</a></li>
-                                        <li><a href="">Log Out</a></li>
+                                        <li><a href="cart.php">Shopping Cart</a></li>
+                                        <li><a href="../logout.php">Log Out</a></li>
                                     </ul>
                                 </li>
                             </ul> <!-- End Header Top Menu -->

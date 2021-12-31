@@ -82,19 +82,26 @@ if(!isset($_SESSION['username'])){
                                 <label>Nama Barang <span>*</span></label>
                                 <input name="barang" type="text" placeholder="Masukkan Nama Barang">
                             </div>
+                            <div class="default-form-box mb-20">
+                                <label>Deskripsi <span>*</span></label>
+                                <input name="deskripsi" type="text" placeholder="Masukkan Nama Barang">
+                            </div>
                             <div class="default-form-box mb-20" class="has-dropdown">
                                 <label for="select">Kategori <span>*</span></label>
-                                <br>
                                 <input type="text" name="kat" list="listkat" placeholder="Pilih Kategori Produk">
                                 <datalist id="listkat">
-                                    <select>
-                                        <option value=1>Elektronik & Gadget</option>
-                                        <option value=2>Olahraga</option>
-                                        <option value=3>Mobil</option>
-                                        <option value=4>Motor</option>
-                                        <option value=5>Keperluan Rumah Tangga</option>
+                                    <select name="id_ongkir" class="form-control">
+                                        <option value="">Pilih Ongkos Kirim</option>
+                                        <?php
+                                        $ambil = $conn->query("SELECT * from kategori");
+                                        while($pecah = $ambil->fetch_assoc()){
+                                        ?>                                      
+                                        <option value="<?php echo $pecah['id_kategori'] ?>">
+                                            <?php echo $pecah['k_name']?>
+                                        </option>
+                                        <?php } ?>
                                     </select>
-                               </datalist>
+                            </datalist>
                             </div>
                             <div class="default-form-box mb-20">
                                 <label>Berat (g)  <span>*</span></label>

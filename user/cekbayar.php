@@ -62,18 +62,20 @@ if (isset($_POST['submit'])) {
        echo $sql; 
 
       if ($conn->query($sql) === TRUE) {
+        $resultd = mysqli_query($conn, "UPDATE transaksi SET status_trans='Menunggu Konfirmasi' WHERE id_transaksi='$idtrans'") ;
         echo "<script>
-                window.alert('Bukti berhasil diupload, Mohon menunggu konfirmasi dari kami.'); 
-                window.location('riwayat.php')
+                window.alert('produk berhasil diupload!'); 
+                window.location ='riwayat.php'; 
               </script>";
+
       } else {
         echo  "update data tidak berhasil";
       }
     } else {
       echo "Sorry, there was an error uploading your file.";
     }
-   }
   }
+}
 ?>
  
 

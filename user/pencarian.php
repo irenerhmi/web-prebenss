@@ -199,9 +199,7 @@ $keyword = $_GET['keyword'];
                                                     </div> <!-- End Product Defautlt Single -->
                                                 </div>                                               
                                             <?php } 
-                                            if (empty($perproduk)){
-
-                                            }?>
+                                            ?>
                                             </div>
                                         </div> <!-- End Grid View Product -->
                                         <!-- Start List View Product -->
@@ -212,7 +210,7 @@ $keyword = $_GET['keyword'];
                     </div> <!-- End Tab Wrapper -->
 
                     <!-- Start Pagination -->
-                    <div class="page-pagination text-center" data-aos="fade-up"  data-aos-delay="0">
+                   <!--  <div class="page-pagination text-center" data-aos="fade-up"  data-aos-delay="0">
                         <ul>
                             <li><a href="#">Previous</a></li>
                             <li><a class="active" href="#">1</a></li>
@@ -220,7 +218,7 @@ $keyword = $_GET['keyword'];
                             <li><a href="#">3</a></li>
                             <li><a href="#">Next</a></li>
                         </ul>
-                    </div> <!-- End Pagination -->
+                    </div>  End Pagination --> 
                 </div> <!-- End Shop Product Sorting Section  -->
             </div>
         </div>
