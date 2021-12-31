@@ -54,7 +54,7 @@ if(!isset($_SESSION['username'])){
             </ul>
         </li>
         <li>
-            <a href="ajukan-jual.php">Buka Toko</a>
+            <a href="ajukan-jual.php">Ajukan Jual & Sewa</a>
         </li>
     </ul>
 </nav>							

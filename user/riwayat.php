@@ -81,7 +81,8 @@ require "../koneksidb.php";
                     <div class="dashboard_tab_button" >
                         <ul  class="nav flex-column dashboard-list">
                             <li><a href="acc-profile.php"  class="nav-link">Profile</a></li>
-                            <li><a href="#orders"  class="nav-link active">Riwayat Pesanan</a></li>
+                            <li><a href="#orders"  class="nav-link active">Riwayat Beli</a></li>
+                            <li><a href="riwayats.php"  class="nav-link">Riwayat Sewa</a></li>
                             <li><a href="../logout.php" class="nav-link">logout</a></li>
                         </ul>
                     </div>

@@ -542,13 +542,13 @@ require "../koneksidb.php";
                             <div class="payment_method">
                                 <div class="default-form-box">
                                     <br> <label>Ongkos Kirim </label>
-                                        <select name="id_ongkir" class="form-control">
+                                        <select name="ongkir" class="form-control">
                                             <option value="">Pilih Ongkos Kirim</option>
                                             <?php
                                             $ambil = $conn->query("SELECT * from ongkir");
                                             while($pecah = $ambil->fetch_assoc()){
                                             ?>                                      
-                                            <option value="<?php echo $pecah['id_ongkir'] ?>">
+                                            <option value="<?php echo $pecah['tarif'] ?>">
                                                 <?php echo $pecah['daerah']?> - 
                                                 Rp. <?php echo number_format($pecah['tarif'])?>
                                             </option>
@@ -583,30 +583,30 @@ require "../koneksidb.php";
                         if (isset($_POST['checkout'])) 
                         {
                             $id_pelanggan = $_SESSION['id_pelanggan'];
-                            $id_ongkir = $_POST['id_ongkir'];
+                            $ongkir = $_POST['ongkir'];
                             $metode = $_POST['id_metode'];
                             $tanggal_trans =  date("Y-m-d");
                             
                             //select table ongkir
-                            $result1 = mysqli_query($conn,"select * from ongkir
-                            where id_ongkir='$id_ongkir'");
-                            $row1 = mysqli_fetch_array($result1);
-                            $daerah = $row1['daerah'];
-                            $jumong = $row1['tarif'];
+                            // $result1 = mysqli_query($conn,"select * from ongkir
+                            // where id_ongkir='$id_ongkir'");
+                            // $row1 = mysqli_fetch_array($result1);
+                            // $daerah = $row1['daerah'];
+                            // $jumong = $row1['tarif'];
 
                             $totaltrans = 0;
-                            $totaltrans = $total + $jumong;
-                            
+                            $totaltrans = $total + $ongkir;
 
                             //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, total_trans, daerah, tarif, id_pelanggan, id_ongkir) VALUES ('" . $tanggal_trans . "','" . $totaltrans . "','" . $daerah . "','" . $jumong . "','" . $id_pelanggan . "','" . $id_ongkir . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, status_trans, tarif, total_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', 'Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', '" . $id_pelanggan . "')");
 
                             //menyimpan data ke table detail dilakukan
                             $id_baru = $conn->insert_id; 
                             $_SESSION['idtransbaru'] = $id_baru;
 
-                            //menyimpan data ke table pembayaran
-                            $resulttr = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_baru . "')");
+                            // //menyimpan data ke table pembayaran
+                            $resultpb = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_baru . "')");
+
 
                             foreach ($_SESSION['cart'] as $id => $qty){
                                 //menambahkan data produk biar harganya fix

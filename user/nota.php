@@ -476,7 +476,6 @@ print_r($_SESSION);
                                         //query ambil ongkir
                                         $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='".$_SESSION['idtransbaru']."'");
                                         $rowtr = mysqli_fetch_array($resultr);
-                                        $daerah = $rowtr['daerah'];
                                         $jumong = $rowtr['tarif'];                                        
                                         ?>
                                 </table>

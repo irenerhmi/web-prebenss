@@ -5,7 +5,7 @@ session_start();
 if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
-
+require "../koneksidb.php";
 ?>
 <head>
     <meta charset="UTF-8" />
@@ -73,7 +73,11 @@ if(!isset($_SESSION['username'])){
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
                         <h3>Masukkan Informasi Produk</h3>
-                        <form method="POST" action="upload.php" enctype="multipart/form-data">
+                        <form method="POST" action="upload.php" enctype="multipart/form-data" autocomplete="off">
+                            <div class="default-form-box mb-20">
+                                <label for="inputGambar">Select image to upload: <span>*</span></label>
+                                <input type="file" name="image" id="image">
+                            </div>
                             <div class="default-form-box mb-20">
                                 <label>Nama Produk <span>*</span></label>
                                 <input name="nama_produk" type="text" placeholder="Masukkan Nama Produk">
@@ -87,24 +91,23 @@ if(!isset($_SESSION['username'])){
                                 <input name="berat" type="number" placeholder="Masukkan Berat">
                             </div>
                             <div class="default-form-box mb-20">
-                                <label for="inputGambar">Select image to upload: <span>*</span></label>
-                                <input type="file" name="image" id="image">
-                            </div>
-                            <div class="default-form-box mb-20">
                                 <label>Harga <span>*</span></label>
                                 <input name="harga" type="number" placeholder="Status Produk">
                             </div>
                             <div class="default-form-box mb-20" class="has-dropdown">
                                 <label for="select">Kategori <span>*</span></label>
-                                <br>
                                 <input type="text" name="kat" list="listkat" placeholder="Pilih Kategori Produk">
                                 <datalist id="listkat">
-                                    <select>
-                                        <option value=1>Elektronik & Gadget</option>
-                                        <option value=2>Olahraga</option>
-                                        <option value=3>Mobil</option>
-                                        <option value=4>Motor</option>
-                                        <option value=5>Keperluan Rumah Tangga</option>
+                                    <select name="id_ongkir" class="form-control">
+                                        <option value="">Pilih Ongkos Kirim</option>
+                                        <?php
+                                        $ambil = $conn->query("SELECT * from kategori");
+                                        while($pecah = $ambil->fetch_assoc()){
+                                        ?>                                      
+                                        <option value="<?php echo $pecah['id_kategori'] ?>">
+                                            <?php echo $pecah['k_name']?>
+                                        </option>
+                                        <?php } ?>
                                     </select>
                                </datalist>
                             </div>
