@@ -511,15 +511,15 @@ require "../koneksidb.php";
                                         <?php 
                                         
                                         $total = 0;
-                                        foreach ($_SESSION['carts'] as $id => $qty):
+                                        foreach ($_SESSION['carts'] as $ids => $qtys):
                                                         
-                                        $ambil = $conn->query("SELECT * from produk WHERE id_produk='$id'");
+                                        $ambil = $conn->query("SELECT * from produk WHERE id_produk='$ids'");
                                         $pecah = $ambil->fetch_assoc();
-                                        $subtotal = $qty*$pecah['harga'];
+                                        $subtotal = $qtys*$pecah['harga'];
                                   
                                         ?> 
                                         <tr>
-                                            <td> <?= $pecah["nama_produk"]; ?> <strong> x<?= $qty; ?> </strong></td>
+                                            <td> <?= $pecah["nama_produk"]; ?> <strong> x<?= $qtys; ?> </strong></td>
                                             <td>Rp. <?php echo number_format($subtotal); ?> </td>
                                         </tr>
                                     </tbody>
@@ -609,7 +609,7 @@ require "../koneksidb.php";
 
                             //menyimpan data ke table detail dilakukan
                             $id_barus = $conn->insert_id; 
-                            $_SESSION['idtransbarus'] = $id_barus;
+                            $_SESSION['idtransbaruse'] = $id_barus;
 
                             //menyimpan data ke table pembayaran
                             $resulttr = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_barus . "')");

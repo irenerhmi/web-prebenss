@@ -18,7 +18,7 @@ print_r($_SESSION);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aments - Car Accessories Shop HTML Template</title>
+    <title>Prebens - Nota Pembayaran</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
 
@@ -454,30 +454,30 @@ print_r($_SESSION);
                                     <tbody>
                                         <?php 
                                         
-                                        $totals = 0;
-                                        foreach ($_SESSION['carts'] as $ids => $qtys):
-                                                        
-                                        $ambils = $conn->query("SELECT * from dilakukan WHERE id_produk='$ids'");
-                                        $pecahs = $ambils->fetch_assoc();
-                                        $subtotals = $pecahs['jumlah_p']*$pecahs['harga_p'];
-                                        $idtranss = $pecahs['id_transaksi'];
-                                  
-                                        ?> 
+                                        $total = 0;
+                                        //query ambil produk
+                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='".$_SESSION['idtransbarus']."'");
+                                        while($produk = $tampil->fetch_assoc()){
+                                        ?>
                                         <tr>
-                                            <td> <?= $pecahs["nama_p"]; ?> <strong> x<?= $qtys; ?> </strong></td>
-                                            <td>Rp. <?php echo number_format($subtotals); ?> </td>
+                                            <td> <?= $produk["nama_p"]; ?> <strong> x<?= $produk["jumlah_p"];; ?> </strong></td>
+                                            <td>Rp. <?php echo number_format($produk['jumlah_p']*$produk['harga_p']); ?> </td>
                                         </tr>
+                                        <?php
+                                        // menghitung subtotal dan total pesanan
+                                        $subtotal = $produk['jumlah_p']*$produk['harga_p'];
+                                        $total+=$subtotal; 
+                                        }
+                                    
+                                        ?> 
                                     </tbody>
-                                        <?php $totals+=$subtotals; ?>
                                         <?php 
                                         //query ambil ongkir
-                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtranss'");
+                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='".$_SESSION['idtransbarus']."'");
                                         $rowtr = mysqli_fetch_array($resultr);
                                         $daerah = $rowtr['daerah'];
-                                        $jumong = $rowtr['tarif'];
-                                        $idtrans_barus = $conn->insert_id; 
+                                        $jumong = $rowtr['tarif'];                                        
                                         ?>
-                                        <?php endforeach?>
                                 </table>
                                 <br>
                             </div>
@@ -523,7 +523,7 @@ print_r($_SESSION);
                             <div class="card-text m-3 outline">
                                 <?php 
                                 //query select pembayaran buat ambil metode
-                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='".$_SESSION['idtransbarus']."'");
+                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='".$_SESSION['idtransbaruse']."'");
                                 $rowm = mysqli_fetch_array($resultr);
                                 $idmet = $rowm['id_metode'];
                     

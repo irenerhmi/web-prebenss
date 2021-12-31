@@ -20,5 +20,6 @@ echo "<pre>";
 //pindah ke halaman cart
 echo "<script>
         window.alert('produk berhasil dimasukkan ke keranjang !'); 
+        window.location ='dashuser.php';
       </script>";
 ?>

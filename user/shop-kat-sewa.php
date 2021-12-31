@@ -2,17 +2,22 @@
 <html lang="en">
 <?php
 session_start();
-if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
+if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
+
+include "../koneksidb.php";
+
+$idkats = $_GET['ids'];
+
 ?>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aments - Car Accessories Shop HTML Template</title>
+    <title>Prebens - Produk Jual</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
+    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png"> -->
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
@@ -43,8 +48,10 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
 
     <!-- ...:::: Start Header Section:::... -->
     <?php require "headeruser.php"; ?>
+     <!-- ...:::: End Header Section:::... -->
 
-    
+    <!-- ...:::: Start Mobile Header Section:::... -->
+    <!-- ...:::: End Offcanvas Mobile Menu Section:::... -->
 
     <div class="offcanvas-overlay"></div>
 
@@ -54,13 +61,19 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">My Account</h3>
+                        <h3 class="breadcrumb-title">Produk Jual Kategori <?php 
+                        $sql = "select * from kategori where id_kategori='".$idkat."'";
+                        $result = mysqli_query($conn,$sql);
+                        $row = mysqli_fetch_array($result);
+                        $namakat = $row['k_name'];
+
+                        echo $namakat;?></h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop-grid-sidebar-left.html">Shop</a></li>
-                                    <li class="active" aria-current="page">My Account</li>
+                                    <li><a href="shop-grid-sidebar-left.html">Produk</a></li>
+                                    <li class="active" aria-current="page">Produk Dijual</li>
                                 </ul>
                             </nav>
                         </div>
@@ -70,68 +83,140 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
         </div>
     </div> <!-- ...:::: End Breadcrumb Section:::... -->
 
-    <!-- ...:::: Start Account Dashboard Section:::... -->
-    <div class="account_dashboard">
+    <!-- ...:::: Start Shop Section:::... -->
+    <div class="shop-section">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-3 col-lg-3">
-                    <!-- Nav tabs -->
-                    <div class="dashboard_tab_button" >
-                        <ul  class="nav flex-column dashboard-list">
-                            <li><a href="dashboardacc.php"  class="nav-link">Dashboard</a></li>
-                            <li> <a href="orders.php" class="nav-link">Orders</a></li>
-                            <li><a href=""  class="nav-link">Downloads</a></li>
-                            <li><a href=""  class="nav-link">Addresses</a></li>
-                            <li><a href="#account-details"  class="nav-link active">Profile</a></li>
-                            <li><a href="../logout.php" class="nav-link">logout</a></li>
-                        </ul>
-                    </div>
+            <div class="row flex-column-reverse flex-lg-row">
+                <div class="col-lg-3">
+                    <!-- Start Sidebar Area -->
+                    <div class="siderbar-section" data-aos="fade-up"  data-aos-delay="0">
+                        <h6 class="sidebar-title"> FILTER BY</h6>
+
+                        <!-- Start Single Sidebar Widget 
+                        <div class="sidebar-single-widget">
+                            <h6 class="sidebar-title"> </h6>
+                             <div class="sidebar-content">
+                                <div id="slider-range"></div>
+                                <div class="filter-type-price">
+                                    <label for="amount">Price range:</label>
+                                    <input type="text" id="amount">
+                                </div>
+                            </div>
+                        </div> End Single Sidebar Widget -->
+
+                        <!-- Start Single Sidebar Widget -->
+                        <div class="sidebar-single-widget" >
+                            <h6 class="sidebar-title">CATEGORIES</h6>
+                            <div class="sidebar-content">
+                                <div class="filter-type-select">
+                                    <?php
+                                    $ambil = $conn->query("SELECT * from kategori");
+                                    while($pecah = $ambil->fetch_assoc()){
+                                    ?>
+                                    <ul>
+                                        <li>
+                                            <label class="checkbox-default" for="catagory_1">
+                                                <a href="shop-kat-jual.php?id=<?php echo $pecah['id_kategori']; ?>"><?php echo $pecah['k_name']; ?></a>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <?php 
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div> <!-- End Single Sidebar Widget -->
+
+                    </div> <!-- End Sidebar Area -->
                 </div>
-                <div class="col-sm-12 col-md-9 col-lg-9">
-                    <!-- Tab panes -->
-                    <div class="tab-content dashboard_content" >
-                        <div class="tab-pane fade show active " id="account-details">
-                                    <h3>Profile </h3> <br>
-                                    <div class="login">
-                                        <div class="login_form_container">
-                                            <div class="account_login_form">
-                                                <form method="POST"action="userinfo.php">
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Username</label>
-                                                        <input type="text" name="first-name">
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Nama</label>
-                                                        <input type="text" name="first-name">
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Email</label>
-                                                        <input type="text" name="last-name">
-                                                    </div>
-                                                    <div class="default-form-box mb-20">
-                                                        <label>Alamat</label>
-                                                        <input type="text" name="email-name">
-                                                    </div>
-                                                    <!-- <div class="input-radio">
-                                                        <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Laki-Laki </span>
-                                                        <span class="custom-radio"><input type="radio" value="1" name="id_gender">Perempuan </span>
-                                                    </div> <br> -->
-                                                    <div class="save_button primary_btn default_button">
-                                                        <button type="submit">Save</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                            
+                <div class="col-lg-9">
+                    <!-- Start Shop Product Sorting Section -->
+                    <div class="shop-sort-section" data-aos="fade-up"  data-aos-delay="0">
+                        <div class="container">
+                            <div class="row">
+                                <!-- Start Sort Wrapper Box -->
+                                <div class="sort-box d-flex justify-content-between align-items-center flex-wrap">
+                                    <!-- Start Sort tab Button -->
+                                    <div class="sort-tablist">
+                                        <ul class="tablist nav sort-tab-btn">
+                                            <li><a class="nav-link active" data-bs-toggle="tab" href="#layout-3-grid"><img src="assets/images/icon/bkg_grid.png" alt=""></a></li>
+                                        </ul>
+                                    </div> <!-- End Sort tab Button -->
+                                    <!-- Start Page Amount -->
+                                    <div class="page-amount">
+                                        <span>Showing 
+                                        <?php
+                                        $sql = "select count(id_produk) as jumlahprod from produk where id_jenis=2 and id_kategori='".$idkats."'";
+                                        $result = mysqli_query($conn,$sql);
+                                        $row = mysqli_fetch_array($result);
+                                        echo $row['jumlahprod'] ;
+                                        ?> results</span>
+                                    </div> <!-- End Page Amount -->
+
+                                </div> <!-- Start Sort Wrapper Box -->
+                            </div>
                         </div>
-                    </div> 
-                </div>     
-            </div>              
-        </div>   
-    </div> <!-- ...:::: End Account Dashboard Section:::... -->
+                    </div> <!-- End Section Content -->
+
+                    <!-- Start Tab Wrapper -->
+                    <div class="sort-product-tab-wrapper">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="tab-content tab-animate-zoom">
+                                        <!-- Start Grid View Product -->
+                                        <div class="tab-pane active show sort-layout-single" id="layout-3-grid">
+                                            <div class="row">
+                                            <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 and id_kategori='$idkats' limit 12");?>
+                                            <?php while($perproduk = $ambil->fetch_assoc()){?>
+                                                <div class="col-xl-4 col-sm-6 col-12">
+                                                    <!-- Start Product Defautlt Single -->
+                                                    <div class="product-default-single border-around" data-aos="fade-up"  data-aos-delay="0">
+                                                        <div class="product-img-warp">
+                                                            <a href="product-details-default.html" class="product-default-img-link">
+                                                                <img src="../image/seller/<?php echo $perproduk['image'] ?>" alt="" class="product-default-img img-fluid">
+                                                            </a>
+                                                            <div class="product-action-icon-link">
+                                                                <ul>
+                                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-eye"></i></a></li>
+                                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-default-content">
+                                                            <h6 class="product-default-link"><a href="product-details-default.php"><?php echo $perproduk['nama_produk'] ?></a></h6>
+                                                            <span class="product-default-price">Rp <?php echo $perproduk['harga']
+                                                            ?></span>
+                                                        </div>
+                                                    </div> <!-- End Product Defautlt Single -->
+                                                </div>                                               
+                                            <?php } ?>
+                                            </div>
+                                        </div> <!-- End Grid View Product -->
+                                        <!-- Start List View Product -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End Tab Wrapper -->
+
+                    <!-- Start Pagination -->
+                    <div class="page-pagination text-center" data-aos="fade-up"  data-aos-delay="0">
+                        <ul>
+                            <li><a href="#">Previous</a></li>
+                            <li><a class="active" href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">Next</a></li>
+                        </ul>
+                    </div> <!-- End Pagination -->
+                </div> <!-- End Shop Product Sorting Section  -->
+            </div>
+        </div>
+    </div> <!-- ...:::: End Shop Section:::... -->
+
     <!-- ...:::: Start Footer Section:::... -->
-    <?php require "footer.php"; ?>
+    <?php require "footer.php";?>
     <!-- ...:::: End Footer Section:::... -->
 
     <!-- material-scrolltop button -->
@@ -341,5 +426,3 @@ if(!isset($_SESSION['username']) and $_SESSION['grup'] == 2){
 </body>
 
 </html>
-
-</body>

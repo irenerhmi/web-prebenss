@@ -188,16 +188,9 @@ include "../koneksidb.php";
                         </a>
                     </li>
                     <li class="mobile-action-icon-item">
-                        <?php 
-                            $sql = "select count(id_cart) as jumlah from cart where u_username = 'asaa'";
-                            $result = mysqli_query($conn, $sql);
-                            $row = mysqli_fetch_array($result);
-                            $hasil = $row['jumlah']; 
-                        ?>
                         <a href="cart.php" class="mobile-action-icon-link">
                             <i class="icon-shopping-cart"></i>
-                            <label class="mobile-action-icon-item-count">
-                                <?php echo (int)$hasil ?>                             
+                            <label class="mobile-action-icon-item-count">                             
                             </label>
                         </a>
                     </li>
@@ -322,7 +315,6 @@ include "../koneksidb.php";
 
         <!-- Edit buat preview cart -->
         <!-- Start  Offcanvas Addcart Wrapper -->
-        <?php require "prev-cart.php"; ?>
 
     <!-- ...:::: Start Offcanvas Mobile Menu Section:::... -->
     <div id="offcanvas-wishlish" class="offcanvas offcanvas-rightside offcanvas-add-cart-section">

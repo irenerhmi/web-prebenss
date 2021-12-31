@@ -455,20 +455,23 @@ print_r($_SESSION);
                                     </thead>
                                     <tbody>
                                         <?php 
-                                        
-                                        $total = 0;                                                        
-                                        $ambil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
-                                        $pecah = $ambil->fetch_assoc();
-                                        $subtotal = $pecah['jumlah_p']*$pecah['harga_p'];
-                                        $idtrans = $pecah['id_transaksi'];
-                                  
-                                        ?> 
+                                        $total = 0;
+                                        // mengambil data pada id transaksi
+                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
+                                        while($produk = $tampil->fetch_assoc()){
+                                        ?>
                                         <tr>
-                                            <td> <?= $pecah["nama_p"]; ?> <strong> x<?= $pecah["jumlah_p"];; ?> </strong></td>
-                                            <td>Rp. <?php echo number_format($subtotal); ?> </td>
+                                            <td> <?= $produk["nama_p"]; ?> <strong> x<?= $produk["jumlah_p"];; ?> </strong></td>
+                                            <td>Rp. <?php echo number_format($produk['jumlah_p']*$produk['harga_p']); ?> </td>
                                         </tr>
+                                        <?php
+                                        // menghitung subtotal dan total pesanan
+                                        $subtotal = $produk['jumlah_p']*$produk['harga_p'];
+                                        $total+=$subtotal; 
+                                        }
+                                        ?>
                                     </tbody>
-                                        <?php $total+=$subtotal; ?>
+                                        
                                         <?php 
                                         //query ambil ongkir
                                         $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");

@@ -105,8 +105,9 @@ require "../koneksidb.php";
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' and status_trans ='Menunggu Pembayaran'"); 
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' and status_trans ='Menunggu Pembayaran' OR id_pelanggan = '".$_SESSION['id_pelanggan']."' and status_trans ='Menunggu Konfirmasi'" ); 
                                         while($perproduk = $ambil->fetch_assoc()){
+
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>

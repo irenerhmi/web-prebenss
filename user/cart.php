@@ -7,10 +7,6 @@ if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
 
-echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";
-
 require "../koneksidb.php";
 ?>
 <head>
@@ -85,17 +81,18 @@ require "../koneksidb.php";
                     <div class="col-12">
                         <div class="table_desc">
                             <div class="table_page table-responsive">
-                                <h4 class="breadcrumb-title">Cart Produk Jual</h4>
+                                <h4 class="breadcrumb-title">Cart Beli Produk</h4>
                                 <br>
                                 <table>
                                     <!-- Start Cart Table Head -->
+                                    <?php if (isset($_SESSION['cart'])) { ?>
                                     <thead>
                                         <tr>
                                             <th class="product_remove">Delete</th>
                                             <th class="product_thumb">Image</th>
                                             <th class="product_name">Product</th>
                                             <th class="product-price">Price</th>
-                                            <th class="product_quantity">Quantity</th>
+                                            <th class="product_quantity">jQuantity</th>
                                             <th class="product_total">SubTotal</th>
                                         </tr>
                                     </thead> <!-- End Cart Table Head -->
@@ -105,7 +102,7 @@ require "../koneksidb.php";
                                         /*echo "<pre>";
                                         print_r($_SESSION['cart']);
                                         echo "<pre>";*/
-                                        if (isset($_SESSION['cart'])) {
+                                        
                                             # code...
                                         $total = 0;
                                         foreach ($_SESSION['cart'] as $id => $qty):
@@ -122,9 +119,9 @@ require "../koneksidb.php";
                                         <form>
                                             <td class="product_remove">
                                                 <a href="hapuscart.php?id=<?= $id;  ?>"><i class="fa fa-trash-o"></i></a></td>
-                                            <td class="product_thumb"><a href="product-details-default.html"><img src="../image/seller/<?= $pecah['image']; ?>" width="320px" height="400px"></a></td>
+                                            <td class="product_thumb"><a href="product-details.php?id=<?php echo $pecah['id_produk'];?>"><img src="../image/seller/<?= $pecah['image']; ?>" width="320px" height="400px"></a></td>
 
-                                            <td class="product_name"><a href="product-details-default.html"><?= $pecah["nama_produk"]; ?></a></td>
+                                            <td class="product_name"><a href="product-details.php?id=<?php echo $pecah['id_produk'];?>"><?= $pecah["nama_produk"]; ?></a></td>
 
                                             <td class="product-price">Rp. <?= number_format($pecah['harga']); ?><input type="hidden" class="iprice" value="<?php echo $pecah['harga']; ?>"></td>
 
@@ -148,9 +145,7 @@ require "../koneksidb.php";
                 </div>
             </div>
         </div> <!-- End Cart Table-->
-    </div>
-
-    <div class="cart-section">
+    
         <!-- Start Coupon Start -->
         <div class="coupon_area">
             <div class="container">
@@ -184,19 +179,23 @@ require "../koneksidb.php";
                 </div>
             </div>
         </div> <!-- End Coupon Start -->
-        <br>
-        <br>
-        <!-- Start Cart Sewa Table -->
+    </div>
+    <br>
+    <br>
+    <!-- Start Cart Sewa Table -->
+    <div class="cart-section">
         <div class="cart-table-wrapper"  data-aos="fade-up"  data-aos-delay="0">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="table_desc">
                             <div class="table_page table-responsive">
-                                <h4 class="breadcrumb-title">Cart Produk Sewa</h4>
+                                <h4>Cart Produk Sewa</h4>
                                 <br>
+                                <?php if (isset($_SESSION['carts'])) { ?>
                                 <table>
                                     <!-- Start Cart Table Head -->
+                                    
                                     <thead>
                                         <tr>
                                             <th class="product_remove">Delete</th>
@@ -210,11 +209,6 @@ require "../koneksidb.php";
                                     <tbody>
 
                                         <?php 
-                                        /*echo "<pre>";
-                                        print_r($_SESSION['cart']);
-                                        echo "<pre>";*/
-                                        if (isset($_SESSION['carts'])) {
-                                            # code...
                                         $totals = 0;
                                         foreach ($_SESSION['carts'] as $ids => $qtys):
                                         
@@ -229,7 +223,7 @@ require "../koneksidb.php";
                                         <tr>
                                         <form>
                                             <td class="product_remove">
-                                                <a href="hapusewacart.php?id=<?= $ids;?>"><i class="fa fa-trash-o"></i></a></td>
+                                                <a href="hapusewacart.php?ids=<?= $ids;?>"><i class="fa fa-trash-o"></i></a></td>
                                             <td class="product_thumb"><a href="product-details-default.html"><img src="../image/seller/<?= $pecahs['image']; ?>" width="320px" height="400px"></a></td>
 
                                             <td class="product_name"><a href="product-details-default.html"><?= $pecahs["nama_produk"]; ?></a></td>

@@ -18,7 +18,7 @@ print_r($_SESSION);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aments - Car Accessories Shop HTML Template</title>
+    <title>Prebens - Nota Pembayaran</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
 
@@ -455,29 +455,30 @@ print_r($_SESSION);
                                         <?php 
                                         
                                         $total = 0;
-                                        foreach ($_SESSION['cart'] as $id => $qty):
-                                                        
-                                        $ambil = $conn->query("SELECT * from dilakukan WHERE id_produk='$id'");
-                                        $pecah = $ambil->fetch_assoc();
-                                        $subtotal = $pecah['jumlah_p']*$pecah['harga_p'];
-                                        $idtrans = $pecah['id_transaksi'];
-                                  
-                                        ?> 
+                                        
+                                        //query ambil produk
+                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='".$_SESSION['idtransbaru']."'");
+                                        while($produk = $tampil->fetch_assoc()){
+                                        ?>
                                         <tr>
-                                            <td> <?= $pecah["nama_p"]; ?> <strong> x<?= $qty; ?> </strong></td>
-                                            <td>Rp. <?php echo number_format($subtotal); ?> </td>
+                                            <td> <?= $produk["nama_p"]; ?> <strong> x<?= $produk["jumlah_p"];; ?> </strong></td>
+                                            <td>Rp. <?php echo number_format($produk['jumlah_p']*$produk['harga_p']); ?> </td>
                                         </tr>
+                                        <?php
+                                        // menghitung subtotal dan total pesanan
+                                        $subtotal = $produk['jumlah_p']*$produk['harga_p'];
+                                        $total+=$subtotal; 
+                                        }
+                                    
+                                        ?> 
                                     </tbody>
-                                        <?php $total+=$subtotal; ?>
                                         <?php 
                                         //query ambil ongkir
-                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");
+                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='".$_SESSION['idtransbaru']."'");
                                         $rowtr = mysqli_fetch_array($resultr);
                                         $daerah = $rowtr['daerah'];
-                                        $jumong = $rowtr['tarif'];
-                                        $idtrans_baru = $conn->insert_id; 
+                                        $jumong = $rowtr['tarif'];                                        
                                         ?>
-                                        <?php endforeach?>
                                 </table>
                                 <br>
                             </div>
