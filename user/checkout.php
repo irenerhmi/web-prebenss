@@ -543,6 +543,22 @@ print_r($_SESSION);
                         <form method="POST">
                             <div class="payment_method">
                                 <div class="default-form-box">
+                                    <label>Nama Ekspedisi </label>
+                                        <select name="ekspedisi" class="form-control">
+                                            <option value="">Pilih Ekspedisi</option>          
+                                            <option value="JNT">
+                                                JNT
+                                            </option>
+                                            <option value="JNE">
+                                                JNE
+                                            </option>
+                                            <option value="SiCepat">
+                                                SiCepat
+                                            </option>
+                                        </select>
+                                    <br>
+                                </div>
+                                <div class="default-form-box">
                                     <br> <label>Ongkos Kirim </label>
                                         <select name="ongkir" class="form-control">
                                             <option value="">Pilih Ongkos Kirim</option>
@@ -558,7 +574,6 @@ print_r($_SESSION);
                                         </select>
                                     <br>
                                 </div>
-                                <br>
                                 <div class="default-form-box">
                                     <br> <label>Metode Pembayaran</label>
                                         <select name="id_metode" class="form-control">
@@ -587,6 +602,7 @@ print_r($_SESSION);
                             $id_pelanggan = $_SESSION['id_pelanggan'];
                             $ongkir = $_POST['ongkir'];
                             $metode = $_POST['id_metode'];
+                            $namaeks = $_POST['ekspedisi'];
                             $tanggal_trans =  date("Y-m-d");
                             
                             //select table ongkir
@@ -619,8 +635,14 @@ print_r($_SESSION);
                                 
                             endforeach;
 
-                            // //menyimpan data ke table pembayaran
+                            // menyimpan data ke table pembayaran
                             $resultpb = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_baru . "')");
+
+                            $id_bayarbar = $conn->insert_id; 
+                            $_SESSION['idtbayarbar'] = $id_bayarbar;
+
+                            // menyimpan data ke table pengiriman
+                            $resultpb = mysqli_query($conn,"INSERT INTO pengiriman (nama_ekspedisi, status_peng, id_bayar) VALUES ('" . $namaeks . "','Belum Dikirim','" . $id_bayarbar . "')");
 
                             // unset($_SESSION['cart'][$_GET['id']]);
                             echo "<script> 

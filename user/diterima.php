@@ -9,7 +9,7 @@ require "../koneksidb.php";
 <?php
 $idtrans = $_GET['id'];
 
-$sql = "UPDATE transaksi SET status_trans='Selesai' WHERE id_transaksi='$idtrans' ";
+$sql = "UPDATE pengiriman SET status_trans='Pesanan Dikirim' tgl_peng='date("Y-m-d")' WHERE id_transaksi='$idtrans' ";
 
 if ($conn->query($sql) === TRUE) {
     echo "<script>

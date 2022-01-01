@@ -449,6 +449,7 @@ print_r($_SESSION);
                                 <table>
                                     <thead>
                                         <tr>
+                                            <th>Foto</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
                                         </tr>
@@ -461,6 +462,13 @@ print_r($_SESSION);
                                         while($produk = $tampil->fetch_assoc()){
                                         ?>
                                         <tr>
+                                            <?php
+                                            $sql = "SELECT * from produk WHERE nama_produk='".$produk["nama_p"]."'";
+                                            $result = mysqli_query($conn,$sql);
+                                            $row = mysqli_fetch_array($result);
+                                            $foto = $row['image'];
+                                            ?>
+                                            <td><img src="../image/seller/<?= $row['image']; ?>" width="110px" height="90px"></a></td>
                                             <td> <?= $produk["nama_p"]; ?> <strong> x<?= $produk["jumlah_p"];; ?> </strong></td>
                                             <td>Rp. <?php echo number_format($produk['jumlah_p']*$produk['harga_p']); ?> </td>
                                         </tr>
@@ -476,7 +484,6 @@ print_r($_SESSION);
                                         //query ambil ongkir
                                         $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");
                                         $rowtr = mysqli_fetch_array($resultr);
-                                        $daerah = $rowtr['daerah'];
                                         $jumong = $rowtr['tarif'];                                        
                                         ?>
                                 </table>

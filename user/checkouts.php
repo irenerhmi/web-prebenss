@@ -541,6 +541,11 @@ require "../koneksidb.php";
                         <form method="POST">
                             <div class="payment_method">
                                 <div class="default-form-box">
+                                    <br> <label>Tanggal Pengembalian</label>
+                                        <<input type="date" name="pengembalian">
+                                    <br>
+                                </div>
+                                <div class="default-form-box">
                                     <br> <label>Ongkos Kirim </label>
                                         <select name="ongkir" class="form-control">
                                             <option value="">Pilih Ongkos Kirim</option>
@@ -600,7 +605,7 @@ require "../koneksidb.php";
                             $totaltrans = $total + $ongkir;  
 
                             //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, status_trans, tarif, total_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', 'Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', '" . $id_pelanggan . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, tgl_pengembalian, status_trans, tarif, total_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', '" . $tglkem . "','Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', '" . $id_pelanggan . "')");
 
                             //menyimpan data ke table detail dilakukan
                             $id_baruse = $conn->insert_id; 

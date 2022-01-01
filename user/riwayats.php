@@ -91,7 +91,7 @@ require "../koneksidb.php";
                     <!-- Tab panes Riwayat Pending -->
                     <div class="tab-content dashboard_content" data-aos="fade-up"  data-aos-delay="200" >
                         <div class="tab-pane fade show active" id="orders">
-                            <h4>Pesanan Pending</h4>
+                            <h4>Pesanan Harus Dikirim</h4>
                             <div class="table_page table-responsive">
                                 <table>
                                     <thead>
@@ -106,7 +106,8 @@ require "../koneksidb.php";
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksise where id_pelanggan = '".$_SESSION['id_pelanggan']."' and status_trans ='Menunggu Pembayaran'"); 
+                                        $ambil = $conn->query("SELECT * from transaksi 
+                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND tgl_pengembalian IS NOT NULL"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -115,8 +116,7 @@ require "../koneksidb.php";
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
                                             <td>
-                                                <a href="notariwayat.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="nota">Nota</a>
-                                                <a href="bayar.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Bayar</a>
+                                                <a href="bayar.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Kirim Barang</a>
                                             </td>
                                         </tr>
                                         <?php 

@@ -25,6 +25,7 @@ session_start();
     $berat = $_POST["berat"];
     $alamat = $_POST["alamat"];
     $tanggal = $_POST["tglkirim"];
+    $deskripsi = $_POST["deskripsi"];
     $imgbarang = $_FILES["imgbarang"];
     $kat = $_POST['kat'];
     $phone = $_SESSION['phone'];
@@ -77,7 +78,7 @@ session_start();
       // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($imgbarang["tmp_name"], $target_file)) {
-          $sql = mysqli_query($conn, "INSERT INTO produk (nama_produk, berat, harga, image, id_kategori, id_jenis) VALUES ('" . $barang . "', '" . (int)$berat . "' , 0,'" . $namafile . "', '" . (int)$kat . "' , 3 )");
+          $sql = mysqli_query($conn, "INSERT INTO produk (nama_produk, berat, harga, deskripsi, image, id_kategori, id_jenis) VALUES ('" . $barang . "', '" . (int)$berat . "', 0 , '" . $deskripsi. "','" . $namafile . "', '" . (int)$kat . "' , 3 )");
           $id_probaru = $conn->insert_id; 
 
           if ($sql === TRUE) {
@@ -86,24 +87,35 @@ session_start();
     
             if($sql1 === TRUE) {
               $sql2 = mysqli_query($conn, "INSERT INTO menginput (id_produk, id_pelanggan, id_donasi) VALUES ('" . $id_probaru . "','" . $_SESSION['id_pelanggan'] . "','" . $id_don . "')");
-              echo "<script>
-                    window.alert('Donasi Berhasil Diinput!');
-                    window.location('donasi.php'); 
-                  </script>";
+              
+              if ($sql2 === TRUE) {
+                echo "<script>
+                        window.alert('Donasi Berhasil Diinput!');
+                        window.location('donasi.php'); 
+                      </script> ";
+              } 
+              else {
 
-            } else {
+                echo $sql2;
+              }
+
+            } 
             echo "<script>
-                    window.alert('detil gagal diinput'); 
-                  </script>";
-            }
+                    window.location('donasi.php'); 
+                  </script> ";
+
           } else {
-            echo  "update data donasi tidak berhasil";
+            // echo  "update data donasi tidak berhasil";
+            echo $sql;
           }
 
         } else {
         echo "Sorry, there was an error uploading your file.";
         }
     }
+    echo "<script>
+            window.location('donasi.php'); 
+          </script>";
 
 /* 
 }
