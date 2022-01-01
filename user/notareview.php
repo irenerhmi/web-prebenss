@@ -487,7 +487,10 @@ print_r($_SESSION);
                                                 <input type="text" name="review" placeholder="Masukkan Review">
                                             </div>
                                             <div class="order_button pt-7">
-                                                <button name="review">Submit Review</button>
+                                                <button type="submit" name="review" 
+                                                    <?php if(isset($_POST["review"]))
+                                                    { echo "disabled";
+                                                    } ?> >Submit Review</button>
                                             </div>
                                         </form>
                                         <?php
