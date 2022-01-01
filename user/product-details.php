@@ -520,6 +520,8 @@ echo $id;
                 
                                 <!-- Start Product Details Tab Content Singel -->
                                 <div class="tab-pane" id="review">
+                                    <?php $ambil = $conn->query("SELECT * from produk where id_jenis=1 limit 6"); ?>
+                                    <?php while($perproduk = $ambil->fetch_assoc()){?>
                                     <div class="single-tab-content-item">
                                         <!-- Start - Review Comment -->
                                         <ul class="comment">

@@ -157,7 +157,7 @@ require "../koneksidb.php";
                                             <td><?php echo $nomor; ?></td>
                                             <td><?php echo $perproduk['tgl_transaksi']; ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
-                                            <td>7 hari</td>
+                                            <td>7-14 hari</td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
                                             <td><a href="diterima.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="diterima">Pesanan Diterima</a></td>
                                         </tr>
@@ -187,7 +187,8 @@ require "../koneksidb.php";
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' and status_trans ='Selesai'"); 
+                                        $ambil = $conn->query("SELECT * from transaksi 
+                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Diterima' AND tgl_pengembalian IS NULL "); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
