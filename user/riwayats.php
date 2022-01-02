@@ -91,7 +91,7 @@ require "../koneksidb.php";
                     <!-- Tab panes Riwayat Pending -->
                     <div class="tab-content dashboard_content" data-aos="fade-up"  data-aos-delay="200" >
                         <div class="tab-pane fade show active" id="orders">
-                            <h4>Pesanan Harus Dikirim</h4>
+                            <h4>Pesanan Pending</h4>
                             <div class="table_page table-responsive">
                                 <table>
                                     <thead>
@@ -118,7 +118,7 @@ require "../koneksidb.php";
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
                                             <td>
                                                 <a href="notariwayats.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="nota">Nota</a>
-                                                <a href="bayar.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Bayar</a>
+                                                <a href="bayars.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Bayar</a>
                                             </td>
                                         </tr>
                                         <?php 
@@ -171,6 +171,51 @@ require "../koneksidb.php";
                     <!-- Tab panes Riwayat Review -->
                             <br>
                             <br>
+                            <h4>Pesanan Diterima</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Waktu Pengembalian</th>
+                                            <th>Total</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>                                    
+                                    <tbody>
+                                        <?php 
+                                        $nomor = 1;
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Diterima' AND tgl_pengembalian IS NOT NULL "); 
+                                        while($perproduk = $ambil->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk['tgl_transaksi']; ?></td>
+                                            <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td>
+                                                <?php
+                                                $durasise = $perproduk['durasi_sewa'];
+                                                $diterima = $perproduk['tgl_diterima'];
+                                                // echo $diterima;
+                                                $date = date("Y-m-d", strtotime($diterima. "$durasise days"));
+                                                echo $date;
+                                                ?>
+                                            </td>
+                                            <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
+                                            <td><a href="cekpengembalian.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="review">Pengembalian</a></button></td>
+                                        </tr>
+                                        <?php 
+                                        $nomor++;
+                                        } 
+                                        ?>   
+                                    </tbody>
+                                </table>
+                            </div>
+                    <!-- Tab panes Riwayat Review -->
+                            <br>
+                            <br>
                             <h4>Pesanan Selesai</h4>
                             <div class="table_page table-responsive">
                                 <table>
@@ -186,7 +231,7 @@ require "../koneksidb.php";
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Diterima' AND tgl_pengembalian IS NOT NULL "); 
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Telah Dikembalikan' AND tgl_pengembalian IS NOT NULL "); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
