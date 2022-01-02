@@ -631,8 +631,17 @@ print_r($_SESSION);
                                 echo $id;
                                 $hargat = $rowsl['harga'];
 
-                                $resultd = mysqli_query($conn,"INSERT INTO dilakukan (nama_p, harga_p, id_transaksi, id_produk, jumlah_p) VALUES ('" . $namat . "','" . $hargat . "', '" . $id_baru . "', '" . $id . "', '" . $qty . "')");
+                                $dilakukan = "INSERT INTO dilakukan (nama_p, harga_p, id_transaksi, id_produk, jumlah_p) VALUES ('" . $namat . "','" . $hargat . "', '" . $id_baru . "', '" . $id . "', '" . $qty . "')";
+                                $resultd = mysqli_query($conn,$dilakukan);
                                 
+                                if ($resultd === TRUE){
+                                    echo "<script>
+                                            window.alert(' checkout berhasil!')
+                                          </script>";
+                                } else {
+
+                                    echo $dila;
+                                }
                             endforeach;
 
                             // menyimpan data ke table pembayaran
@@ -645,8 +654,8 @@ print_r($_SESSION);
                             $resultpb = mysqli_query($conn,"INSERT INTO pengiriman (nama_ekspedisi, status_peng, id_bayar) VALUES ('" . $namaeks . "','Belum Dikirim','" . $id_bayarbar . "')");
 
                             // unset($_SESSION['cart'][$_GET['id']]);
-                            echo "<script> 
-                                     window.location ='nota.php'; 
+                            echo "<script>
+                                    window.location ='nota.php'; 
                                   </script>";   
                             
                         }

@@ -542,7 +542,7 @@ require "../koneksidb.php";
                             <div class="payment_method">
                                 <div class="default-form-box">
                                     <br> <label>Tanggal Pengembalian</label>
-                                        <<input type="date" name="pengembalian">
+                                        <input type="date" name="pengembalian" min="<?php echo date('Y-m-d'); ?>">
                                     <br>
                                 </div>
                                 <div class="default-form-box">
@@ -618,7 +618,17 @@ require "../koneksidb.php";
                                 $namat = $rowsl['nama_produk'];
                                 $hargat = $rowsl['harga'];
 
-                                $resultd = mysqli_query($conn,"INSERT INTO dilakukan (nama_p, harga_p, id_transaksi, id_produk, jumlah_p) VALUES ('" . $namat . "','" . $hargat . "', '" . $id_baruse . "', '" . $ids . "', '" . $qtys . "')");
+                                $dilakukan = "INSERT INTO dilakukan (nama_p, harga_p, id_transaksi, id_produk, jumlah_p) VALUES ('" . $namat . "','" . $hargat . "', '" . $id_baruse . "', '" . $ids . "', '" . $qtys . "')";
+                                $resultd = mysqli_query($conn,$dilakukan);
+
+                                if ($resultd === TRUE){
+                                    echo "<script>
+                                            window.alert('checkout berhasil!')
+                                          </script>";
+                                } else {
+
+                                    echo $dilakukan;
+                                }
                                 
                             endforeach;
 

@@ -11,6 +11,8 @@ require "../koneksidb.php";
 ?>
 <?php 
 
+$idtrans = $_GET['id'];
+echo $idtrans;
 print_r($_SESSION);
 
 ?>
@@ -18,7 +20,7 @@ print_r($_SESSION);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prebens - Nota Pembayaran</title>
+    <title>Aments - Car Accessories Shop HTML Template</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
 
@@ -418,13 +420,13 @@ print_r($_SESSION);
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Pembayaran</h3>
+                        <h3 class="breadcrumb-title">Nota</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="cart.php">Cart</a></li>
-                                    <li><a href="checkout.php">Checkout</a></li>
-                                    <li class="active" aria-current="page">Pembayaran</li>
+                                    <li><a href="dashuser.php">Home</a></li>
+                                    <li><a href="riwayat.php">Riwayat</a></li>
+                                    <li class="active" aria-current="page">Nota</li>
                                 </ul>
                             </nav>
                         </div>
@@ -452,13 +454,11 @@ print_r($_SESSION);
                                             <th>Harga</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                         <?php 
-                                        
                                         $total = 0;
-                                        //query ambil produk
-                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='".$_SESSION['idtransbaru']."'");
+                                        // mengambil data pada id transaksi
+                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
                                         while($produk = $tampil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -477,12 +477,12 @@ print_r($_SESSION);
                                         $subtotal = $produk['jumlah_p']*$produk['harga_p'];
                                         $total+=$subtotal; 
                                         }
-                                    
-                                        ?> 
+                                        ?>
                                     </tbody>
+                                        
                                         <?php 
                                         //query ambil ongkir
-                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='".$_SESSION['idtransbaru']."'");
+                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");
                                         $rowtr = mysqli_fetch_array($resultr);
                                         $jumong = $rowtr['tarif'];                                        
                                         ?>
@@ -531,7 +531,7 @@ print_r($_SESSION);
                             <div class="card-text m-3 outline">
                                 <?php 
                                 //query select pembayaran buat ambil metode
-                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='".$_SESSION['idtransbaru']."'");
+                                $resultr = mysqli_query($conn,"SELECT * from pembayaran where id_transaksi='".$idtrans."'");
                                 $rowm = mysqli_fetch_array($resultr);
                                 $idmet = $rowm['id_metode'];
                     
@@ -567,7 +567,7 @@ print_r($_SESSION);
                         <?php
                         if (isset($_POST['riwayat'])) {
                             echo "<script>
-                                    window.location ='riwayat.php'; 
+                                    window.location ='riwayats.php'; 
                                   </script>";              
                             
                         }

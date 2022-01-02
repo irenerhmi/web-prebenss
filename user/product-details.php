@@ -505,7 +505,7 @@ echo $id;
                                     <h5>Description</h5>
                                 </a></li>
                             <li><a class="nav-link" data-bs-toggle="tab" href="#review">
-                                    <h5>Reviews (1)</h5>
+                                    <h5>Reviews</h5>
                                 </a></li>
                         </ul> <!-- End Product Details Tab Button -->
 
@@ -521,10 +521,10 @@ echo $id;
                 
                                 <!-- Start Product Details Tab Content Singel -->
                                 <div class="tab-pane" id="review">
-                                    <?php $ambil = $conn->query("SELECT * from merating where id_produk=$id"); ?>
-                                    <?php while($perproduk = $ambil->fetch_assoc())
-                                    {
-
+                                    <?php
+                                    // perulangan menampilkan review dan rating 
+                                    $ambil = $conn->query("SELECT * from merating where id_produk=$id"); ?>
+                                    <?php while($perproduk = $ambil->fetch_assoc()){
                                     ?>
                                     <div class="single-tab-content-item">
                                         <!-- Start - Review Comment -->
@@ -533,6 +533,7 @@ echo $id;
                                             <li class="comment-list">
                                                 <div class="comment-wrapper">
                                                     <?php
+                                                    // mengambil username dan foto pelanggan
                                                     $sql = "SELECT * from pelanggan WHERE id_pelanggan='".$perproduk["id_pelanggan"]."'";
                                                     $result = mysqli_query($conn,$sql);
                                                     $row = mysqli_fetch_array($result);
@@ -540,6 +541,8 @@ echo $id;
                                                     $sql1 = "SELECT * from user WHERE u_username='".$row['u_username']."'";
                                                     $result1 = mysqli_query($conn,$sql1);
                                                     $row1 = mysqli_fetch_array($result1);
+
+                                                    // perulangan untuk menampilkan jumlah rating
                                                     $star_list = str_repeat('<span class="review-fill"><i class="fa fa-star"></i></span>', $perproduk['nilai']);
 
                                                     ?>
@@ -556,23 +559,12 @@ echo $id;
                                                                     ?>
                                                                 </div>
                                                             </div>
-                                                            <?php
-                                                            $sqlp = "SELECT id_supplier from produk WHERE id_produk='".$perproduk["id_produk"]."' and id_supplier='".$_SESSION['id_supplier']."'";
-                                                            $resultp = mysqli_query($conn,$sqlp);
-                                                            $rowp = mysqli_fetch_array($resultp);
-                                                            if ($rowp > 0) {
-                                                            ?>
-                                                                <div class="comment-content-right">
-                                                                    <a href="reply.php"><i class="fa fa-reply"></i>Reply</a>
-                                                                </div>
-                                                            <?php
-                                                            }
-                                                            ?>
                                                         </div>
                                                         <?php
-                                                        $sql2 = "SELECT * from mereview WHERE id_produk='".$perproduk["id_produk"]."' ";
+                                                        $sql2 = "SELECT * from mereview WHERE id_produk='".$perproduk["id_produk"]."' AND id_pelanggan='".$perproduk["id_pelanggan"]."' ";
                                                         $result2 = mysqli_query($conn,$sql2);
                                                         $row2 = mysqli_fetch_array($result2);
+                                                        $idrev = $row2['id_review'];
                                                         ?>
                                                         <div class="para-content">
                                                             <p><?php echo $row2['isi']; ?></p>
@@ -580,68 +572,105 @@ echo $id;
                                                     </div>
                                                 </div>
                                                 <!-- Start - Review Comment Reply-->
+                                                
                                                 <ul class="comment-reply">
-                                                    <li class="review-form">
-                                                        <div class="review-form-text-top">
-                                                            <h5>Berikan Balasan</h5>
+                                                    <?php
+                                                    $sqlp = "SELECT id_supplier from produk WHERE id_produk='".$perproduk["id_produk"]."' and id_supplier='".$_SESSION['id_supplier']."'";
+                                                    $resultp = mysqli_query($conn,$sqlp);
+                                                    $rowp = mysqli_fetch_array($resultp);
+                                                    if ($rowp > 0) { ?>
+                                                        <div class="comment-content-right">
+                                                            <a href="reply.php?idrev=<?php echo $idrev;?>"><i class="fa fa-reply"></i>Reply</a>
                                                         </div>
-
-                                                        <form action="#" method="post">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="default-form-box mb-20">
-                                                                        <label for="comment-review-text">Balasan<span>*</span></label>
-                                                                        <input type="text" name="review" placeholder="Masukkan Balasan Anda">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <button class="form-submit-btn" type="submit">Submit</button>
-                                                                </div>
-                                                                <br>
+                                                        <!-- <li class="review-form">
+                                                            <div class="review-form-text-top">
+                                                                <h5>Berikan Balasan</h5>
                                                             </div>
-                                                        </form>
-                                                    </li>
-                                                    <li class="comment-reply-list">
-                                                        <?php $ambilre = $conn->query("SELECT * from mereply where id_reply='". $row2['isi']."' "); ?>
-                                                        <?php 
-                                                        while($perprodukre = $ambilre->fetch_assoc()){
-                                                            $sql = "SELECT * from supplier WHERE id_supplier='".$perprodukre["id_supplier"]."'";
-                                                            $resultw = mysqli_query($conn,$sql);
-                                                            $roww = mysqli_fetch_array($resultw);
 
-                                                            $sqlw = "SELECT * from user WHERE u_username='".$roww['u_username']."'";
-                                                            $resultw = mysqli_query($conn,$sqlw);
-                                                            $rowl = mysqli_fetch_array($resultw);
-
+                                                            <form action="#" method="POST">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="default-form-box mb-20">
+                                                                            <label for="comment-review-text">Balasan<span>*</span></label>
+                                                                            <input type="text" name="isireply" placeholder="Masukkan Balasan Anda">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <button class="form-submit-btn" type="submit" name="reply">Submit</button>
+                                                                    </div>
+                                                                    <br>
+                                                                </div>
+                                                            </form>
+                                                            <?php
+                                                            // mengirim reply ke database
+                                                            if (isset($_POST['reply'])) {
+                                                                $review = $_POST['isireply'];
+                                                                $sqlrep = "INSERT INTO mereply (id_review, id_supplier, isi_r) VALUES ($idrev, '" . $_SESSION['id_supplier'] . "', '" . $review . "')";
+                                                                $resultrep = mysqli_query($conn,$sqlrep);
+                                                                if ($resultrep === TRUE) {
+                                                                    echo "<script>
+                                                                            window.alert('Review telah diupload');
+                                                                          </script>";
+                                                                } else {
+                                                                    
+                                                                    echo $sqlrep;
+                                                                }
+                                                            }
                                                             ?>
+                                                        </li> -->
+                                                        <br>
+                                                    <?php 
+                                                    } ?>
+                                                    <li class="comment-reply-list">
+                                                        <?php 
+                                                        $sqltar = "SELECT * from mereview";
+                                                        $resultar = mysqli_query($conn,$sqltar);
+                                                        $rowtar = mysqli_fetch_array($resultar);
+
+                                                        $ambilre = $conn->query("SELECT * from mereply where id_review=$idrev "); ?>
+
+                                                        <?php
+                                                        while($perprodukre = $ambilre->fetch_assoc())
+                                                        {
+                                                        ?>
                                                             <div class="comment-wrapper">
+                                                                <?php
+                                                                // mengambil username dan foto supplier
+                                                                $sqlsup = "SELECT * from supplier WHERE id_supplier='" . $perprodukre['id_supplier'] . "'";
+                                                                $resultsup = mysqli_query($conn,$sqlsup);
+                                                                $rowsup = mysqli_fetch_array($resultsup);
+
+                                                                $sqlsup2 = "SELECT * from user WHERE u_username='".$rowsup['u_username']."'";
+                                                                $resultsup2 = mysqli_query($conn,$sqlsup2);
+                                                                $rowsup2 = mysqli_fetch_array($resultsup2);
+                                                                ?>
                                                                 <div class="comment-img">
-                                                                    <img src="../image/user/<?php echo $rowl['u_image'] ?>" alt="">
+                                                                    <img src="../image/user/<?php echo $rowsup2['u_image'] ?>" alt="">
                                                                 </div>
                                                                 <div class="comment-content">
                                                                     <div class="comment-content-top">
                                                                         <div class="comment-content-left">
-                                                                            <h6 class="comment-name"><?php echo $rowl['u_username']; ?></h6>
+                                                                            <h6 class="comment-name"><?php echo $rowsup2['u_username']; ?></h6>
                                                                         </div>
                                                                     </div>
-
                                                                     <div class="para-content">
                                                                         <p> <?php echo $perprodukre['isi_r']?> </p>
                                                                     </div>
+                                                                    <br>
                                                                 </div>
                                                             </div>
-                                                        <?php
-                                                        }
-                                                        ?>
+                                                            <br>
+                                                        <?php 
+                                                        } ?>
                                                     </li>
                                                 </ul> <!-- End - Review Comment Reply-->
                                             </li> <!-- End - Review Comment list-->
                                         </ul> <!-- End - Review Comment -->
                                     </div>
+                                <?php }?>
                                 </div> <!-- End Product Details Tab Content Singel -->
                             </div>
                         </div> <!-- End Product Details Tab Content -->
-
                     </div>
                 </div>
             </div>
@@ -649,25 +678,24 @@ echo $id;
     </div> <!-- End Product Content Tab Section -->
 
     <!-- ...:::: Start Product  Section:::... -->
-    <div class="product-section section-top-gap-100">
+    <div class="product-tab-section section-top-gap-100">
         <!-- Start Section Content -->
         <div class="section-content-gap">
             <div class="container">
                 <div class="row">
-                    <div class="section-content">
-                        <h3 class="section-title" data-aos="fade-up"  data-aos-delay="0">Produk Lain Dari Toko</h3>
+                    <div class="section-content d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column">
+                        <h3 class="section-title" data-aos="fade-up" data-aos-delay="0">Produk Lain Dari Toko</h3>
                     </div>
                 </div>
             </div>
         </div> <!-- End Section Content -->
 
-        <!-- Start Product Wrapper -->
         <!-- Start Tab Wrapper -->
         <div class="product-tab-wrapper" data-aos="fade-up"  data-aos-delay="50">
             <div class="container">
                 <div class="row g-5">
-                    <?php $ambil = $conn->query("SELECT * from produk where id_jenis=1 limit 3"); ?>
-                    <?php while($perproduk = $ambil->fetch_assoc()){ ?>
+                    <?php $ambil = $conn->query("SELECT * from produk where id_supplier=$sup and id_jenis=1"); ?>
+                    <?php while($perproduk = $ambil->fetch_assoc()){?>
                     <div class="col-4">
                         <div class="tab-content tab-animate-zoom">
                             <div class="tab-pane show active">
@@ -694,14 +722,22 @@ echo $id;
                                     </div> <!-- End Product Defautlt Single -->
                                       <!-- Start Product Defautlt Single -->
                                 </div>
-                            </div>                           
+                            </div>
+                            <div class="tab-pane" id="Sewa">
+                                <div class="product-default-slider product-default-slider-4grids-1row">
+                                    <!-- Start Product Defautlt Single -->
+                                     <!-- End Product Defautlt Single -->   
+                                </div>
+                            </div>                            
                         </div>
                     </div>
-                    <?php } ?>
+                <?php } ?>
                 </div>
             </div>
         </div> <!-- End Catagory Wrapper -->
-    </div> <!-- ...:::: End Product Section:::... -->
+    </div>
+    
+    <!-- ...:::: End Product Section:::... -->
 
     <!-- ...:::: Start Footer Section:::... -->
     <?php require "footer.php"; ?>

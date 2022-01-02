@@ -7,8 +7,7 @@ if(!isset($_SESSION['username'])){
 }
 
 require "../koneksidb.php";
-$id = $_GET['id'];
-echo $id;
+$idrev = $_GET['idrev'];
 ?>
 
 <head>
@@ -437,37 +436,40 @@ echo $id;
     <div class="product-details-content-tab-section section-inner-bg section-top-gap-100">
         <div class="container">
             <div class="review-form" >
-                                            <div class="review-form-text-top">
-                                                <h5>ADD A REVIEW</h5>
-                                                <p>Your email address will not be published. Required fields are marked *</p>
-                                            </div>
+                <div class="review-form-text-top">
+                    <h5>Berikan Balasan</h5>
+                </div>
 
-                                            <form action="#" method="post">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="default-form-box mb-20">
-                                                            <label for="comment-name">Your name <span>*</span></label>
-                                                            <input id="comment-name" type="text" placeholder="Enter your name" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="default-form-box mb-20">
-                                                            <label for="comment-email">Your Email <span>*</span></label>
-                                                            <input id="comment-email" type="email" placeholder="Enter your email" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="default-form-box mb-20">
-                                                            <label for="comment-review-text">Your review <span>*</span></label>
-                                                            <textarea id="comment-review-text" placeholder="Write a review" required></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <button class="form-submit-btn" type="submit">Submit</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+                <form action="#" method="POST">
+                    <div class="row">
+                       <div class="col-12">
+                            <div class="default-form-box mb-20">
+                                <label for="comment-review-text">Balasan<span>*</span></label>
+                                <input type="text" name="isireply" placeholder="Masukkan Balasan Anda">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="form-submit-btn" type="submit" name="reply">Submit</button>
+                        </div>
+                        <br>
+                    </div>
+                </form>
+                <?php
+                // mengirim reply ke database
+                if (isset($_POST['reply'])) {
+                    $review = $_POST['isireply'];
+                    $sqlrep = "INSERT INTO mereply (id_review, id_supplier, isi_r) VALUES ($idrev, '" . $_SESSION['id_supplier'] . "', '" . $review . "')";
+                    $resultrep = mysqli_query($conn,$sqlrep);
+                    if ($resultrep === TRUE) {
+                        echo "<script>
+                                window.alert('Review telah diupload');
+                             </script>";
+                    } else {
+                                                                    
+                        echo $sqlrep;
+                    }
+                }
+                ?>
             </div>
         </div>
     </div> <!-- End Product Content Tab Section -->

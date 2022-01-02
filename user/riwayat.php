@@ -107,7 +107,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND  status_trans='Menunggu Konfirmasi' AND tgl_pengembalian IS NULL 
-                                                OR status_trans ='Menunggu Pembayaran' and tgl_pengembalian IS NULL"); 
+                                                OR id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Menunggu Pembayaran' and tgl_pengembalian IS NULL"); 
                                         while($perproduk = $ambil->fetch_assoc()){
 
                                         ?>
@@ -150,7 +150,7 @@ require "../koneksidb.php";
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi 
                                             where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Pengiriman' AND tgl_pengembalian IS NULL 
-                                                OR status_trans ='Pesanan Dikirim' and tgl_pengembalian IS NULL"); 
+                                                OR id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Pesanan Dikirim' and tgl_pengembalian IS NULL"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
