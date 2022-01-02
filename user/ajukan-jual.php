@@ -69,9 +69,22 @@ require "../koneksidb.php";
     <div class="customer_login">
         <div class="container">
             <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <!-- Nav tabs -->
+                    <div class="dashboard_tab_button" >
+                        <ul  class="nav flex-column dashboard-list">
+                            <li><a href="#orders"  class="nav-link">Ajukan Jual</a></li>
+                            <li><a href="ajukan-sewa.php"  class="nav-link active">Ajukan Sewa</a></li>
+                            <li><a href="pesanan-jual.php"  class="nav-link">Pesanan Produk Jual</a></li>
+                            <li><a href="pesanan-sewal.php"  class="nav-link">Pesanan Produk Sewa</a></li>
+                            <li><a href="../logout.php" class="nav-link">logout</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <!--register area start-->
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
+                        <div class="tab-pane fade show active" id="orders">
                         <h3>Masukkan Informasi Produk</h3>
                         <form method="POST" action="upload.php" enctype="multipart/form-data" autocomplete="off">
                             <div class="default-form-box mb-20">
