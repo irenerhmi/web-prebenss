@@ -447,86 +447,82 @@ print_r($_SESSION);
                             <h3>Pesanan</h3>
                             <div class="order_table table-responsive">
                                 <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Foto</th>
-                                            <th>Produk</th>
-                                            <th>Harga</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
+                                        <!-- <?php 
                                         
                                         $total = 0;                                                        
                                         $ambil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
                                         $pecah = $ambil->fetch_assoc();
                                         $subtotal = $pecah['jumlah_p']*$pecah['harga_p'];
                                         $idtrans = $pecah['id_transaksi'];
-                                  
+                                        while($produk = $ambil->fetch_assoc()){
                                         ?> 
                                         <tr>
                                             <?php
-                                            $sql = "SELECT * from produk WHERE nama_produk='".$pecah["nama_p"]."'";
+                                            $sql = "SELECT * from produk WHERE nama_produk='".$produk["nama_p"]."'";
                                             $result = mysqli_query($conn,$sql);
                                             $row = mysqli_fetch_array($result);
                                             $foto = $row['image'];
                                             $idpro = $row['id_produk'];
                                             ?>
                                             <td><img src="../image/seller/<?= $row['image']; ?>" width="110px" height="90px"></a></td>
-                                            <td><a href="product-details.php?id=<?php echo $idtrans;?>"><?= $pecah["nama_p"]; ?><strong> x<?= $pecah["jumlah_p"];?> </strong></td>
+                                            <td><a href="product-details.php?id=<?php echo $idtrans;?>"><?= $produk["nama_p"]; ?><strong> x<?= $produk["jumlah_p"];?> </strong></td>
                                             <td>Rp. <?php echo number_format($subtotal); ?> </td>
                                         </tr>
+                                        <?php
+                                        }
+                                        ?> -->
+                                        <?php 
+                                        $total = 0;
+                                        // mengambil data pada id transaksi
+                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
+                                        while($produk = $tampil->fetch_assoc()){
+                                        ?>
+                                        <thead>
+                                        <tr>
+                                            <th>Foto</th>
+                                            <th>Produk</th>
+                                            <th>Harga</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <?php
+                                            $idpro= $produk['id_produk'];
+                                            $sql = "SELECT * from produk WHERE nama_produk='".$produk["nama_p"]."'";
+                                            $result = mysqli_query($conn,$sql);
+                                            $row = mysqli_fetch_array($result);
+                                            $foto = $row['image'];
+                                            ?>
+                                            <td><a href="product-details.php?id=<?php echo $produk['id_produk'];?>"><img src="../image/seller/<?= $row['image']; ?>" width="110px" height="90px"></a></td>
+                                            <td><a href="product-details.php?id=<?php echo $produk['id_produk'];?>"><?= $produk["nama_p"]; ?> <strong> x<?= $produk["jumlah_p"];; ?> </strong></td>
+                                            <td>Rp. <?php echo number_format($produk['jumlah_p']*$produk['harga_p']); ?> </td>
+                                        </tr>
+                                        <?php
+                                        // menghitung subtotal dan total pesanan
+                                        $subtotal = $produk['jumlah_p']*$produk['harga_p'];
+                                        $total+=$subtotal;
+                                        ?>
                                         <td>
-                                        <form method="POST">
+                                            <div class="order_button pt-7">
+                                                <a href="uploadrev.php?idpro=<?php echo $idpro ?>" class="btn btn-danger">Review Produk</a>
+                                            </div>
+                                        <!-- <form action="uploadrev.php" method="POST">
                                             <div class="default-form-box">
                                                 <label>Masukkan Rating (Range 1-5)<span>*</span></label>
                                                 <input type="number" value="" min=1 max=5 name="rating" placeholder="Masukkan Rating">
-                                            </div>
-                                            <div class="default-form-box">
+                                                <br>
                                                 <label>Masukkan Review <span>*</span></label>
-                                                <input type="text" name="review" placeholder="Masukkan Review">
+                                                <input type="text" value="" name="isirev" placeholder="Masukkan Review" >
                                             </div>
                                             <div class="order_button pt-7">
                                                 <button type="submit" name="review" 
                                                     <?php if(isset($_POST["review"]))
                                                     { echo "disabled";
-                                                    } ?> >Submit Review</button>
+                                                    } ?> ><a href="uploadrev.php?id=<?php echo $produk['id_produk'];?>">Submit Review</button>
                                             </div>
-                                        </form>
+                                            <br>
+                                        </form> -->
                                         <?php
-                                        if (isset(($_POST['review']))) 
-                                        {
-                                            $rating = $_POST['rating'];
-                                            $review = $_POST['review'];
-                                            $sql = "INSERT INTO merating (nilai, id_produk, id_pelanggan) VALUES ($rating, '" . $idpro . "', '" . $_SESSION['id_pelanggan'] . "')";
-                                            $sql2 = "INSERT INTO mereview (isi, id_produk, id_pelanggan) VALUES ('" . $review . "', '" . $idpro . "', '" . $_SESSION['id_pelanggan'] . "')";
-                                            $resultrt = mysqli_query($conn,$sql);
-                                            if ($resultrt === TRUE) {
-                                                
-                                                $resultrv = mysqli_query($conn,$sql2);
-
-                                                if ($resultrv === TRUE) {
-                                                    echo "<script>
-                                                            window.alert('Review telah diupload');
-                                                         </script>";
-                                                }
-                                                else {
-
-                                                    echo $sql2;
-
-                                                }
-                                            }
-                                            else {
-
-                                                echo $sql;
-                                            }
-
-                                            
-
-                                            // echo "<script>
-                                            //         window.alert('Review telah diupload');
-                                            //         window.location ='riwayat.php'; 
-                                            //       </script>";
                                         }
                                         ?>
                                         </td>

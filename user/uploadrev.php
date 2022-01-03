@@ -7,7 +7,7 @@ if(!isset($_SESSION['username'])){
 }
 
 require "../koneksidb.php";
-$idrat = $_GET['idrat'];
+$idpro = $_GET['idpro'];
 ?>
 
 <head>
@@ -437,37 +437,40 @@ $idrat = $_GET['idrat'];
         <div class="container">
             <div class="review-form" >
                 <div class="review-form-text-top">
-                    <h5>Berikan Balasan</h5>
+                    <h5>Berikan Review</h5>
                 </div>
 
-                <form action="#" method="POST">
-                    <div class="row">
-                       <div class="col-12">
-                            <div class="default-form-box mb-20">
-                                <label for="comment-review-text">Balasan<span>*</span></label>
-                                <input type="text" name="isireply" placeholder="Masukkan Balasan Anda">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="form-submit-btn" type="submit" name="reply">Submit</button>
-                        </div>
+                <form action="uploadrev.php" method="POST">
+                    <div class="default-form-box">
+                        <label>Masukkan Rating (Range 1-5)<span>*</span></label>
+                        <input type="number" value="" min=1 max=5 name="rating" placeholder="Masukkan Rating">
                         <br>
+                        <label>Masukkan Review <span>*</span></label>
+                        <input type="text" value="" name="isirev" placeholder="Masukkan Review" >
                     </div>
+                    <div class="order_button pt-7">
+                        <button type="submit" name="review">Submit Review</button>
+                    </div>
+                    <br>
                 </form>
                 <?php
                 // mengirim reply ke database
-                if (isset($_POST['reply'])) {
-                    $review = $_POST['isireply'];
-                    $sqlrep = "INSERT INTO mereply (id_rating, id_supplier, isi_r) VALUES ($idrat, '" . $_SESSION['id_supplier'] . "', '" . $review . "')";
-                    $resultrep = mysqli_query($conn,$sqlrep);
-                    if ($resultrep === TRUE) {
-                        echo "<script>
-                                window.alert('Review telah diupload');
-                             </script>";
-                    } else {
-                                                                    
-                        echo $sqlrep;
-                    }
+                if (isset(($_POST['review']))) 
+                {
+                  $rating = $_POST['rating'];
+                  $review = $_POST['isirev'];
+                  $sql = "INSERT INTO merating (nilai, isi, id_produk, id_pelanggan) VALUES ($rating, '".$review."', $idpro, '" . $_SESSION['id_pelanggan'] . "')";
+
+                  $resultrt = mysqli_query($conn,$sql);
+                  if ($resultrt === TRUE) {
+                    echo "<script>
+                            window.alert('Review telah diupload');
+                          </script>";
+                  }
+                    else {
+
+                      echo $sql;
+                  }                                
                 }
                 ?>
             </div>

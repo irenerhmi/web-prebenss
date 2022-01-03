@@ -110,7 +110,8 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
 
-                                        $sql2 = "SELECT p.id_supplier as idsup, t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans FROM dilakukan d 
+                                        $sql2 = "SELECT p.id_supplier as idsup, t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                            FROM dilakukan d 
                                             LEFT JOIN transaksi t on d.id_transaksi=t.id_transaksi 
                                             LEFT JOIN produk p on d.id_produk=p.id_produk 
                                             WHERE status_trans LIKE 'Dikirim'";
