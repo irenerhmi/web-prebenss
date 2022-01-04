@@ -27,6 +27,6 @@ if ($conn->query($sql) === TRUE) {
 
 }
 echo "<script>
-        window.location('riwayat.php');
+        window.location('riwayats.php');
       </script>";
 ?>

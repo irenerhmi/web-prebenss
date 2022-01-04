@@ -114,7 +114,7 @@ require "../koneksidb.php";
                                             FROM dilakukan d 
                                             LEFT JOIN transaksi t on d.id_transaksi=t.id_transaksi 
                                             LEFT JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE status_trans LIKE 'Dikirim'";
+                                            WHERE p.id_jenis=1 AND status_trans LIKE '%%'";
 
                                         $ambil2 = mysqli_query($conn, $sql2); 
                                         $rowsl2 = mysqli_fetch_array($ambil2);
@@ -128,7 +128,7 @@ require "../koneksidb.php";
                                             <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
                                             <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
                                             <td>
-                                                <a href="pengiriman.php?id=<?php echo $perproduk2['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Bayar</a>
+                                                <a href="pengiriman.php?id=<?php echo $perproduk2['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Pengiriman</a>
                                             </td>
                                         </tr>
                                         <?php 
@@ -200,7 +200,6 @@ require "../koneksidb.php";
                                             <th>Date</th>
                                             <th>Status</th>
                                             <th>Total</th>
-                                            <th>Actions</th>
                                         </tr>
                                     </thead>                                    
                                     <tbody>
@@ -223,10 +222,6 @@ require "../koneksidb.php";
                                             <td><?php echo $perproduk['tgl_trans'] ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
-                                            <td>
-                                                <a href="notariwayat.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="nota">Nota</a>
-                                                <a href="bayar.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Bayar</a>
-                                            </td>
                                         </tr>
                                         <?php 
                                         $nomor++;

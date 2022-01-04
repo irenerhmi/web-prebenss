@@ -31,12 +31,6 @@ if (isset($_POST['submit'])) {
     }
   }
 
-  // Check file size
-  if ($imgbukti["size"] > 1000000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-  }
-
   // Allow certain file formats
   if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
@@ -64,12 +58,12 @@ if (isset($_POST['submit'])) {
       if ($conn->query($sql) === TRUE) {
         $resultd = mysqli_query($conn, "UPDATE transaksi SET status_trans='Menunggu Konfirmasi' WHERE id_transaksi='$idtrans'") ;
         echo "<script>
-                window.alert('produk berhasil diupload!'); 
+                window.alert('Bukti pembayaran berhasil diupload!'); 
                 window.location ='riwayat.php'; 
               </script>";
 
       } else {
-        echo  "update data tidak berhasil";
+        echo  "Upload bukti pembayaran tidak berhasil";
       }
     } else {
       echo "Sorry, there was an error uploading your file.";

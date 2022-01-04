@@ -65,7 +65,7 @@ print_r($_SESSION);
                             <div class="col-10 col-md-8 col-xl-6">
                                 <h5>Punya Barang Bekas? Prebens Aja</h5>
                                 <h2>Prebens</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiu</p>
+                                <br>
                                 <a href="shop-grid-jual.php" class="hero-button">Beli Sekarang</a>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ print_r($_SESSION);
                             <div class="col-10 col-md-8 col-xl-6">
                                 <h5>Punya Barang Bekas? Prebens Aja</h5>
                                 <h2>Prebens</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiu</p>
+                                <br>
                                 <a href="shop-grid-sewa.php" class="hero-button">Sewa Sekarang</a>
                             </div>
                         </div>

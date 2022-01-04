@@ -2,14 +2,19 @@
 <html lang="en">
 <?php
 session_start();
+
 if(!isset($_SESSION['username'])){
-    header("location: ../login.php");
+    header("location: login.php");
 }
 
 require "../koneksidb.php";
-$idpro = $_GET['idpro'];
-$_SESSION['idrev'] = $idpro;
+?>
+<?php 
+
+$idtrans = $_GET['id'];
+echo $idtrans;
 print_r($_SESSION);
+
 ?>
 
 <head>
@@ -18,7 +23,6 @@ print_r($_SESSION);
     <title>Aments - Car Accessories Shop HTML Template</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
@@ -48,11 +52,8 @@ print_r($_SESSION);
 <body>
 
     <!-- ...:::: Start Header Section:::... -->
-    <header class="header-section d-lg-block d-none">
-        <!-- Start Header Top Area -->
-        <?php require "headeruser.php"; ?>
-        <!-- End Bottom Area -->
-    </header> <!-- ...:::: End Header Section:::... -->
+    <?php require "headeruser.php"; ?>
+    <!-- ...:::: End Header Section:::... -->
 
     <!-- ...:::: Start Mobile Header Section:::... -->
     <div class="mobile-header-section d-block d-lg-none">
@@ -419,12 +420,13 @@ print_r($_SESSION);
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Product Details</h3>
+                        <h3 class="breadcrumb-title">Nota</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li class="active" aria-current="page">Product Details</li>
+                                    <li><a href="dashuser.php">Home</a></li>
+                                    <li><a href="riwayat.php">Riwayat</a></li>
+                                    <li class="active" aria-current="page">Nota</li>
                                 </ul>
                             </nav>
                         </div>
@@ -434,59 +436,361 @@ print_r($_SESSION);
         </div>
     </div> <!-- ...:::: End Breadcrumb Section:::... -->
 
-    <!-- Start Product Content Tab Section -->
-    <div class="product-details-content-tab-section section-inner-bg section-top-gap-100">
+    <!-- ...:::: Start Checkout Section:::... -->
+    <div class="checkout_section">
         <div class="container">
-            <div class="review-form" >
-                <div class="review-form-text-top">
-                    <h5>Berikan Review</h5>
+            <!-- Start User Details Checkout Form -->
+            <div class="checkout_form" data-aos="fade-up"  data-aos-delay="400">
+                <div class="row">
+                    <div class="col-lg ">
+                        
+                            <h3>Pesanan</h3>
+                            <div class="order_table table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Foto</th>
+                                            <th>Produk</th>
+                                            <th>Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        $total = 0;
+                                        // mengambil data pada id transaksi
+                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
+                                        while($produk = $tampil->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <?php
+                                            $sql = "SELECT * from produk WHERE nama_produk='".$produk["nama_p"]."'";
+                                            $result = mysqli_query($conn,$sql);
+                                            $row = mysqli_fetch_array($result);
+                                            $foto = $row['image'];
+                                            ?>
+                                            <td><img src="../image/seller/<?= $row['image']; ?>" width="110px" height="90px"></a></td>
+                                            <td> <?= $produk["nama_p"]; ?> <strong> x<?= $produk["jumlah_p"];; ?> </strong></td>
+                                            <td>Rp. <?php echo number_format($produk['jumlah_p']*$produk['harga_p']); ?> </td>
+                                        </tr>
+                                        <?php
+                                        // menghitung subtotal dan total pesanan
+                                        $subtotal = $produk['jumlah_p']*$produk['harga_p'];
+                                        $total+=$subtotal; 
+                                        }
+                                        ?>
+                                    </tbody>
+                                        
+                                        <?php 
+                                        //query ambil ongkir
+                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");
+                                        $rowtr = mysqli_fetch_array($resultr);
+                                        $jumong = $rowtr['tarif'];                                        
+                                        ?>
+                                </table>
+                                <br>
+                            </div>
+                            <h3>Konfirmasi Pengembalian</h3>
+                               <div class="customer_login">
+                                <div class="container">
+                                    <div class="row">
+                                        <!--register area start-->
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
+                                                <form action="cekbayar.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+                                                    <div class="default-form-box mb-20">
+                                                        <label>Resi Pengiriman <span>*</span></label>
+                                                        <input name="imgbukti" type="file" value="">
+                                                    </div>
+                                                    <div class="login_submit">
+                                                        <button name="pengembalian" type="submit" value="submit">Kirim</a></button>
+                                                    </div>
+                                                </form>
+                                                
+                                            </div>
+                                        </div>
+                                        <!--register area end-->
+                                    </div>
+                                </div>
+                            </div> <!-- ...:::: End Customer Login Section :::... -->
+                            <br>
+                        <?php
+                        if (isset($_POST['pengembalian'])) {
+                            echo "<script>
+                                    window.location ='riwayats.php'; 
+                                  </script>";              
+                            
+                        }
+
+
+                        ?>
+                    </div>
                 </div>
-
-                <form action="uploadrev1.php" method="POST">
-                    <div class="default-form-box">
-                        <label>Masukkan Rating (Range 1-5)<span>*</span></label>
-                        <input type="number" value="" min=1 max=5 name="rating" placeholder="Masukkan Rating">
-                        <br>
-                        <label>Masukkan Review <span>*</span></label>
-                        <input type="text" value="" name="isirev" placeholder="Masukkan Review" >
-                    </div>
-                    <div class="order_button pt-7">
-                        <button type="submit" name="review">Submit Review</button>
-                    </div>
-                    <br>
-                </form>
-                <?php
-                // mengirim reply ke database
-                // if (isset(($_POST['review']))) 
-                // {
-                //   $rating = $_POST['rating'];
-                //   $review = $_POST['isirev'];
-                //   $sql = "INSERT INTO merating (nilai, isi, id_produk, id_pelanggan) VALUES ($rating, '".$review."', '" . $_SESSION['idrev'] . "', '" . $_SESSION['id_pelanggan'] . "')";
-
-                //   $resultrt = mysqli_query($conn,$sql);
-                //   if ($resultrt === TRUE) {
-                //     echo "<script>
-                //             window.alert('Review telah diupload');
-                //           </script>";
-                //   }
-                //     else {
-
-                //       echo $sql;
-                //   }                                
-                // }
-                ?>
-            </div>
+            </div> <!-- Start User Details Checkout Form -->
         </div>
-    </div> <!-- End Product Content Tab Section -->
-
-    <!-- ...:::: Start Product  Section:::... -->
+    </div><!-- ...:::: End Checkout Section:::... -->
 
     <!-- ...:::: Start Footer Section:::... -->
-    <?php require "footer.php"; ?>
-    <!-- ...:::: End Footer Section:::... -->
+    <footer class="footer-section section-top-gap-100">
+        <!-- Start Footer Top Area -->
+        <div class="footer-top section-inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-5">
+                        <div class="footer-widget footer-widget-contact" data-aos="fade-up"  data-aos-delay="0">
+                            <div class="footer-logo">
+                                <a href="index.html"><img src="assets/images/logo/logo.png" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="footer-contact">
+                                <p>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart...</p>
+                                <div class="customer-support">
+                                    <div class="customer-support-icon">
+                                        <img src="assets/images/icon/support-icon.png" alt="">
+                                    </div>
+                                    <div class="customer-support-text">
+                                        <span>Customer Support</span>
+                                        <a class="customer-support-text-phone" href="tel:(08)123456789">(08) 123 456 789</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-7">
+                        <div class="footer-widget footer-widget-subscribe" data-aos="fade-up"  data-aos-delay="200">
+                            <h3 class="footer-widget-title">Subscribe newsletter to get updated</h3>
+                            <form action="#" method="post">
+                                <div class="footer-subscribe-box default-search-style d-flex">
+                                    <input class="default-search-style-input-box border-around border-right-none subscribe-form" type="email" placeholder="Search entire store here ..." required>
+                                    <button class="default-search-style-input-btn" type="submit">Subscribe</button>
+                                </div>
+                            </form>
+                            <p class="footer-widget-subscribe-note">We’ll never share your email address <br> with a third-party.</p>
+                            <ul class="footer-social">
+                                <li><a href="" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="" class="youtube"><i class="fa fa-youtube"></i></a></li>
+                                <li><a href="" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="footer-widget footer-widget-menu" data-aos="fade-up"  data-aos-delay="600">
+                            <h3 class="footer-widget-title">Information</h3>
+                            <div class="footer-menu">
+                                <ul class="footer-menu-nav">
+                                    <li><a href="">Delivery</a></li>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="contact-us.html">Contact us</a></li>
+                                    <li><a href="">Stores</a></li>
+                                </ul>
+                                <ul class="footer-menu-nav">
+                                    <li><a href="">Legal Notice</a></li>
+                                    <li><a href="">Secure payment</a></li>
+                                    <li><a href="">Sitemap</a></li>
+                                    <li><a href="my-account.html">My Account</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Footer Top Area -->
+        <!-- Start Footer Bottom Area -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="copyright-area">
+                            <p class="copyright-area-text">Copyright &copy; 2021 <a class="copyright-link" href="https://hasthemes.com/">Hasthemes</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="footer-payment">
+                            <a href=""><img class="img-fluid" src="assets/images/icon/payment-icon.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Footer Bottom Area -->
+    </footer> <!-- ...:::: End Footer Section:::... -->
 
     <!-- material-scrolltop button -->
     <button class="material-scrolltop" type="button"></button>
+
+    <!-- Start Modal Add cart -->
+    <div class="modal fade" id="modalAddcart" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col text-end">
+                                <button type="button" class="close modal-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"> <i class="fa fa-times"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="modal-add-cart-product-img">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_1.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="modal-add-cart-info"><i class="fa fa-check-square"></i>Added to cart successfully!</div>
+                                        <div class="modal-add-cart-product-cart-buttons">
+                                            <a href="cart.html">View Cart</a>
+                                            <a href="checkout.html">Checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 modal-border">
+                                <ul class="modal-add-cart-product-shipping-info">
+                                    <li> <strong><i class="icon-shopping-cart"></i> There Are 5 Items In Your Cart.</strong></li>
+                                    <li> <strong>TOTAL PRICE: </strong> <span>$187.00</span></li>
+                                    <li class="modal-continue-button"><a href="#" data-bs-dismiss="modal">CONTINUE SHOPPING</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Modal Add cart -->
+
+    <!-- Start Modal Quickview cart -->
+    <div class="modal fade" id="modalQuickview" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col text-end">
+                                <button type="button" class="close modal-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"> <i class="fa fa-times"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="product-details-gallery-area">
+                                    <div class="product-large-image modal-product-image-large">
+                                        <div class="product-image-large-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_1.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-large-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_2.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-large-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_3.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-large-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_4.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-large-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_5.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-large-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_6.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="product-image-thumb modal-product-image-thumb">
+                                        <div class="zoom-active product-image-thumb-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_1.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-thumb-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_2.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-thumb-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_3.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-thumb-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_4.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-thumb-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_5.jpg" alt="">
+                                        </div>
+                                        <div class="product-image-thumb-single">
+                                            <img class="img-fluid" src="assets/images/products_images/aments_products_image_6.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product-details-content-area">
+                                    <!-- Start  Product Details Text Area-->
+                                    <div class="product-details-text">
+                                        <h4 class="title">Nonstick Dishwasher PFOA</h4>
+                                        <div class="price"><del>$70.00</del>$80.00</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam, reiciendis maiores quidem aperiam, rerum vel recusandae</p>
+                                    </div> <!-- End  Product Details Text Area-->
+                                    <!-- Start Product Variable Area -->
+                                    <div class="product-details-variable">
+                                        <!-- Product Variable Single Item -->
+                                        <div class="variable-single-item">
+                                            <span>Color</span>
+                                            <div class="product-variable-color">
+                                                <label for="modal-product-color-red">
+                                                    <input name="modal-product-color" id="modal-product-color-red" class="color-select" type="radio" checked>
+                                                    <span class="product-color-red"></span>
+                                                </label>
+                                                <label for="modal-product-color-tomato">
+                                                    <input name="modal-product-color" id="modal-product-color-tomato" class="color-select" type="radio">
+                                                    <span class="product-color-tomato"></span>
+                                                </label>
+                                                <label for="modal-product-color-green">
+                                                    <input name="modal-product-color" id="modal-product-color-green" class="color-select" type="radio">
+                                                    <span class="product-color-green"></span>
+                                                </label>
+                                                <label for="modal-product-color-light-green">
+                                                    <input name="modal-product-color" id="modal-product-color-light-green" class="color-select" type="radio">
+                                                    <span class="product-color-light-green"></span>
+                                                </label>
+                                                <label for="modal-product-color-blue">
+                                                    <input name="modal-product-color" id="modal-product-color-blue" class="color-select" type="radio">
+                                                    <span class="product-color-blue"></span>
+                                                </label>
+                                                <label for="modal-product-color-light-blue">
+                                                    <input name="modal-product-color" id="modal-product-color-light-blue" class="color-select" type="radio">
+                                                    <span class="product-color-light-blue"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- Product Variable Single Item -->
+                                        <div class="variable-single-item ">
+                                            <span>Quantity</span>
+                                            <div class="product-variable-quantity">
+                                                <input min="1" max="100" value="1" type="number">
+                                            </div>
+                                        </div>
+                                    </div> <!-- End Product Variable Area -->
+                                    <!-- Start  Product Details Meta Area-->
+                                    <div class="product-details-meta mb-20">
+                                        <ul>
+                                            <li><a href=""><i class="icon-heart"></i>Add to wishlist</a></li>
+                                            <li><a href=""><i class="icon-repeat"></i>Compare</a></li>
+                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-shopping-cart"></i>Add To Cart</a></li>
+                                        </ul>
+                                    </div> <!-- End  Product Details Meta Area-->
+                                    <!-- Start  Product Details Social Area-->
+                                    <ul class="modal-product-details-social">
+                                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul> <!-- End  Product Details Social Area-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Modal Quickview cart -->
 
     <!-- ::::::::::::::All JS Files here :::::::::::::: -->
     <!-- Global Vendor, plugins JS -->

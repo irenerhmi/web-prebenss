@@ -91,7 +91,7 @@ session_start();
               if ($sql2 === TRUE) {
                 echo "<script>
                         window.alert('Donasi Berhasil Diinput!');
-                        window.location('donasi.php'); 
+                        window.location='donasi.php'; 
                       </script> ";
               } 
               else {

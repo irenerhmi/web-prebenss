@@ -590,7 +590,7 @@ require "../koneksidb.php";
                             $id_pelanggan = $_SESSION['id_pelanggan'];
                             $ongkir = $_POST['ongkir'];
                             $metode = $_POST['id_metode'];
-                            $tglkem = $_POST['pengembalian'];
+                            $durasi = $_POST['pengembalian'];
                             $tanggal_trans =  date("Y-m-d");
                             echo $tglkem;
                             
@@ -605,7 +605,7 @@ require "../koneksidb.php";
                             $totaltrans = $total + $ongkir;  
 
                             //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, tgl_pengembalian, status_trans, tarif, total_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', '" . $tglkem . "','Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', '" . $id_pelanggan . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, durasi_sewa, status_trans, tarif, total_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', '" . $durasi . "','Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', '" . $id_pelanggan . "')");
 
                             //menyimpan data ke table detail dilakukan
                             $id_baruse = $conn->insert_id; 
