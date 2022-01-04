@@ -77,66 +77,6 @@ $keyword = $_GET['keyword'];
     <div class="shop-section">
         <div class="container">
             <div class="row flex-column-reverse flex-lg-row">
-                <div class="col-lg-3">
-                    <!-- Start Sidebar Area -->
-                    <div class="siderbar-section" data-aos="fade-up"  data-aos-delay="0">
-                        <h6 class="sidebar-title"> FILTER BY</h6>
-
-                        <!-- Start Single Sidebar Widget 
-                        <div class="sidebar-single-widget">
-                            <h6 class="sidebar-title"> </h6>
-                             <div class="sidebar-content">
-                                <div id="slider-range"></div>
-                                <div class="filter-type-price">
-                                    <label for="amount">Price range:</label>
-                                    <input type="text" id="amount">
-                                </div>
-                            </div>
-                        </div> End Single Sidebar Widget -->
-
-                        <!-- Start Single Sidebar Widget -->
-                        <div class="sidebar-single-widget" >
-                            <h6 class="sidebar-title">CATEGORIES</h6>
-                            <div class="sidebar-content">
-                                <div class="filter-type-select">
-                                    <ul>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_1">
-                                                <input type="checkbox" id="catagory_1">
-                                                <span>Elektronik & Gadget</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_2">
-                                                <input type="checkbox" id="catagory_2">
-                                                <span>Olahraga </span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_3">
-                                                <input type="checkbox" id="catagory_3">
-                                                <span>Mobil </span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_4">
-                                                <input type="checkbox" id="catagory_4">
-                                                <span>Motor </span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-default" for="catagory_5">
-                                                <input type="checkbox" id="catagory_5">
-                                                <span>Keperluan Rumah Tangga</span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> <!-- End Single Sidebar Widget -->
-
-                    </div> <!-- End Sidebar Area -->
-                </div>
                 <div class="col-lg-9">
                     <!-- Start Shop Product Sorting Section -->
                     <div class="shop-sort-section" data-aos="fade-up"  data-aos-delay="0">
