@@ -110,11 +110,11 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
 
-                                        $sql2 = "SELECT p.id_supplier as idsup, t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                        $sql2 = "SELECT p.id_supplier as idsup, p.id_jenis as idjenis,t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
                                             FROM dilakukan d 
                                             LEFT JOIN transaksi t on d.id_transaksi=t.id_transaksi 
                                             LEFT JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND t.status_trans ='Menunggu Pengiriman'";
+                                            WHERE p.id_supplier=$idsup AND p.id_jenis=1 AND t.status_trans ='Menunggu Pengiriman'";
 
                                         $ambil2 = mysqli_query($conn, $sql2); 
                                         $rowsl2 = mysqli_fetch_array($ambil2);
@@ -149,9 +149,7 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Date</th>
                                             <th>Status</th>
-                                            <th>Estimasi</th>
                                             <th>Total</th>
-                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <form action="diterima.php" method="POST">
@@ -162,7 +160,7 @@ require "../koneksidb.php";
                                         $sql1 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans FROM dilakukan d 
                                             JOIN transaksi t on d.id_transaksi=t.id_transaksi 
                                             JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND t.status_trans='Pesanan Dikirim'";
+                                            WHERE p.id_supplier=$idsup AND p.id_jenis=1 AND t.status_trans='Pesanan Dikirim'";
 
                                         $ambil1 = mysqli_query($conn, $sql1); 
                                         $rowsl1 = mysqli_fetch_array($ambil1);
@@ -175,10 +173,6 @@ require "../koneksidb.php";
                                             <td><?php echo $perproduk1['tgl_trans'] ?></td>
                                             <td><span class="success"><?php echo $perproduk1['status_trans']; ?></span></td>
                                             <td>Rp. <?php echo number_format($perproduk1['total_trans']); ?></td>
-                                            <td>
-                                                <a href="notariwayat.php?id=<?php echo $perproduk1['id_transaksi']; ?>" class="btn btn-danger" name="nota">Nota</a>
-                                                <a href="bayar.php?id=<?php echo $perproduk1['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Bayar</a>
-                                            </td>
                                         </tr>
                                         <?php 
                                         $nomor++;
@@ -209,7 +203,7 @@ require "../koneksidb.php";
                                         $sql = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans FROM dilakukan d 
                                             JOIN transaksi t on d.id_transaksi=t.id_transaksi 
                                             JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND t.status_trans='Pesanan Diterima'";
+                                            WHERE p.id_supplier=$idsup AND p.id_jenis=1 AND t.status_trans='Pesanan Diterima'";
 
                                         $ambil = mysqli_query($conn, $sql); 
                                         $rowsl = mysqli_fetch_array($ambil);

@@ -91,7 +91,7 @@ require "../koneksidb.php";
                     <!-- Tab panes Riwayat Pending -->
                     <div class="tab-content dashboard_content" data-aos="fade-up"  data-aos-delay="200" >
                         <div class="tab-pane fade show active" id="orders">
-                            <h4>Pesanan Pending</h4>
+                            <h4>Pesanan Menunggu Konfirmasi</h4>
                             <div class="table_page table-responsive">
                                 <table>
                                     <thead>
@@ -99,8 +99,8 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Tgl Transaksi</th>
                                             <th>Status</th>
+                                            <th>Detail Pesanan</th>
                                             <th>Total</th>
-                                            <th>Detail</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -116,9 +116,9 @@ require "../koneksidb.php";
                                             <td><?php echo $perproduk['tgl_transaksi']; ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
-                                            <td><a href="notariwayat.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="nota">Nota</a></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>
-                                                <a href="bayar.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Bayar</a><br>
+                                                <a href="bayar.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="bayar">Bayar</a><br>
                                                 <a href="batal.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-dark" name="batal">Batalkan</a>
                                             </td>
                                         </tr>
@@ -140,6 +140,7 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Tgl Transaksi</th>
                                             <th>Status</th>
+                                            <th>Detail Pesanan</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -148,13 +149,14 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Konfirmasi' AND durasi_sewa IS NULL "); 
+                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Konfirmasi' AND durasi_sewa IS NULL OR id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Pengiriman' AND durasi_sewa IS NULL"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>
                                             <td><?php echo $perproduk['tgl_transaksi']; ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
                                         </tr>
                                         <?php 
@@ -176,7 +178,8 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Tgl Transaksi</th>
                                             <th>Status</th>
-                                            <th>Estimasi</th>
+                                            <th>Detail Pesanan</th>
+                                            <th>Resi Pengiriman</th>
                                             <th>Total</th>
                                             <th>Actions</th>
                                         </tr>
@@ -184,19 +187,34 @@ require "../koneksidb.php";
                                     <form action="diterima.php" method="POST">
                                     <tbody>
                                         <?php 
+
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Pengiriman' AND durasi_sewa IS NULL 
-                                                OR id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Pesanan Dikirim' and durasi_sewa IS NULL"); 
+                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Pesanan Dikirim' and durasi_sewa IS NULL"); 
                                         while($perproduk = $ambil->fetch_assoc()){
+
+                                            $sqlb = "SELECT * FROM pembayaran WHERE id_transaksi='".$perproduk['id_transaksi']."'";
+                                            $ambil2 = mysqli_query($conn, $sqlb); 
+                                            $rowsl2 = mysqli_fetch_array($ambil2);
+                                            $idbay = $rowsl2['id_bayar'];
+
+                                            $sqlp = "SELECT * FROM pengiriman WHERE id_bayar='".$idbay."'";
+                                            $ambil3 = mysqli_query($conn, $sqlp); 
+                                            $rowsl3 = mysqli_fetch_array($ambil3);
+                                            $idkir = $rowsl3['buktipeng'];
+                                            $ekspedisi = $rowsl3['nama_ekspedisi'];
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>
                                             <td><?php echo $perproduk['tgl_transaksi']; ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
-                                            <td>7-14 hari</td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>"  name="nota">Lihat Detail Pesanan</a></td>
+                                            <td><?php echo $ekspedisi; ?><br><?php echo $idkir; ?></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
-                                            <td><a href="diterima.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="diterima">Pesanan Diterima</a></td>
+                                            <td>
+                                                <a href="https://www.cekresi.com" class="btn btn-danger" name="diterima">Lacak</a><br>
+                                                <a href="diterima.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-dark" name="diterima">Diterima</a>
+                                            </td>
                                         </tr>
                                         <?php 
                                         $nomor++;
@@ -217,6 +235,7 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Tgl Transaksi</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                             <th>Total</th>
                                             <th>Actions</th>
                                         </tr>
@@ -232,6 +251,7 @@ require "../koneksidb.php";
                                             <td><?php echo $nomor; ?></td>
                                             <td><?php echo $perproduk['tgl_transaksi']; ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
                                             <td><a href="notareview.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="review">Beri Review</a></td>
                                         </tr>
@@ -253,6 +273,7 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Date</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>                                    
@@ -267,6 +288,7 @@ require "../koneksidb.php";
                                             <td><?php echo $nomor; ?></td>
                                             <td><?php echo $perproduk['tgl_transaksi']; ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>"  name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
                                         </tr>
                                         <?php 

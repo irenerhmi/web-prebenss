@@ -74,6 +74,7 @@ if (isset($_POST['pengiriman'])) {
           $resultr = mysqli_query($conn, "UPDATE transaksi SET status_trans='Pesanan Dikirim' WHERE id_transaksi='$idtrans'");
           echo "<script>
                   window.alert('Bukti pembayaran berhasil diupload!');
+                  window.location='pesanan-jual.php';
                 </script>";
 
         } else {
