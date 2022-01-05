@@ -108,8 +108,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND  status_trans='Menunggu Konfirmasi' AND durasi_sewa IS NOT NULL 
-                                                OR id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Menunggu Pembayaran' and durasi_sewa IS NOT NULL"); 
+                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Menunggu Pembayaran' and durasi_sewa IS NOT NULL"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -128,6 +127,42 @@ require "../koneksidb.php";
                                         } 
                                         ?>   
                                     </tbody>
+                                </table>
+                            </div>
+                    <!-- Tab panes Riwayat Menunggu Konfirmasi -->
+                            <br>
+                            <br>
+                            <h4>Pesanan Menunggu Konfirmasi</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Tgl Transaksi</th>
+                                            <th>Status</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <form action="diterima.php" method="POST">
+                                    <tbody>
+                                        <?php 
+                                        $nomor = 1;
+                                        $ambil = $conn->query("SELECT * from transaksi 
+                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Konfirmasi' AND durasi_sewa IS NOT NULL "); 
+                                        while($perproduk = $ambil->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk['tgl_transaksi']; ?></td>
+                                            <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
+                                        </tr>
+                                        <?php 
+                                        $nomor++;
+                                        } 
+                                        ?>   
+                                    </tbody>
+                                    </form>
                                 </table>
                             </div>
                     <!-- Tab panes Riwayat Dikirim -->

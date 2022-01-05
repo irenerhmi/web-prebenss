@@ -456,7 +456,7 @@ print_r($_SESSION);
                         $timage = $row['u_image'];
 
                         ?>
-                        <form action="#" method="POST">
+                        <form method="POST">
                             <h3>Billing Details</h3>
                             <div class="row">
                                 <div class="col-lg-6 mb-20">
@@ -474,7 +474,7 @@ print_r($_SESSION);
                                 <div class="col-12 mb-20">
                                     <div class="default-form-box">
                                         <label>Alamat <span>*</span></label>
-                                        <input placeholder="House number and street name" type="text" value="<?php echo $talamat; ?> ">
+                                        <input placeholder="House number and street name" name="alamatpeng" type="text" value="<?php echo $talamat; ?> ">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mb-20">
@@ -496,7 +496,7 @@ print_r($_SESSION);
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        
                     </div>
                     <div class="col-lg-6 col-md-6">
                         
@@ -540,7 +540,7 @@ print_r($_SESSION);
                                     </tfoot>
                                 </table>
                             </div>
-                        <form method="POST">
+                        
                             <div class="payment_method">
                                 <div class="default-form-box">
                                     <label>Nama Ekspedisi </label>
@@ -600,6 +600,7 @@ print_r($_SESSION);
                         if (isset($_POST['checkout'])) 
                         {
                             $id_pelanggan = $_SESSION['id_pelanggan'];
+                            $ongkir = $_POST['alamatpeng'];
                             $ongkir = $_POST['ongkir'];
                             $metode = $_POST['id_metode'];
                             $namaeks = $_POST['ekspedisi'];

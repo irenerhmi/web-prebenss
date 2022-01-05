@@ -472,7 +472,7 @@ require "../koneksidb.php";
                                 <div class="col-12 mb-20">
                                     <div class="default-form-box">
                                         <label>Alamat <span>*</span></label>
-                                        <input placeholder="House number and street name" type="text" value="<?php echo $talamat; ?> ">
+                                        <input placeholder="House number and street name" type="text" name="alamatpeng" value="<?php echo $talamat; ?> ">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mb-20">
@@ -546,6 +546,22 @@ require "../koneksidb.php";
                                     <br>
                                 </div>
                                 <div class="default-form-box">
+                                    <label>Nama Ekspedisi </label>
+                                        <select name="ekspedisi" class="form-control">
+                                            <option value="">Pilih Ekspedisi</option>          
+                                            <option value="JNT">
+                                                JNT
+                                            </option>
+                                            <option value="JNE">
+                                                JNE
+                                            </option>
+                                            <option value="SiCepat">
+                                                SiCepat
+                                            </option>
+                                        </select>
+                                    <br>
+                                </div>
+                                <div class="default-form-box">
                                     <br> <label>Ongkos Kirim </label>
                                         <select name="ongkir" class="form-control">
                                             <option value="">Pilih Ongkos Kirim</option>
@@ -563,7 +579,7 @@ require "../koneksidb.php";
                                 </div>
                                 <br>
                                 <div class="default-form-box">
-                                    <br> <label>Metode Pembayaran</label>
+                                    <label>Metode Pembayaran</label>
                                         <select name="id_metode" class="form-control">
                                             <option value="">Pilih Metode Pembayaran</option>
                                             <?php
@@ -588,8 +604,10 @@ require "../koneksidb.php";
                         if (isset($_POST['checkout'])) 
                         {
                             $id_pelanggan = $_SESSION['id_pelanggan'];
+                            $namaeks = $_POST['ekspedisi'];
                             $ongkir = $_POST['ongkir'];
                             $metode = $_POST['id_metode'];
+                            $alamat = $_POST['alamatpeng'];
                             $durasi = $_POST['pengembalian'];
                             $tanggal_trans =  date("Y-m-d");
                             echo $tglkem;
@@ -634,6 +652,12 @@ require "../koneksidb.php";
 
                             // //menyimpan data ke table pembayaran
                             $resultpb = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_baruse . "')");
+
+                            $id_bayarbars = $conn->insert_id; 
+                            $_SESSION['idtbayarbars'] = $id_bayarbars;
+
+                            // menyimpan data ke table pengiriman
+                            $resultpb = mysqli_query($conn,"INSERT INTO pengiriman (nama_ekspedisi, alamatpeng, status_peng, id_bayar) VALUES ('" . $namaeks . "', '" . $alamat . "', 'Belum Dikirim','" . $id_bayarbars . "')");
 
                             // unset($_SESSION['cart'][$_GET['id']]);
                             echo "<script> 

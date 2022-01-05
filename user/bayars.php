@@ -83,7 +83,7 @@ echo $idtrans;
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
                         <h3>Konfirmasi Pembayaran</h3>
-                        <form action="cekbayar.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        <form action="cekbayars.php" method="POST" enctype="multipart/form-data" autocomplete="off">
                             <div class="default-form-box mb-20">
                                 <label>Nama Rekening <span>*</span></label>
                                 <input name="barang" type="text" placeholder="Masukkan Nama Rekening">

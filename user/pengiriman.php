@@ -12,6 +12,8 @@ require "../koneksidb.php";
 <?php 
 
 $idtrans = $_GET['id'];
+$_SESSION['cekpeng'] = $idtrans;
+
 echo $idtrans;
 print_r($_SESSION);
 
@@ -420,7 +422,7 @@ print_r($_SESSION);
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Nota</h3>
+                        <h3 class="breadcrumb-title">Resi Pengiriman</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
@@ -489,20 +491,20 @@ print_r($_SESSION);
                                 </table>
                                 <br>
                             </div>
-                            <h3>Konfirmasi Pengembalian</h3>
+                            <h3>Konfirmasi Pengiriman</h3>
                                <div class="customer_login">
                                 <div class="container">
                                     <div class="row">
                                         <!--register area start-->
                                         <div class="col-lg-6 col-md-6">
                                             <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
-                                                <form action="cekbayar.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+                                                <form action="cekpengiriman.php" method="POST" enctype="multipart/form-data" autocomplete="off">
                                                     <div class="default-form-box mb-20">
                                                         <label>Resi Pengiriman <span>*</span></label>
-                                                        <input name="imgbukti" type="file" value="">
+                                                        <input name="imgbuktipeng" type="file" value="">
                                                     </div>
                                                     <div class="login_submit">
-                                                        <button name="pengembalian" type="submit" value="submit">Kirim</a></button>
+                                                        <button name="pengiriman" type="submit" value="submit">Kirim</a></button>
                                                     </div>
                                                 </form>
                                                 
@@ -513,16 +515,6 @@ print_r($_SESSION);
                                 </div>
                             </div> <!-- ...:::: End Customer Login Section :::... -->
                             <br>
-                        <?php
-                        if (isset($_POST['pengembalian'])) {
-                            echo "<script>
-                                    window.location ='riwayats.php'; 
-                                  </script>";              
-                            
-                        }
-
-
-                        ?>
                     </div>
                 </div>
             </div> <!-- Start User Details Checkout Form -->

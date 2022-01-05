@@ -9,11 +9,7 @@ if(!isset($_SESSION['username'])){
 
 require "../koneksidb.php";
 ?>
-<?php 
 
-print_r($_SESSION);
-
-?>
 
 <head>
     <meta charset="UTF-8" />

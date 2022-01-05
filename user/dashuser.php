@@ -9,7 +9,6 @@ require "../koneksidb.php";
 /* require "act-displaynyoba.php"; */
 }
 
-print_r($_SESSION);
 ?>
 <head>
     <meta charset="UTF-8" />
