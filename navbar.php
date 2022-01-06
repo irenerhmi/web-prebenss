@@ -88,12 +88,6 @@
                 <li><a href="404.html">404 Page</a></li>
             </ul>
         </li> -->
-        <li>
-            <a href="about-us.html">About Us</a>
-        </li>
-        <li>
-            <a href="contact-us.html">Contact Us</a>
-        </li>
     </ul>
 </nav>							
 </div>
