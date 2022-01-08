@@ -101,27 +101,26 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Date</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                             <th>Total</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <?php
                                     $idsup = $_SESSION['id_supplier'];
+                                    $s='sewa'
                                     ?>
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
 
-                                        $sql2 = "SELECT p.id_supplier as idsup, p.id_jenis as idjenis,t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
-                                            FROM transaksi t
-                                            LEFT JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
-                                            LEFT JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND t.jenis_trans='sewa' AND t.status_trans ='Menunggu Konfirmasi'";
+                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                            FROM transaksi t 
+                                            JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
+                                            JOIN produk p on d.id_produk=p.id_produk AND p.id_supplier='$idsup' AND p.id_jenis=2
+                                            WHERE t.status_trans ='Menunggu Pembayaran' ";
 
                                         $ambil2 = mysqli_query($conn, $sql2); 
-                                        $rowsl2 = mysqli_fetch_array($ambil2);
-                                        
-
 
                                         while($perproduk2 = $ambil2->fetch_assoc()){
                                         ?>
@@ -129,6 +128,7 @@ require "../koneksidb.php";
                                             <td><?php echo $nomor; ?></td>
                                             <td><?php echo $perproduk2['tgl_trans'] ?></td>
                                             <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
                                             <td>
                                                 <a href="pengiriman.php?id=<?php echo $perproduk2['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Pengiriman</a>
@@ -152,38 +152,81 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Date</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $sql1 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans FROM dilakukan d 
-                                            JOIN transaksi t on d.id_transaksi=t.id_transaksi 
-                                            JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND p.id_jenis=2 AND t.status_trans='Pesanan Diterima'";
 
-                                        $ambil1 = mysqli_query($conn, $sql1); 
-                                        $rowsl1 = mysqli_fetch_array($ambil1);
-                                        
-                                        // if ($ambil1 === TRUE) {
-                                            # code...
-                                        
-                                            while($perproduk1 = $ambil1->fetch_assoc()){
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $nomor; ?></td>
-                                                <td><?php echo $perproduk1['tgl_trans'] ?></td>
-                                                <td><span class="success"><?php echo $perproduk1['status_trans']; ?></span></td>
-                                                <td>Rp. <?php echo number_format($perproduk1['total_trans']); ?></td>
-                                            </tr>
-                                            <?php 
-                                            $nomor++;
-                                            }
-                                        // } else {
+                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                            FROM transaksi t 
+                                            JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
+                                            JOIN produk p on d.id_produk=p.id_produk AND p.id_supplier='$idsup' AND p.id_jenis=2
+                                            WHERE t.status_trans ='Pesanan Dikirim' ";
 
-                                        //     echo $sql1;
-                                        // }
+                                        $ambil2 = mysqli_query($conn, $sql2); 
+
+                                        while($perproduk2 = $ambil2->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk2['tgl_trans'] ?></td>
+                                            <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
+                                            <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
+                                        </tr>
+                                        <?php 
+                                        $nomor++;
+                                        }
+                                        ?>   
+
+                                        ?>      
+                                    </tbody>
+                                </table>
+                            </div>
+                    <!-- Tab panes Riwayat Dikirim -->
+                            <br>
+                            <br>
+                            <h4>Pesanan Diproses</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Detail</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        $nomor = 1;
+
+                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                            FROM transaksi t 
+                                            JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
+                                            JOIN produk p on d.id_produk=p.id_produk AND p.id_supplier='$idsup' AND p.id_jenis=2
+                                            WHERE t.status_trans ='Pesanan Diterima' ";
+
+                                        $ambil2 = mysqli_query($conn, $sql2); 
+
+                                        while($perproduk2 = $ambil2->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk2['tgl_trans'] ?></td>
+                                            <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
+                                            <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
+                                        </tr>
+                                        <?php 
+                                        $nomor++;
+                                        }
+                                        ?>   
+
                                         ?>      
                                     </tbody>
                                 </table>
@@ -199,34 +242,39 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Date</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>                                    
                                     <tbody>
-                                        <?php 
+                                        <?php
                                         $nomor = 1;
 
-                                        $sql = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans FROM dilakukan d 
-                                            JOIN transaksi t on d.id_transaksi=t.id_transaksi 
-                                            JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND p.id_jenis=2 AND t.status_trans='Pesanan Telah Dikembalikan'";
+                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                            FROM transaksi t 
+                                            JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
+                                            JOIN produk p on d.id_produk=p.id_produk AND p.id_supplier='$idsup' AND p.id_jenis=2
+                                            WHERE t.status_trans ='Pesanan Selesai' ";
 
-                                        $ambil = mysqli_query($conn, $sql); 
-                                        $rowsl = mysqli_fetch_array($ambil);
-                                        
+                                        $ambil2 = mysqli_query($conn, $sql2); 
 
-                                        while($perproduk = $ambil->fetch_assoc()){
+                                        while($perproduk2 = $ambil2->fetch_assoc()){
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>
-                                            <td><?php echo $perproduk['tgl_trans'] ?></td>
-                                            <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
-                                            <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
+                                            <td><?php echo $perproduk2['tgl_trans'] ?></td>
+                                            <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
+                                            <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
+                                            <td>
+                                                <a href="pengiriman.php?id=<?php echo $perproduk2['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Pengiriman</a>
+                                            </td>
                                         </tr>
                                         <?php 
                                         $nomor++;
                                         }
                                         ?>   
+ 
                                     </tbody>
                                 </table>
                             </div>

@@ -162,7 +162,7 @@ require "../koneksidb.php";
                                     </p>
                                 </div>
                                 <div class="checkout_btn">
-                                    <a href="cekcheckout.php?id=<?php echo $pecah['id_jenis'];?>">Proceed to Checkout</a>
+                                    <a href="checkout.php?id=<?php echo $pecah['id_jenis'];?>">Proceed to Checkout</a>
                                 </div>
                             
                                 <?php } 

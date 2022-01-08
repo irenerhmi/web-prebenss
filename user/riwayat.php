@@ -107,7 +107,9 @@ require "../koneksidb.php";
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksi where  id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Menunggu Pembayaran' AND durasi_sewa IS NULL"); 
+                                        $idpel = $_SESSION['id_pelanggan'];
+                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans as total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
+                                            where d.id_pelanggan = $idpel AND t.status_trans='Menunggu Pembayaran' AND t.jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
 
                                         ?>
@@ -148,8 +150,9 @@ require "../koneksidb.php";
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Konfirmasi' AND durasi_sewa IS NULL OR id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Pengiriman' AND durasi_sewa IS NULL"); 
+                                        $idpel = $_SESSION['id_pelanggan'];
+                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
+                                            where d.id_pelanggan = $idpel AND t.status_trans='Menunggu Konfirmasi' AND t.jenis_trans='jual' OR d.id_pelanggan = $idpel AND t.status_trans='Menunggu Pengiriman' AND t.jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -189,8 +192,9 @@ require "../koneksidb.php";
                                         <?php 
 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Pesanan Dikirim' and durasi_sewa IS NULL"); 
+                                        $idpel = $_SESSION['id_pelanggan'];
+                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
+                                            where d.id_pelanggan = $idpel AND t.status_trans='Pesanan Dikirim' AND t.jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
 
                                             $sqlb = "SELECT * FROM pembayaran WHERE id_transaksi='".$perproduk['id_transaksi']."'";
@@ -206,7 +210,7 @@ require "../koneksidb.php";
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>
-                                            <td><?php echo $perproduk['tgl_transaksi']; ?></td>
+                                            <td><?php echo $perproduk['t.tgl_transaksi']; ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
                                             <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>"  name="nota">Lihat Detail Pesanan</a></td>
                                             <td><?php echo $ekspedisi; ?><br><?php echo $idkir; ?></td>
@@ -243,8 +247,9 @@ require "../koneksidb.php";
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Diterima' AND durasi_sewa IS NULL "); 
+                                        $idpel = $_SESSION['id_pelanggan'];
+                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
+                                            where d.id_pelanggan = $idpel AND t.status_trans='Pesanan Diterima' AND t.jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -280,8 +285,9 @@ require "../koneksidb.php";
                                     <tbody>
                                         <?php 
                                         $nomor = 1;
-                                        $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Dibatalkan' AND durasi_sewa IS NULL"); 
+                                        $idpel = $_SESSION['id_pelanggan'];
+                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
+                                            where d.id_pelanggan = $idpel AND t.status_trans='Pesanan Dibatalkan' AND t.jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>

@@ -627,7 +627,7 @@ require "../koneksidb.php";
                             $totaltrans = $total + $ongkir;  
 
                             //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, status_trans, tarif, total_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', 'Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', '" . $id_pelanggan . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, status_trans, tarif, total_trans, jenis_trans) VALUES ('" . $tanggal_trans . "', 'Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', 'sewa')");
 
                             //menyimpan data ke table detail dilakukan
                             $id_baruse = $conn->insert_id; 
@@ -643,7 +643,7 @@ require "../koneksidb.php";
                                 $namat = $rowsl['nama_produk'];
                                 $hargat = $rowsl['harga'];
 
-                                $dilakukan = "INSERT INTO dilakukan (nama_p, harga_p, id_transaksi, id_produk, jumlah_p) VALUES ('" . $namat . "','" . $hargat . "', '" . $id_baruse . "', '" . $ids . "', '" . $qtys . "')";
+                                $dilakukan = "INSERT INTO dilakukan (nama_p, harga_p, id_transaksi, id_produk, jumlah_p, id_pelanggan) VALUES ('" . $namat . "','" . $hargat . "', '" . $id_baruse . "', '" . $ids . "', '" . $qtys . "', '" . $id_pelanggan . "')";
                                 $resultd = mysqli_query($conn,$dilakukan);
 
                                 if ($resultd === TRUE){
