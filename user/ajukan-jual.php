@@ -76,7 +76,7 @@ require "../koneksidb.php";
                             <li><a href="#orders"  class="nav-link">Ajukan Jual</a></li>
                             <li><a href="ajukan-sewa.php"  class="nav-link active">Ajukan Sewa</a></li>
                             <li><a href="pesanan-jual.php"  class="nav-link">Pesanan Produk Jual</a></li>
-                            <li><a href="pesanan-sewal.php"  class="nav-link">Pesanan Produk Sewa</a></li>
+                            <li><a href="pesanan-sewa.php"  class="nav-link">Pesanan Produk Sewa</a></li>
                             <li><a href="../logout.php" class="nav-link">logout</a></li>
                         </ul>
                     </div>

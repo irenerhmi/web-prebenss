@@ -50,11 +50,9 @@ if(!isset($_SESSION['username'])){
             <ul class="sub-menu">
                 <li><a href="acc-profile.php">Profile</a></li>
                 <li><a href="riwayat.php">Riwayat Transaksi</a></li>
+                <li><a href="pesanan-jual.php">Toko</a></li>
                 <li><a href="../logout.php">Log Out</a></li>
             </ul>
-        </li>
-        <li>
-            <a href="ajukan-jual.php">Ajukan Jual & Sewa</a>
         </li>
     </ul>
 </nav>							

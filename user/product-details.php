@@ -443,6 +443,7 @@ echo $id;
                 $tnamapro = $row['nama_produk'];
                 $tdeskripsi = $row['deskripsi'];
                 $thargapro = $row['harga'];
+                $tstok = $row['stok'];
                 $timgpro = $row['image'];     
                 $sup = $row['id_supplier'];                                         
                 ?>
@@ -471,17 +472,43 @@ echo $id;
                                 <a href="#" class="customer-review">(customer review )</a>
                             </div>
                             <div class="price">Rp. <?php echo number_format($thargapro); ?></div>
+                            <p>Stok: <?php echo $tstok; ?></p>
                             <p><?php echo $tdeskripsi; ?></p>
                         </div> <!-- End  Product Details Text Area-->
                         <!-- Start Product Variable Area -->
                         <div class="product-details-variable">
                             <h4 class="title">Available Options</h4>
                             <!-- Product Variable Single Item -->
-                            <div class="d-flex align-items-center">
-                                <div class="product-add-to-cart-btn">
-                                    <a href="beli.php?id=<?php echo $id; ?>&qty=1">Masukkan Keranjang</a>
+                            <form method="POST">
+                                <div class="d-flex align-items-center">
+                                    <div class="variable-single-item ">
+                                        <span>Quantity</span>
+                                        <div class="product-variable-quantity">
+                                            <input min="1" max="<?php echo $tstok; ?>" value="1" type="number" name="jumlah">
+                                        </div>
+                                    </div>
+
+                                    <div class="product-add-to-cart-btn">
+                                        <button class="btn btn-dark" name="beli">Masukkan Keranjang</button>                           
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
+                            <?php
+
+                            if (isset($_POST["beli"])) 
+                            {
+                                # jumlah
+                                $qty = $_POST['jumlah'];
+                                #masukkab ke keranjang
+                                 $_SESSION['cart'][$id]+=$qty;
+                                 //pindah ke halaman cart
+                                echo "<script>
+                                        window.alert('produk berhasil dimasukkan ke keranjang !'); 
+                                        window.location ='dashuser.php'; 
+                                      </script>";
+                            }
+                            
+                            ?>
                         </div> <!-- End Product Variable Area -->
                         <!-- Start  Product Details Meta Area-->
                         <!-- End  Product Details Meta Area-->

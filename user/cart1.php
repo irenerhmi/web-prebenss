@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 session_start();
+
 if(!isset($_SESSION['username'])){
     header("location: login.php");
 }
@@ -11,7 +12,7 @@ require "../koneksidb.php";
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prebens - Pesanan Jual </title>
+    <title>Prebens - Cart </title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
     <!-- <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png"> -->
@@ -45,8 +46,7 @@ require "../koneksidb.php";
 
     <!-- ...:::: Start Header Section:::... -->
     <?php require "headeruser.php"; ?>
-
-    
+    <!-- ...:::: End Offcanvas Mobile Menu Section:::... -->
 
     <div class="offcanvas-overlay"></div>
 
@@ -56,13 +56,13 @@ require "../koneksidb.php";
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">My Account</h3>
+                        <h3 class="breadcrumb-title">Cart</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
                                     <li><a href="shop-grid-sidebar-left.html">Shop</a></li>
-                                    <li class="active" aria-current="page">Profile</li>
+                                    <li class="active" aria-current="page">Cart</li>
                                 </ul>
                             </nav>
                         </div>
@@ -72,170 +72,306 @@ require "../koneksidb.php";
         </div>
     </div> <!-- ...:::: End Breadcrumb Section:::... -->
 
-    <!-- ...:::: Start Account Dashboard Section:::... -->
-    <div class="account_dashboard">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-3 col-lg-3">
-                    <!-- Nav tabs -->
-                    <div class="dashboard_tab_button" >
-                        <ul  class="nav flex-column dashboard-list">
-                            <li><a href="acc-profile.php"  class="nav-link">Profile</a></li>
-                            <li><a href="ajukan-jual"  class="nav-link ">Ajukan Jual</a></li>
-                            <li><a href="ajukan-sewa.php"  class="nav-link ">Ajukan Sewa</a></li>
-                            <li><a href="#orders"  class="nav-link active">Pesanan Produk Jual</a></li>
-                            <li><a href="pesanan-sewa.php"  class="nav-link">Pesanan Produk Sewa</a></li>
-                            <li><a href="../logout.php" class="nav-link">logout</a></li>
-                        </ul>
+    <!-- ...:::: Start Cart Section:::... -->
+    <div class="cart-section">
+        <!-- Start Cart Table -->
+        <div class="cart-table-wrapper"  data-aos="fade-up"  data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table_desc">
+                            <div class="table_page table-responsive">
+                                <h4 class="breadcrumb-title">Cart Beli Produk</h4>
+                                <br>
+                                <table>
+                                    <!-- Start Cart Table Head -->
+                                    <?php if (isset($_SESSION['cart'])) { ?>
+                                    <thead>
+                                        <tr>
+                                            <th class="product_remove">Delete</th>
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product_quantity">Quantity</th>
+                                            <th class="product_total">SubTotal</th>
+                                        </tr>
+                                    </thead> <!-- End Cart Table Head -->
+                                    <tbody>
+
+                                        <?php 
+                                        /*echo "<pre>";
+                                        print_r($_SESSION['cart']);
+                                        echo "<pre>";*/
+                                        
+                                            # code...
+                                        $total = 0;
+                                        foreach ($_SESSION['cart'] as $id => $qty):
+                                        
+                                        $ambil = $conn->query("SELECT * from produk WHERE id_produk='$id'");
+                                        $pecah = $ambil->fetch_assoc();                                  
+                                        $subtotal = $pecah['harga']*$qty;
+                                        
+                                    
+                                        ?>              
+
+                                        <!-- Start Cart Single Item-->
+                                        <tr>
+                                        <form>
+                                            <td class="product_remove">
+                                                <a href="hapuscart.php?id=<?= $id;  ?>"><i class="fa fa-trash-o"></i></a></td>
+                                            <td class="product_thumb"><a href="product-details.php?id=<?php echo $pecah['id_produk'];?>"><img src="../image/seller/<?= $pecah['image']; ?>" width="320px" height="400px"></a></td>
+
+                                            <td class="product_name"><a href="product-details.php?id=<?php echo $pecah['id_produk'];?>"><?= $pecah["nama_produk"]; ?></a></td>
+
+                                            <td class="product-price">Rp. <?= number_format($pecah['harga']); ?><input type="hidden" class="iprice" value="<?php echo $pecah['harga']; ?>"></td>
+
+                                            <td class="product_quantity"><?= $qty; ?><input type="hidden" class="iquantity"  value="<?= $qty; ?>"> </td>
+
+                                            <td class="product_total" >Rp. <?php echo number_format($subtotal); ?>
+                                            <input class="product_total" type="hidden" value="<?php echo $subtotal; ?>"></td>
+                                        </form>
+                                        </tr> <!-- End Cart Single Item-->
+
+                                        <?php $total+=$subtotal; ?>
+                                        <?php endforeach?> 
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                            </div>
+                           
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-9 col-lg-9">
-                    <!-- Tab panes Riwayat Pending -->
-                    <div class="tab-content dashboard_content" data-aos="fade-up"  data-aos-delay="200" >
-                        <div class="tab-pane fade show active" id="orders">
-                            <h4>Pesanan Pending</h4>
-                            <div class="table_page table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Order</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Total</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <?php
-                                    $idsup = $_SESSION['id_supplier'];
-                                    ?>
-                                    <tbody>
-                                        <?php 
-                                        $nomor = 1;
-
-                                        $sql2 = "SELECT p.id_supplier as idsup, p.id_jenis as idjenis,t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
-                                            FROM dilakukan d 
-                                            LEFT JOIN transaksi t on d.id_transaksi=t.id_transaksi 
-                                            LEFT JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND p.id_jenis=1 AND t.status_trans ='Menunggu Pengiriman'";
-
-                                        $ambil2 = mysqli_query($conn, $sql2); 
-                                        $rowsl2 = mysqli_fetch_array($ambil2);
-                                        
-
-                                        while($perproduk2 = $ambil2->fetch_assoc()){
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $nomor; ?></td>
-                                            <td><?php echo $perproduk2['tgl_trans'] ?></td>
-                                            <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
-                                            <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
-                                            <td>
-                                                <a href="pengiriman.php?id=<?php echo $perproduk2['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Pengiriman</a>
-                                            </td>
-                                        </tr>
-                                        <?php 
-                                        $nomor++;
-                                        }
-                                        ?>   
-                                    </tbody>
-                                </table>
-                            </div>
-                    <!-- Tab panes Riwayat Dikirim -->
-                            <br>
-                            <br>
-                            <h4>Pesanan Diproses</h4>
-                            <div class="table_page table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Order</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <form action="diterima.php" method="POST">
-                                    <tbody>
-                                        <?php 
-                                        $nomor = 1;
-
-                                        $sql1 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans FROM dilakukan d 
-                                            JOIN transaksi t on d.id_transaksi=t.id_transaksi 
-                                            JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND p.id_jenis=1 AND t.status_trans='Pesanan Dikirim'";
-
-                                        $ambil1 = mysqli_query($conn, $sql1); 
-                                        $rowsl1 = mysqli_fetch_array($ambil1);
-                                        
-
-                                        while($perproduk1 = $ambil1->fetch_assoc()){
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $nomor; ?></td>
-                                            <td><?php echo $perproduk1['tgl_trans'] ?></td>
-                                            <td><span class="success"><?php echo $perproduk1['status_trans']; ?></span></td>
-                                            <td>Rp. <?php echo number_format($perproduk1['total_trans']); ?></td>
-                                        </tr>
-                                        <?php 
-                                        $nomor++;
-                                        }
-                                        ?>      
-                                    </tbody>
-                                    </form>
-                                </table>
-                            </div>
-                    <!-- Tab panes Riwayat Review -->
-                            <br>
-                            <br>
-                            <h4>Pesanan Selesai</h4>
-                            <div class="table_page table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Order</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>                                    
-                                    <tbody>
-                                        <?php 
-                                        $nomor = 1;
-
-                                        $sql = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans,t.tgl_transaksi as tgl_trans , t.total_trans as total_trans FROM dilakukan d 
-                                            JOIN transaksi t on d.id_transaksi=t.id_transaksi 
-                                            JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=$idsup AND p.id_jenis=1 AND t.status_trans='Pesanan Diterima'";
-
-                                        $ambil = mysqli_query($conn, $sql); 
-                                        $rowsl = mysqli_fetch_array($ambil);
-                                        
-
-                                        while($perproduk = $ambil->fetch_assoc()){
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $nomor; ?></td>
-                                            <td><?php echo $perproduk['tgl_trans'] ?></td>
-                                            <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
-                                            <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
-                                        </tr>
-                                        <?php 
-                                        $nomor++;
-                                        }
-                                        ?>   
-                                    </tbody>
-                                </table>
+            </div>
+        </div> <!-- End Cart Table-->
+    
+        <!-- Start Coupon Start -->
+        <div class="coupon_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code right"  data-aos="fade-up"  data-aos-delay="400">
+                            <h3>Cart Totals</h3>
+                            <div class="coupon_inner">
+                                <div class="cart_subtotal">
+                                    <p>Total
+                                        <div class="cart_amount">
+                                            <div id="grandtotal">Rp. <?php echo number_format($total); ?></div>
+                                        </div>
+                                    </p>
+                                </div>
+                                <div class="checkout_btn">
+                                    <a href="cekcheckout.php?id=<?php echo $pecah['id_jenis'];?>">Proceed to Checkout</a>
+                                </div>
+                            
+                                <?php } 
+                                else { 
+                                ?>
+                                    <!-- Start Cart Table -->
+                                   <div class="text-center m-5">
+                                        <h5>Belum ada Barang</h5>
+                                   </div>
+                            <?php }?>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div> <!-- End Coupon Start -->
+    </div>
+    <br>
+    <br>
+    <!-- Start Cart Sewa Table -->
+    <div class="cart-section">
+        <div class="cart-table-wrapper"  data-aos="fade-up"  data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table_desc">
+                            <div class="table_page table-responsive">
+                                <h4>Cart Sewa Produk</h4>
+                                <br>
+                                <?php if (isset($_SESSION['carts'])) { ?>
+                                <table>
+                                    <!-- Start Cart Table Head -->
+                                    
+                                    <thead>
+                                        <tr>
+                                            <th class="product_remove">Delete</th>
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product_quantity">Quantity</th>
+                                            <th class="product_total">SubTotal</th>
+                                        </tr>
+                                    </thead> <!-- End Cart Table Head -->
+                                    <tbody>
 
-                </div>  
-            </div>              
-        </div>   
-    </div> <!-- ...:::: End Account Dashboard Section:::... -->
+                                        <?php 
+                                        $totals = 0;
+                                        foreach ($_SESSION['carts'] as $ids => $qtys):
+                                        
+                                        $ambils = $conn->query("SELECT * from produk WHERE id_produk='$ids'");
+                                        $pecahs = $ambils->fetch_assoc();                                  
+                                        $subtotals = $pecahs['harga']*$qtys;
+                                        
+                                    
+                                        ?>              
+
+                                        <!-- Start Cart Single Item-->
+                                        <tr>
+                                        <form>
+                                            <td class="product_remove">
+                                                <a href="hapusewacart.php?ids=<?= $ids;?>"><i class="fa fa-trash-o"></i></a></td>
+                                            <td class="product_thumb"><a href="product-details-default.html"><img src="../image/seller/<?= $pecahs['image']; ?>" width="320px" height="400px"></a></td>
+
+                                            <td class="product_name"><a href="product-details-default.html"><?= $pecahs["nama_produk"]; ?></a></td>
+
+                                            <td class="product-price">Rp. <?= number_format($pecahs['harga']); ?><input type="hidden" class="iprice" value="<?php echo $pecah['harga']; ?>"></td>
+
+                                            <td class="product_quantity"><?= $qtys; ?><input type="hidden" class="iquantity"  value="<?= $qty; ?>"> </td>
+
+                                            <td class="product_total" >Rp. <?php echo number_format($subtotals); ?>
+                                            <input class="product_total" type="hidden" value="<?php echo $subtotal; ?>"></td>
+                                        </form>
+                                        </tr> <!-- End Cart Single Item-->
+
+                                        <?php $totals+=$subtotals; ?>
+                                        <?php endforeach?> 
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Cart Table 
+        
+        -->
+        <!-- Start Coupon Start -->
+        <div class="coupon_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code right"  data-aos="fade-up"  data-aos-delay="400">
+                            <h3>Cart Totals</h3>
+                            <div class="coupon_inner">
+                                <div class="cart_subtotal">
+                                    <p>Total
+                                        <div class="cart_amount">
+                                            <div id="grandtotal">Rp. <?php echo number_format($totals); ?></div>
+                                        </div>
+                                    </p>
+                                </div>
+                                <div class="checkout_btn">
+                                    <a href="checkouts.php">Proceed to Checkout</a>
+                                </div>
+                            
+                                <?php } 
+                                else { 
+                                ?>
+                                    <!-- Start Cart Table -->
+                                   <div class="text-center m-5">
+                                        <h5>Belum ada Barang</h5>
+                                   </div>
+                            <?php }?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Coupon Start -->
+
+    </div> <!-- ...:::: End Cart Section:::... -->
+
     <!-- ...:::: Start Footer Section:::... -->
-    <?php require "footer.php"; ?>
-    <!-- ...:::: End Footer Section:::... -->
+    <footer class="footer-section section-top-gap-100">
+        <!-- Start Footer Top Area -->
+        <div class="footer-top section-inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-5">
+                        <div class="footer-widget footer-widget-contact" data-aos="fade-up"  data-aos-delay="0">
+                            <div class="footer-logo">
+                                <a href="index.html"><img src="assets/images/logo/logo.png" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="footer-contact">
+                                <p>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart...</p>
+                                <div class="customer-support">
+                                    <div class="customer-support-icon">
+                                        <img src="assets/images/icon/support-icon.png" alt="">
+                                    </div>
+                                    <div class="customer-support-text">
+                                        <span>Customer Support</span>
+                                        <a class="customer-support-text-phone" href="tel:(08)123456789">(08) 123 456 789</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-7">
+                        <div class="footer-widget footer-widget-subscribe" data-aos="fade-up"  data-aos-delay="200">
+                            <h3 class="footer-widget-title">Subscribe newsletter to get updated</h3>
+                            <form action="#" method="post">
+                                <div class="footer-subscribe-box default-search-style d-flex">
+                                    <input class="default-search-style-input-box border-around border-right-none subscribe-form" type="email" placeholder="Search entire store here ..." required>
+                                    <button class="default-search-style-input-btn" type="submit">Subscribe</button>
+                                </div>
+                            </form>
+                            <p class="footer-widget-subscribe-note">We’ll never share your email address <br> with a third-party.</p>
+                            <ul class="footer-social">
+                                <li><a href="" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="" class="youtube"><i class="fa fa-youtube"></i></a></li>
+                                <li><a href="" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="footer-widget footer-widget-menu" data-aos="fade-up"  data-aos-delay="600">
+                            <h3 class="footer-widget-title">Information</h3>
+                            <div class="footer-menu">
+                                <ul class="footer-menu-nav">
+                                    <li><a href="">Delivery</a></li>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="contact-us.html">Contact us</a></li>
+                                    <li><a href="">Stores</a></li>
+                                </ul>
+                                <ul class="footer-menu-nav">
+                                    <li><a href="">Legal Notice</a></li>
+                                    <li><a href="">Secure payment</a></li>
+                                    <li><a href="">Sitemap</a></li>
+                                    <li><a href="my-account.html">My Account</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Footer Top Area -->
+        <!-- Start Footer Bottom Area -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="copyright-area">
+                            <p class="copyright-area-text">Copyright &copy; 2021 <a class="copyright-link" href="https://hasthemes.com/">Hasthemes</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="footer-payment">
+                            <a href=""><img class="img-fluid" src="assets/images/icon/payment-icon.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Footer Bottom Area -->
+    </footer> <!-- ...:::: End Footer Section:::... -->
 
     <!-- material-scrolltop button -->
     <button class="material-scrolltop" type="button"></button>
@@ -438,11 +574,10 @@ require "../koneksidb.php";
 
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+    <script src="scriptcart.js"></script>
 
 
 
 </body>
 
 </html>
-
-</body>

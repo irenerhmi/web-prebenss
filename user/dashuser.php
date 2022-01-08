@@ -186,7 +186,7 @@ require "../koneksidb.php";
                                             <div class="product-action-icon-link">
                                                 <ul>
                                                     <li><a type="button" href="product-detailse.php?ids=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
-                                                    <li><a type="button" href="sewa.php?ids=<?php echo $perproduk['id_produk'];?>&qtys=1"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>

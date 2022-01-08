@@ -514,19 +514,21 @@ print_r($_SESSION);
                                         
                                         $total = 0;
                                         foreach ($_SESSION['cart'] as $id => $qty):
-                                                        
+                                        
+                                        // echo implode(" ",$_SESSION['cart'])."<br>";
                                         $ambil = $conn->query("SELECT * from produk WHERE id_produk='$id'");
                                         $pecah = $ambil->fetch_assoc();
+                                        print_r($pecah);
                                         $subtotal = $qty*$pecah['harga'];
-                                  
-                                        ?> 
+                                        ?>  
                                         <tr>
                                             <td> <?= $pecah["nama_produk"]; ?> <strong> x<?= $qty; ?> </strong></td>
                                             <td>Rp. <?php echo number_format($subtotal); ?> </td>
                                         </tr>
                                     </tbody>
                                         <?php $total+=$subtotal; ?>
-                                        <?php endforeach?> 
+                                        <?php endforeach?>
+                                        
                                     <tfoot>
                                         <tr>
                                             <td>

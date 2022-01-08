@@ -498,10 +498,10 @@ print_r($_SESSION);
                                         <!--register area start-->
                                         <div class="col-lg-6 col-md-6">
                                             <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
-                                                <form action="cekpengiriman.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+                                                <form action="cekpengiriman.php" method="POST" autocomplete="off">
                                                     <div class="default-form-box mb-20">
                                                         <label>Resi Pengiriman <span>*</span></label>
-                                                        <input name="imgbuktipeng" type="file" value="">
+                                                        <input name="buktipeng" type="number" value="">
                                                     </div>
                                                     <div class="login_submit">
                                                         <button name="pengiriman" type="submit" value="submit">Kirim</a></button>
