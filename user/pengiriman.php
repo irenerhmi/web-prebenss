@@ -14,9 +14,6 @@ require "../koneksidb.php";
 $idtrans = $_GET['id'];
 $_SESSION['cekpeng'] = $idtrans;
 
-echo $idtrans;
-print_r($_SESSION);
-
 ?>
 
 <head>
@@ -501,7 +498,7 @@ print_r($_SESSION);
                                                 <form action="cekpengiriman.php" method="POST" autocomplete="off">
                                                     <div class="default-form-box mb-20">
                                                         <label>Resi Pengiriman <span>*</span></label>
-                                                        <input name="buktipeng" type="number" value="">
+                                                        <input name="buktipeng" type="number" placeholder="Masukkan Resi Pengiriman">
                                                     </div>
                                                     <div class="login_submit">
                                                         <button name="pengiriman" type="submit" value="submit">Kirim</a></button>

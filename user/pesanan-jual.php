@@ -99,7 +99,10 @@ require "../koneksidb.php";
                                     <thead>
                                         <tr>
                                             <th>Order</th>
-                                            <th>Date</th>
+                                            <th>Id Trans</th>
+                                            <th>Tgl Trans</th>
+                                            <th>Nama</th>
+                                            <th>Jumlah</th>
                                             <th>Status</th>
                                             <th>Detail</th>
                                             <th>Total</th>
@@ -113,11 +116,11 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $idsup = $_SESSION['id_supplier'];
-                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans, d.nama_p as namapro, d.jumlah_p as jumlahpro
                                             FROM transaksi t 
                                             JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
                                             JOIN produk p on d.id_produk=p.id_produk AND p.id_supplier='$idsup' AND p.id_jenis=1
-                                            WHERE t.status_trans ='Menunggu Pembayaran' ";
+                                            WHERE t.status_trans ='Menunggu Pengiriman' ";
 
                                         $ambil2 = mysqli_query($conn, $sql2);
                                         
@@ -126,7 +129,10 @@ require "../koneksidb.php";
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk2['id_transaksi']; ?></td>
                                             <td><?php echo $perproduk2['tgl_trans'] ?></td>
+                                            <td><?php echo $perproduk2['namapro'] ?></td>
+                                            <td><?php echo $perproduk2['jumlahpro'] ?></td>
                                             <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
                                             <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
@@ -150,7 +156,10 @@ require "../koneksidb.php";
                                     <thead>
                                         <tr>
                                             <th>Order</th>
-                                            <th>Date</th>
+                                            <th>Id Trans</th>
+                                            <th>Tgl Trans</th>
+                                            <th>Nama</th>
+                                            <th>Jumlah</th>
                                             <th>Status</th>
                                             <th>Detail</th>
                                             <th>Total</th>
@@ -160,7 +169,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $idsup = $_SESSION['id_supplier'];
-                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans, d.nama_p as namapro, d.jumlah_p as jumlahpro
                                             FROM transaksi t 
                                             JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
                                             JOIN produk p on d.id_produk=p.id_produk AND p.id_supplier='$idsup' AND p.id_jenis=1
@@ -171,7 +180,10 @@ require "../koneksidb.php";
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk2['id_transaksi']; ?></td>
                                             <td><?php echo $perproduk2['tgl_trans'] ?></td>
+                                            <td><?php echo $perproduk2['namapro'] ?></td>
+                                            <td><?php echo $perproduk2['jumlahpro'] ?></td>
                                             <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
                                             <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
@@ -202,7 +214,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $idsup = $_SESSION['id_supplier'];
-                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans 
+                                        $sql2 = "SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_trans , t.total_trans as total_trans, d.nama_p as namapro, d.jumlah_p as jumlahpro
                                             FROM transaksi t 
                                             JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
                                             JOIN produk p on d.id_produk=p.id_produk AND p.id_supplier='$idsup' AND p.id_jenis=1

@@ -91,7 +91,7 @@ require "../koneksidb.php";
                     <!-- Tab panes Riwayat Pending -->
                     <div class="tab-content dashboard_content" data-aos="fade-up"  data-aos-delay="200" >
                         <div class="tab-pane fade show active" id="orders">
-                            <h4>Pesanan Menunggu Konfirmasi</h4>
+                            <h4>Pesanan Pending</h4>
                             <div class="table_page table-responsive">
                                 <table>
                                     <thead>
@@ -108,8 +108,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $idpel = $_SESSION['id_pelanggan'];
-                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans as total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
-                                            where d.id_pelanggan = $idpel AND t.status_trans='Menunggu Pembayaran' AND t.jenis_trans='jual'"); 
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Pembayaran' AND jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
 
                                         ?>
@@ -151,8 +150,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $idpel = $_SESSION['id_pelanggan'];
-                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
-                                            where d.id_pelanggan = $idpel AND t.status_trans='Menunggu Konfirmasi' AND t.jenis_trans='jual' OR d.id_pelanggan = $idpel AND t.status_trans='Menunggu Pengiriman' AND t.jenis_trans='jual'"); 
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = $idpel AND status_trans='Menunggu Konfirmasi' AND jenis_trans='jual' OR id_pelanggan = $idpel AND status_trans='Menunggu Pengiriman' AND jenis_trans='jual' "); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -193,8 +191,7 @@ require "../koneksidb.php";
 
                                         $nomor = 1;
                                         $idpel = $_SESSION['id_pelanggan'];
-                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
-                                            where d.id_pelanggan = $idpel AND t.status_trans='Pesanan Dikirim' AND t.jenis_trans='jual'"); 
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Dikirim' AND jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
 
                                             $sqlb = "SELECT * FROM pembayaran WHERE id_transaksi='".$perproduk['id_transaksi']."'";
@@ -210,7 +207,7 @@ require "../koneksidb.php";
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>
-                                            <td><?php echo $perproduk['t.tgl_transaksi']; ?></td>
+                                            <td><?php echo $perproduk['tgl_transaksi']; ?></td>
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
                                             <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>"  name="nota">Lihat Detail Pesanan</a></td>
                                             <td><?php echo $ekspedisi; ?><br><?php echo $idkir; ?></td>
@@ -228,10 +225,10 @@ require "../koneksidb.php";
                                     </form>
                                 </table>
                             </div>
-                    <!-- Tab panes Riwayat Review -->
+                    <!-- Tab panes Riwayat Diterima -->
                             <br>
                             <br>
-                            <h4>Pesanan Selesai</h4>
+                            <h4>Pesanan Diterima</h4>
                             <div class="table_page table-responsive">
                                 <table>
                                     <thead>
@@ -248,8 +245,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $idpel = $_SESSION['id_pelanggan'];
-                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
-                                            where d.id_pelanggan = $idpel AND t.status_trans='Pesanan Diterima' AND t.jenis_trans='jual'"); 
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Diterima' AND jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -259,6 +255,42 @@ require "../koneksidb.php";
                                             <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
                                             <td><a href="notareview.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="review">Beri Review</a></td>
+                                        </tr>
+                                        <?php 
+                                        $nomor++;
+                                        } 
+                                        ?>   
+                                    </tbody>
+                                </table>
+                            </div>
+                    <!-- Tab panes Riwayat Selesai -->
+                            <br>
+                            <br>
+                            <h4>Pesanan Selesai</h4>
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Tgl Transaksi</th>
+                                            <th>Status</th>
+                                            <th>Detail</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>                                    
+                                    <tbody>
+                                        <?php 
+                                        $nomor = 1;
+                                        $idpel = $_SESSION['id_pelanggan'];
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Selesai' AND jenis_trans='jual'"); 
+                                        while($perproduk = $ambil->fetch_assoc()){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $nomor; ?></td>
+                                            <td><?php echo $perproduk['tgl_transaksi']; ?></td>
+                                            <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
+                                            <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
                                         </tr>
                                         <?php 
                                         $nomor++;
@@ -286,8 +318,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $idpel = $_SESSION['id_pelanggan'];
-                                        $ambil = $conn->query("SELECT t.id_transaksi as id_transaksi, t.status_trans as status_trans, t.tgl_transaksi as tgl_transaksi, t.total_trans from transaksi t JOIN dilakukan d ON t.id_transaksi=d.id_transaksi 
-                                            where d.id_pelanggan = $idpel AND t.status_trans='Pesanan Dibatalkan' AND t.jenis_trans='jual'"); 
+                                        $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Dibatalkan' AND jenis_trans='jual'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>

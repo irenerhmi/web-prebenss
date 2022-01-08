@@ -12,14 +12,26 @@ if (isset(($_POST['review'])))
   $resultrt = mysqli_query($conn,$sql);
 
   if ($resultrt === TRUE) {
-    echo "<script>
+    
+    $sql1 = "UPDATE transaski SET status_trans = 'Pesanan Selesai' WHERE id_transaksi = '".$_SESSION['idtransrev']."'"
+    $resulty = mysqli_query($conn,$sql1)
+
+    if ($resulty === TRUE) {
+
+      echo "<script>
             window.alert('Review telah diupload');
           </script>";
-?> 
-   <button class="text-center" onclick="history.back()">Go Back</button>
-<?php 
-  }
-    else {
+?>
+      <button class="text-center" onclick="history.back()">Go Back</button>
+
+<?php
+    } else {
+
+      echo $sql1;
+
+    }
+    
+  } else {
 
       echo $sql;
   }

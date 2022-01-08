@@ -13,7 +13,7 @@ $tglpeng = date('Y-m-d');
 $sql = "UPDATE transaksi SET tgl_pengembalian='$tglpeng' WHERE id_transaksi='$idtrans' ";
 
 if ($conn->query($sql) === TRUE) {
-	$sql1 ="UPDATE transaksi SET status_trans='Pesanan Telah Dikembalikan' WHERE id_transaksi='$idtrans'";
+	$sql1 ="UPDATE transaksi SET status_trans='Pesanan Selesai' WHERE id_transaksi='$idtrans'";
 
 	if ($conn->query($sql1) === TRUE) {
     echo "<script>

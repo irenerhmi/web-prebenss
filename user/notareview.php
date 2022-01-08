@@ -12,8 +12,7 @@ require "../koneksidb.php";
 <?php 
 
 $idtrans = $_GET['id'];
-
-
+$_SESSION['idtransrev'] =$idtrans;
 ?>
 
 <head>

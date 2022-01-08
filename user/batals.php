@@ -15,7 +15,7 @@ if ($conn->query($sql1) === TRUE) {
 	
 		echo "<script>
             window.alert('Pesanan Telah Dibatalkan');
-            window.location='riwayat.php';
+            window.location='riwayats.php';
           </script>";
 
 } else {

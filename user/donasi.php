@@ -108,6 +108,10 @@ if(!isset($_SESSION['username'])){
                                 <input name="berat" type="number" placeholder="Masukkan Berat">
                             </div>
                             <div class="default-form-box mb-20">
+                                <label>Jumlah <span>*</span></label>
+                                <input name="jumlah" type="number" placeholder="Masukkan Jumlah Barang">
+                            </div>
+                            <div class="default-form-box mb-20">
                                 <label>Tanggal Kirim <span>*</span></label>
                                 <input name="tglkirim" type="date" placeholder="Masukkan Tanggal Kirim">
                             </div>

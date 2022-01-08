@@ -24,11 +24,9 @@ session_start();
     $barang = $_POST["barang"];
     $berat = $_POST["berat"];
     $alamat = $_POST["alamat"];
-    $deskripsi = $_POST['deskripsi'];
     $tanggal = $_POST["tglkirim"];
     $imgbarang = $_FILES["imgbarang"];
     $kat = $_POST['kat'];
-    $stok = $_POST['jumlah'];
     $phone = $_SESSION['phone'];
 
 
@@ -54,6 +52,10 @@ session_start();
     }
 
     // Check file size
+    if ($imgbarang["size"] > 1000000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
 
     // Allow certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
@@ -75,8 +77,7 @@ session_start();
       // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($imgbarang["tmp_name"], $target_file)) {
-          $trans = "INSERT INTO produk (nama_produk, berat, deskripsi, stok, harga, image, id_kategori, id_jenis, id_supplier) VALUES ('" . $barang . "', '" . (int)$berat . "' , '" . $deskripsi. "', $stok, 0,'" . $namafile . "', $kat , 3,  '" . $_SESSION['id_supplier'] . "' )";
-          $sql = mysqli_query($conn, $trans);
+          $sql = mysqli_query($conn, "INSERT INTO produk (nama_produk, berat, harga, image, id_kategori, id_jenis) VALUES ('" . $barang . "', '" . (int)$berat . "' , 0,'" . $namafile . "', '" . (int)$kat . "' , 3 )");
           $id_probaru = $conn->insert_id; 
 
           if ($sql === TRUE) {
@@ -87,7 +88,7 @@ session_start();
               $sql2 = mysqli_query($conn, "INSERT INTO menginput (id_produk, id_pelanggan, id_donasi) VALUES ('" . $id_probaru . "','" . $_SESSION['id_pelanggan'] . "','" . $id_don . "')");
               echo "<script>
                     window.alert('Donasi Berhasil Diinput!');
-                    window.location='donasi.php'; 
+                    window.location('donasi.php'); 
                   </script>";
 
             } else {
@@ -97,7 +98,6 @@ session_start();
             }
           } else {
             echo  "update data donasi tidak berhasil";
-            echo $trans;
           }
 
         } else {
@@ -118,3 +118,4 @@ session_start();
 ?>
  
 
+   
