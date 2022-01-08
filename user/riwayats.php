@@ -108,7 +108,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Menunggu Pembayaran' and durasi_sewa IS NOT NULL"); 
+                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans ='Menunggu Pembayaran' and jenis_trans='sewa'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -149,7 +149,7 @@ require "../koneksidb.php";
                                         <?php 
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi 
-                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Konfirmasi' AND durasi_sewa IS NOT NULL OR '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Pengiriman' AND durasi_sewa IS NOT NULL"); 
+                                            where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Konfirmasi' AND jenis_trans='sewa' OR '".$_SESSION['id_pelanggan']."' AND status_trans='Menunggu Pengiriman' AND jenis_trans='sewa'"); 
                                         while($perproduk = $ambil->fetch_assoc()){
                                         ?>
                                         <tr>
@@ -228,6 +228,10 @@ require "../koneksidb.php";
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Diterima' AND durasi_sewa!=0 "); 
                                         while($perproduk = $ambil->fetch_assoc()){
+                                            $idtrans = $perproduk['tgl_transaksi'];
+                                            $sqlp = "SELECT * FROM pengembalian WHERE id_transaksi = '".$idtrans."'";
+                                            $result = mysqli_query($conn,$sqlp);
+                                            $row = mysqli_fetch_array($result);
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>
@@ -236,11 +240,11 @@ require "../koneksidb.php";
                                             <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>
                                                 <?php
-                                                $durasise = $perproduk['durasi_sewa'];
-                                                $diterima = $perproduk['tgl_diterima'];
-                                                // echo $diterima;
-                                                $date = date("Y-m-d", strtotime($diterima. "$durasise days"));
-                                                echo $date;
+                                                // $durasise = $perproduk['durasi_sewa'];
+                                                // $diterima = $perproduk['tgl_diterima'];
+                                                // // echo $diterima;
+                                                // $date = date("Y-m-d", strtotime($diterima. "$durasise days"));
+                                                echo $row['tgl_pengembalian'];
                                                 ?>
                                             </td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
@@ -274,6 +278,7 @@ require "../koneksidb.php";
                                         $nomor = 1;
                                         $ambil = $conn->query("SELECT * from transaksi where id_pelanggan = '".$_SESSION['id_pelanggan']."' AND status_trans='Pesanan Telah Dikembalikan' AND durasi_sewa!=0"); 
                                         while($perproduk = $ambil->fetch_assoc()){
+                                            
                                         ?>
                                         <tr>
                                             <td><?php echo $nomor; ?></td>

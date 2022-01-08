@@ -542,7 +542,11 @@ require "../koneksidb.php";
                             <div class="payment_method">
                                 <div class="default-form-box">
                                     <br> <label>Durasi Sewa (Hari)</label>
-                                        <input type="number" name="pengembalian" min=1>
+                                        <?php
+                                        $curdate = date("Y-m-d");
+                                        $date = date("Y-m-d", strtotime($curdate. "14 days"));
+                                        ?>
+                                        <input type="date" name="pengembalian" min="<?php echo $date; ?>">
                                     <br>
                                 </div>
                                 <div class="default-form-box">
@@ -608,7 +612,7 @@ require "../koneksidb.php";
                             $ongkir = $_POST['ongkir'];
                             $metode = $_POST['id_metode'];
                             $alamat = $_POST['alamatpeng'];
-                            $durasi = $_POST['pengembalian'];
+                            $pengem = $_POST['pengembalian'];
                             $tanggal_trans =  date("Y-m-d");
                             echo $tglkem;
                             
@@ -623,11 +627,14 @@ require "../koneksidb.php";
                             $totaltrans = $total + $ongkir;  
 
                             //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, durasi_sewa, status_trans, tarif, total_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', '" . $durasi . "','Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', '" . $id_pelanggan . "')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, status_trans, tarif, total_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', 'Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', '" . $id_pelanggan . "')");
 
                             //menyimpan data ke table detail dilakukan
                             $id_baruse = $conn->insert_id; 
                             $_SESSION['idtransbaruse'] = $id_baruse;
+
+                            //menyimpan data ke table pengembalian
+                            $pengem = mysqli_query($conn,"INSERT INTO pengembalian (tgl_pengembalian, status_p, bukti_p, id_transaksi) VALUES ('" . $pengem . "','Belum Dikembalikan','Belum Dikembalikan','" . $id_baruse . "')");
 
                             //menambahkan data produk biar harganya fix
                             foreach ($_SESSION['carts'] as $ids => $qtys):

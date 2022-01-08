@@ -638,9 +638,19 @@ print_r($_SESSION);
                                 $resultd = mysqli_query($conn,$dilakukan);
                                 
                                 if ($resultd === TRUE){
-                                    echo "<script>
+
+                                    $stok = mysqli_query($conn, "UPDATE produk SET stok=stok - $qty where id_produk='".$id."'");
+
+                                    if ($stok === TRUE) {
+                                        echo "<script>
                                             window.alert(' checkout berhasil!')
                                           </script>";
+
+                                    } else {
+
+                                        echo $stok;
+                                    }
+                                    
                                 } else {
 
                                     echo $dila;

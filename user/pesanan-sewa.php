@@ -116,7 +116,7 @@ require "../koneksidb.php";
                                             FROM transaksi t
                                             LEFT JOIN dilakukan d on t.id_transaksi=d.id_transaksi 
                                             LEFT JOIN produk p on d.id_produk=p.id_produk 
-                                            WHERE p.id_supplier=1 AND p.id_jenis=2 AND t.status_trans ='Menunggu Pengiriman'";
+                                            WHERE p.id_supplier=$idsup AND t.jenis_trans='sewa' AND t.status_trans ='Menunggu Konfirmasi'";
 
                                         $ambil2 = mysqli_query($conn, $sql2); 
                                         $rowsl2 = mysqli_fetch_array($ambil2);
