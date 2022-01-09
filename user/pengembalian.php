@@ -12,7 +12,7 @@ require "../koneksidb.php";
 <?php 
 
 $idtrans = $_GET['id'];
-echo $idtrans;
+$_SESSION['cekpengem'] = $idtrans;
 print_r($_SESSION);
 
 ?>
@@ -496,16 +496,15 @@ print_r($_SESSION);
                                         <!--register area start-->
                                         <div class="col-lg-6 col-md-6">
                                             <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
-                                                <form action="cekbayar.php" method="POST" enctype="multipart/form-data" autocomplete="off">
+                                                <form action="cekpengembalian.php" method="POST" autocomplete="off">
                                                     <div class="default-form-box mb-20">
                                                         <label>Resi Pengiriman <span>*</span></label>
-                                                        <input name="imgbukti" type="file" value="">
+                                                        <input name="resipeng" type="number" placeholder="Masukkan resi pengiriman" value="">
                                                     </div>
                                                     <div class="login_submit">
                                                         <button name="pengembalian" type="submit" value="submit">Kirim</a></button>
                                                     </div>
                                                 </form>
-                                                
                                             </div>
                                         </div>
                                         <!--register area end-->
@@ -513,16 +512,6 @@ print_r($_SESSION);
                                 </div>
                             </div> <!-- ...:::: End Customer Login Section :::... -->
                             <br>
-                        <?php
-                        if (isset($_POST['pengembalian'])) {
-                            echo "<script>
-                                    window.location ='riwayats.php'; 
-                                  </script>";              
-                            
-                        }
-
-
-                        ?>
                     </div>
                 </div>
             </div> <!-- Start User Details Checkout Form -->

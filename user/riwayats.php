@@ -244,7 +244,7 @@ require "../koneksidb.php";
                                             <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td><?php echo $row['tgl_pengembalian'];?></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
-                                            <td><a href="cekpengembalian.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="review">Pengembalian</a></button></td>
+                                            <td><a href="pengembalian.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="review">Pengembalian</a></button></td>
                                         </tr>
                                         <?php 
                                         $nomor++;
@@ -283,7 +283,7 @@ require "../koneksidb.php";
                                             <td><span class="success"><?php echo $perproduk['status_trans']; ?></span></td>
                                             <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk['total_trans']); ?></td>
-                                            <td><a href="notareview.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="review">Beri Review</a></button></td>
+                                            <td><a href="notareviews.php?id=<?php echo $perproduk['id_transaksi']; ?>" class="btn btn-danger" name="review">Beri Review</a></button></td>
                                         </tr>
                                         <?php 
                                         $nomor++;

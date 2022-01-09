@@ -112,7 +112,7 @@ require "../koneksidb.php";
         <div class="product-tab-wrapper" data-aos="fade-up"  data-aos-delay="50">
             <div class="container">
                 <div class="row g-5">
-                    <?php $ambil = $conn->query("SELECT * from produk where id_jenis=1 limit 6"); ?>
+                    <?php $ambil = $conn->query("SELECT * from produk where id_jenis=1 AND stok!=0 limit 6"); ?>
                     <?php while($perproduk = $ambil->fetch_assoc()){?>
                     <div class="col-4">
                         <div class="tab-content tab-animate-zoom">
@@ -171,7 +171,7 @@ require "../koneksidb.php";
         <div class="product-tab-wrapper" data-aos="fade-up"  data-aos-delay="50">
             <div class="container">
                 <div class="row g-5">
-                    <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 limit 6"); ?>
+                    <?php $ambil = $conn->query("SELECT * from produk where id_jenis=2 AND stok!=0 limit 6"); ?>
                     <?php while($perproduk = $ambil->fetch_assoc()){?>
                     <div class="col-4">
                         <div class="tab-content tab-animate-zoom">
@@ -186,7 +186,7 @@ require "../koneksidb.php";
                                             <div class="product-action-icon-link">
                                                 <ul>
                                                     <li><a type="button" href="product-detailse.php?ids=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
-                                                    <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1"><i class="icon-shopping-cart"></i></a></li>
+                                                    <li><a type="button" href="sewa.php?ids=<?php echo $perproduk['id_produk'];?>&qtys=1"><i class="icon-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -234,7 +234,7 @@ require "../koneksidb.php";
         <div class="product-tab-wrapper" data-aos="fade-up" data-aos-delay="50">
             <div class="container">
                 <div class="row g-5">
-                    <?php $tampil = $conn->query("SELECT * from produk where id_jenis = 1 limit 6"); ?>
+                    <?php $tampil = $conn->query("SELECT * from produk where id_jenis = 1 AND stok!=0 limit 6"); ?>
                     <?php while($produk = $tampil->fetch_assoc()){?>
                     <div class="col-4">
                         <div class="tab-content tab-animate-zoom">
@@ -290,7 +290,7 @@ require "../koneksidb.php";
         <div class="product-tab-wrapper" data-aos="fade-up" data-aos-delay="50">
             <div class="container">
                 <div class="row g-5">
-                    <?php $tampil = $conn->query("SELECT * from produk where id_jenis = 2 limit 6"); ?>
+                    <?php $tampil = $conn->query("SELECT * from produk where id_jenis = 2 AND stok!=0 limit 6"); ?>
                     <?php while($produk = $tampil->fetch_assoc()){?>
                     <div class="col-4">
                         <div class="tab-content tab-animate-zoom">

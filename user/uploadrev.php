@@ -9,13 +9,12 @@ if(!isset($_SESSION['username'])){
 require "../koneksidb.php";
 $idpro = $_GET['idpro'];
 $_SESSION['idrev'] = $idpro;
-print_r($_SESSION);
 ?>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aments - Car Accessories Shop HTML Template</title>
+    <title>Prebens - Review Pesanan</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
@@ -419,12 +418,12 @@ print_r($_SESSION);
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Product Details</h3>
+                        <h3 class="breadcrumb-title">Review Pesanan</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
-                                    <li class="active" aria-current="page">Product Details</li>
+                                    <li class="active" aria-current="page">Review Pesanan</li>
                                 </ul>
                             </nav>
                         </div>
@@ -455,26 +454,6 @@ print_r($_SESSION);
                     </div>
                     <br>
                 </form>
-                <?php
-                // mengirim reply ke database
-                // if (isset(($_POST['review']))) 
-                // {
-                //   $rating = $_POST['rating'];
-                //   $review = $_POST['isirev'];
-                //   $sql = "INSERT INTO merating (nilai, isi, id_produk, id_pelanggan) VALUES ($rating, '".$review."', '" . $_SESSION['idrev'] . "', '" . $_SESSION['id_pelanggan'] . "')";
-
-                //   $resultrt = mysqli_query($conn,$sql);
-                //   if ($resultrt === TRUE) {
-                //     echo "<script>
-                //             window.alert('Review telah diupload');
-                //           </script>";
-                //   }
-                //     else {
-
-                //       echo $sql;
-                //   }                                
-                // }
-                ?>
             </div>
         </div>
     </div> <!-- End Product Content Tab Section -->

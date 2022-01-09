@@ -13,8 +13,9 @@ if (isset(($_POST['review'])))
 
   if ($resultrt === TRUE) {
     
-    $sql1 = "UPDATE transaski SET status_trans = 'Pesanan Selesai' WHERE id_transaksi = '".$_SESSION['idtransrev']."'"
-    $resulty = mysqli_query($conn,$sql1)
+    $sql1 = "UPDATE transaksi SET status_trans = 'Pesanan Selesai' WHERE id_transaksi = '".$_SESSION['idtransrev']."'";
+
+    $resulty = mysqli_query($conn,$sql1);
 
     if ($resulty === TRUE) {
 

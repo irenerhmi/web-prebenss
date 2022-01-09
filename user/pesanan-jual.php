@@ -134,7 +134,7 @@ require "../koneksidb.php";
                                             <td><?php echo $perproduk2['namapro'] ?></td>
                                             <td><?php echo $perproduk2['jumlahpro'] ?></td>
                                             <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
-                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk2['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
                                             <td>
                                                 <a href="pengiriman.php?id=<?php echo $perproduk2['id_transaksi']; ?>" class="btn btn-danger" name="bayar">Pengiriman</a>
@@ -185,7 +185,7 @@ require "../koneksidb.php";
                                             <td><?php echo $perproduk2['namapro'] ?></td>
                                             <td><?php echo $perproduk2['jumlahpro'] ?></td>
                                             <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
-                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk2['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
                                         </tr>
                                         <?php 
@@ -227,7 +227,7 @@ require "../koneksidb.php";
                                             <td><?php echo $nomor; ?></td>
                                             <td><?php echo $perproduk2['tgl_trans'] ?></td>
                                             <td><span class="success"><?php echo $perproduk2['status_trans']; ?></span></td>
-                                            <td><a href="detail.php?id=<?php echo $perproduk['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
+                                            <td><a href="detail.php?id=<?php echo $perproduk2['id_transaksi']; ?>" name="nota">Lihat Detail Pesanan</a></td>
                                             <td>Rp. <?php echo number_format($perproduk2['total_trans']); ?></td>
                                         </tr>
                                         <?php 

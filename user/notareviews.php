@@ -8,15 +8,17 @@ if(!isset($_SESSION['username'])){
 }
 
 require "../koneksidb.php";
-print_r($_SESSION);
 ?>
+<?php 
 
-
+$idtrans = $_GET['id'];
+$_SESSION['idtransrevs'] =$idtrans;
+?>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aments - Car Accessories Shop HTML Template</title>
+    <title>Prebens - Review </title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
 
@@ -416,14 +418,13 @@ print_r($_SESSION);
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Checkout</h3>
+                        <h3 class="breadcrumb-title">Review Pesanan</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop-grid-jual.php">Shop</a></li>
-                                    <li><a href="cart.php">Cart</a></li>
-                                    <li class="active" aria-current="page">Checkout</li>
+                                    <li><a href="dashuser.php">Home</a></li>
+                                    <li><a href="riwayat.php">Riwayat</a></li>
+                                    <li class="active" aria-current="page"> Review Pesanan</li>
                                 </ul>
                             </nav>
                         </div>
@@ -439,241 +440,89 @@ print_r($_SESSION);
             <!-- Start User Details Checkout Form -->
             <div class="checkout_form" data-aos="fade-up"  data-aos-delay="400">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <?php
-
-                        $sql = "select * from user where u_username='".$_SESSION['username']."'";
-
-                        $result = mysqli_query($conn,$sql);
-
-                        $row = mysqli_fetch_array($result);
-                        $temail = $row['u_email'];
-                        $tnama = $row['u_name'];
-                        $tphone = $row['u_phone'];
-                        $talamat = $row['u_alamat'];
-                        $tusername = $row['u_username'];
-                        $tpass = $row['u_password'];
-                        $timage = $row['u_image'];
-
-                        ?>
-                        <form method="POST">
-                            <h3>Billing Details</h3>
-                            <div class="row">
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Nama Lengkap <span>*</span></label>
-                                        <input type="text" value="<?php echo $tnama; ?>">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <label for="country">Tempat <span>*</span></label>
-                                        <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Alamat <span>*</span></label>
-                                        <input placeholder="House number and street name" name="alamatpeng" type="text" value="<?php echo $talamat; ?> ">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Nomor Telfon <span>*</span></label>
-                                        <input type="text" value="<?php echo $tphone; ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-20">
-                                    <div class="default-form-box">
-                                        <label>Email <span>*</span></label>
-                                        <input type="text" value="<?php echo $temail; ?>">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="order-notes">
-                                        <label for="order_note">Order Notes</label>
-                                        <textarea id="order_note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-lg ">
                         
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        
-                            <h3>Your order</h3>
+                            <h3>Pesanan</h3>
                             <div class="order_table table-responsive">
                                 <table>
-                                    <thead>
+                                        <!-- <?php 
+                                        
+                                        $total = 0;                                                        
+                                        $ambil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
+                                        $pecah = $ambil->fetch_assoc();
+                                        $subtotal = $pecah['jumlah_p']*$pecah['harga_p'];
+                                        $idtrans = $pecah['id_transaksi'];
+                                        while($produk = $ambil->fetch_assoc()){
+                                        ?> 
                                         <tr>
+                                            <?php
+                                            $sql = "SELECT * from produk WHERE nama_produk='".$produk["nama_p"]."'";
+                                            $result = mysqli_query($conn,$sql);
+                                            $row = mysqli_fetch_array($result);
+                                            $foto = $row['image'];
+                                            $idpro = $row['id_produk'];
+                                            ?>
+                                            <td><img src="../image/seller/<?= $row['image']; ?>" width="110px" height="90px"></a></td>
+                                            <td><a href="product-details.php?id=<?php echo $idtrans;?>"><?= $produk["nama_p"]; ?><strong> x<?= $produk["jumlah_p"];?> </strong></td>
+                                            <td>Rp. <?php echo number_format($subtotal); ?> </td>
+                                        </tr>
+                                        <?php
+                                        }
+                                        ?> -->
+                                        <?php 
+                                        $total = 0;
+                                        // mengambil data pada id transaksi
+                                        $tampil = $conn->query("SELECT * from dilakukan WHERE id_transaksi='$idtrans'");
+                                        while($produk = $tampil->fetch_assoc()){
+                                        ?>
+                                        <thead>
+                                        <tr>
+                                            <th>Foto</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                        
-                                        $total = 0;
-                                        foreach ($_SESSION['cart'] as $id => $qty):
-                                        
-                                        // echo implode(" ",$_SESSION['cart'])."<br>";
-                                        $ambil = $conn->query("SELECT * from produk WHERE id_produk='$id'");
-                                        $pecah = $ambil->fetch_assoc();
-                                        print_r($pecah);
-                                        $subtotal = $qty*$pecah['harga'];
-                                        ?>  
+                                        </thead>
+                                        <tbody>
                                         <tr>
-                                            <td> <?= $pecah["nama_produk"]; ?> <strong> x<?= $qty; ?> </strong></td>
-                                            <td>Rp. <?php echo number_format($subtotal); ?> </td>
+                                            <?php
+                                            $idpro= $produk['id_produk'];
+                                            $_SESSION['idpro'] = $idpro;
+                                            $sql = "SELECT * from produk WHERE nama_produk='".$produk["nama_p"]."'";
+                                            $result = mysqli_query($conn,$sql);
+                                            $row = mysqli_fetch_array($result);
+                                            $foto = $row['image'];
+                                            ?>
+                                            <td><a href="product-detailse.php?ids=<?php echo $produk['id_produk'];?>"><img src="../image/seller/<?= $row['image']; ?>" width="110px" height="90px"></a></td>
+                                            <td><a href="product-detailse.php?ids=<?php echo $produk['id_produk'];?>"><?= $produk["nama_p"]; ?> <strong> x<?= $produk["jumlah_p"];; ?> </strong></td>
+                                            <td>Rp. <?php echo number_format($produk['jumlah_p']*$produk['harga_p']); ?> </td>
                                         </tr>
+                                        <?php
+                                        // menghitung subtotal dan total pesanan
+                                        $subtotal = $produk['jumlah_p']*$produk['harga_p'];
+                                        $total+=$subtotal;
+                                        ?>
+                                        <td>
+                                            <div class="order_button pt-7">
+                                                <a href="uploadrevs.php?idpro=<?php echo $idpro ?>" class="btn btn-danger">Review Produk</a>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                        </td>
+
+                                    </div>
                                     </tbody>
                                         <?php $total+=$subtotal; ?>
-                                        <?php endforeach?>
-                                        
-                                    <tfoot>
-                                        <tr>
-                                            <td>
-                                                <strong> SubTotal </strong>
-                                            </td>
-                                            <td>
-                                                Rp. <?php 
-                                                echo number_format($total); ?> 
-                                            </td>
-                                        </tr>
-                                    </tfoot>
+                                        <?php 
+                                        //query ambil ongkir
+                                        $resultr = mysqli_query($conn,"SELECT * from transaksi where id_transaksi='$idtrans'");
+                                        $rowtr = mysqli_fetch_array($resultr);
+                                        $jumong = $rowtr['tarif'];
+                                        $idtrans_baru = $conn->insert_id; 
+                                        ?>
                                 </table>
+                                <br>
                             </div>
-                        
-                            <div class="payment_method">
-                                <div class="default-form-box">
-                                    <label>Nama Ekspedisi </label>
-                                        <select name="ekspedisi" class="form-control">
-                                            <option value="">Pilih Ekspedisi</option>          
-                                            <option value="JNT">
-                                                JNT
-                                            </option>
-                                            <option value="JNE">
-                                                JNE
-                                            </option>
-                                            <option value="SiCepat">
-                                                SiCepat
-                                            </option>
-                                        </select>
-                                    <br>
-                                </div>
-                                <div class="default-form-box">
-                                    <br> <label>Ongkos Kirim </label>
-                                        <select name="ongkir" class="form-control">
-                                            <option value="">Pilih Ongkos Kirim</option>
-                                            <?php
-                                            $ambil = $conn->query("SELECT * from ongkir");
-                                            while($pecah = $ambil->fetch_assoc()){
-                                            ?>                                      
-                                            <option value="<?php echo $pecah['tarif'] ?>">
-                                                <?php echo $pecah['daerah']?> - 
-                                                Rp. <?php echo number_format($pecah['tarif'])?>
-                                            </option>
-                                            <?php } ?>
-                                        </select>
-                                    <br>
-                                </div>
-                                <div class="default-form-box">
-                                    <br> <label>Metode Pembayaran</label>
-                                        <select name="id_metode" class="form-control">
-                                            <option value="">Pilih Metode Pembayaran</option>
-                                            <?php
-                                            $ambil = $conn->query("SELECT * from metode_bayar");
-                                            while($pecah = $ambil->fetch_assoc()){
-                                            ?>                                      
-                                            <option value="<?php echo $pecah['id_metode'] ?>">
-                                                <?php echo $pecah['nama_metode']?>
-                                            </option>
-                                            <?php } ?>
-                                        </select>
-                                    <br>
-                                </div>
-                                <div class="order_button pt-15">
-                                    <br>
-                                    <button name="checkout">Proceed to Paayment</button>
-                                </div>
-                            </div>
-                        </form>
-
-                        <?php
-                        if (isset($_POST['checkout'])) 
-                        {
-                            $id_pelanggan = $_SESSION['id_pelanggan'];
-                            $alamat = $_POST['alamatpeng'];
-                            $ongkir = $_POST['ongkir'];
-                            $metode = $_POST['id_metode'];
-                            $namaeks = $_POST['ekspedisi'];
-                            $tanggal_trans =  date("Y-m-d");
-                            
-                            //select table ongkir
-                            // $result1 = mysqli_query($conn,"select * from ongkir
-                            // where id_ongkir='$id_ongkir'");
-                            // $row1 = mysqli_fetch_array($result1);
-                            // $daerah = $row1['daerah'];
-                            // $jumong = $row1['tarif'];
-
-                            $totaltrans = 0;
-                            $totaltrans = $total + $ongkir;
-
-                            //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, status_trans, tarif, total_trans, jenis_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', 'Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', 'jual', '" . $id_pelanggan . "')");
-
-                            //menyimpan data ke table detail dilakukan
-                            $id_baru = $conn->insert_id; 
-                            $_SESSION['idtransbaru'] = $id_baru;
-
-                            //menambahkan data produk biar harganya fix
-                            foreach ($_SESSION['cart'] as $id => $qty):
-                                $results = mysqli_query($conn,"SELECT * from produk where id_produk='$id'");
-                                $rowsl = mysqli_fetch_array($results);
-                                $namat = $rowsl['nama_produk'];
-                                echo $namat;
-                                echo $id;
-                                $hargat = $rowsl['harga'];
-
-                                $dilakukan = "INSERT INTO dilakukan (nama_p, harga_p, id_transaksi, id_produk, jumlah_p, id_pelanggan) VALUES ('" . $namat . "','" . $hargat . "', '" . $id_baru . "', '" . $id . "', '" . $qty . "', '" . $id_pelanggan . "')";
-                                $resultd = mysqli_query($conn,$dilakukan);
-                                
-                                if ($resultd === TRUE){
-
-                                    $stok = mysqli_query($conn, "UPDATE produk SET stok=stok - $qty where id_produk='".$id."'");
-
-                                    if ($stok === TRUE) {
-                                        echo "<script>
-                                            window.alert(' checkout berhasil!')
-                                          </script>";
-
-                                    } else {
-
-                                        echo $stok;
-                                    }
-                                    
-                                } else {
-
-                                    echo $dila;
-                                }
-                            endforeach;
-
-                            // menyimpan data ke table pembayaran
-                            $resultpb = mysqli_query($conn,"INSERT INTO pembayaran (jml_bayar, id_metode, id_transaksi) VALUES ('" . $totaltrans . "','" . $metode . "','" . $id_baru . "')");
-
-                            $id_bayarbar = $conn->insert_id; 
-                            $_SESSION['idtbayarbar'] = $id_bayarbar;
-
-                            // menyimpan data ke table pengiriman
-                            $resultpb = mysqli_query($conn,"INSERT INTO pengiriman (nama_ekspedisi, status_peng, alamatpeng, id_bayar) VALUES ('" . $namaeks . "','Belum Dikirim', '" . $alamat . "' , '" . $id_bayarbar . "')");
-
-                            // unset($_SESSION['cart'][$_GET['id']]);
-                            echo "<script>
-                                    window.location ='nota.php'; 
-                                  </script>";   
-                            
-                        }
-
-                        ?>
                     </div>
                 </div>
             </div> <!-- Start User Details Checkout Form -->
@@ -681,89 +530,8 @@ print_r($_SESSION);
     </div><!-- ...:::: End Checkout Section:::... -->
 
     <!-- ...:::: Start Footer Section:::... -->
-    <footer class="footer-section section-top-gap-100">
-        <!-- Start Footer Top Area -->
-        <div class="footer-top section-inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-5">
-                        <div class="footer-widget footer-widget-contact" data-aos="fade-up"  data-aos-delay="0">
-                            <div class="footer-logo">
-                                <a href="index.html"><img src="assets/images/logo/logo.png" alt="" class="img-fluid"></a>
-                            </div>
-                            <div class="footer-contact">
-                                <p>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart...</p>
-                                <div class="customer-support">
-                                    <div class="customer-support-icon">
-                                        <img src="assets/images/icon/support-icon.png" alt="">
-                                    </div>
-                                    <div class="customer-support-text">
-                                        <span>Customer Support</span>
-                                        <a class="customer-support-text-phone" href="tel:(08)123456789">(08) 123 456 789</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-7">
-                        <div class="footer-widget footer-widget-subscribe" data-aos="fade-up"  data-aos-delay="200">
-                            <h3 class="footer-widget-title">Subscribe newsletter to get updated</h3>
-                            <form action="#" method="post">
-                                <div class="footer-subscribe-box default-search-style d-flex">
-                                    <input class="default-search-style-input-box border-around border-right-none subscribe-form" type="email" placeholder="Search entire store here ..." required>
-                                    <button class="default-search-style-input-btn" type="submit">Subscribe</button>
-                                </div>
-                            </form>
-                            <p class="footer-widget-subscribe-note">We’ll never share your email address <br> with a third-party.</p>
-                            <ul class="footer-social">
-                                <li><a href="" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="" class="youtube"><i class="fa fa-youtube"></i></a></li>
-                                <li><a href="" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
-                                <li><a href="" class="instagram"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="footer-widget footer-widget-menu" data-aos="fade-up"  data-aos-delay="600">
-                            <h3 class="footer-widget-title">Information</h3>
-                            <div class="footer-menu">
-                                <ul class="footer-menu-nav">
-                                    <li><a href="">Delivery</a></li>
-                                    <li><a href="about-us.html">About Us</a></li>
-                                    <li><a href="contact-us.html">Contact us</a></li>
-                                    <li><a href="">Stores</a></li>
-                                </ul>
-                                <ul class="footer-menu-nav">
-                                    <li><a href="">Legal Notice</a></li>
-                                    <li><a href="">Secure payment</a></li>
-                                    <li><a href="">Sitemap</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Footer Top Area -->
-        <!-- Start Footer Bottom Area -->
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="copyright-area">
-                            <p class="copyright-area-text">Copyright &copy; 2021 <a class="copyright-link" href="https://hasthemes.com/">Hasthemes</a></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="footer-payment">
-                            <a href=""><img class="img-fluid" src="assets/images/icon/payment-icon.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Footer Bottom Area -->
-    </footer> <!-- ...:::: End Footer Section:::... -->
+    <?php require "footer.php"; ?>
+    <!-- ...:::: End Footer Section:::... -->
 
     <!-- material-scrolltop button -->
     <button class="material-scrolltop" type="button"></button>

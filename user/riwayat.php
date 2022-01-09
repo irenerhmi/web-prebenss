@@ -99,7 +99,7 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Tgl Transaksi</th>
                                             <th>Status</th>
-                                            <th>Detail Pesanan</th>
+                                            <th>Detail</th>
                                             <th>Total</th>
                                             <th>Actions</th>
                                         </tr>
@@ -141,7 +141,7 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Tgl Transaksi</th>
                                             <th>Status</th>
-                                            <th>Detail Pesanan</th>
+                                            <th>Detail</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -179,7 +179,7 @@ require "../koneksidb.php";
                                             <th>Order</th>
                                             <th>Tgl Transaksi</th>
                                             <th>Status</th>
-                                            <th>Detail Pesanan</th>
+                                            <th>Detail</th>
                                             <th>Resi Pengiriman</th>
                                             <th>Total</th>
                                             <th>Actions</th>

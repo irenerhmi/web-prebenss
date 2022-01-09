@@ -8,7 +8,6 @@ if(!isset($_SESSION['username'])){
 
 require "../koneksidb.php";
 $id = $_GET['id'];
-echo $id;
 ?>
 
 <head>
@@ -484,7 +483,7 @@ echo $id;
                                     <div class="variable-single-item ">
                                         <span>Quantity</span>
                                         <div class="product-variable-quantity">
-                                            <input min="1" max="<?php echo $tstok; ?>" value="1" type="number" name="jumlah">
+                                            <input min="1" max="<?php echo $tstok; ?>" value="" type="number" name="jumlah">
                                         </div>
                                     </div>
 

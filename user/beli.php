@@ -11,9 +11,6 @@ else
 	$_SESSION['cart'][$_GET['id']]=1;
 
 
-echo "<pre>";
-print_r($_SESSION['cart']);
-echo "<pre>";
 
 
 

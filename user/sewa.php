@@ -11,10 +11,6 @@ else
 	$_SESSION['carts'][$_GET['ids']]=1;
 
 
-echo "<pre>";
-print_r($_SESSION['carts']);
-echo "<pre>";
-
 
 
 //pindah ke halaman cart

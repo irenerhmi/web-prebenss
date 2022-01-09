@@ -2,7 +2,6 @@
 include "../koneksidb.php";
 
 session_start();
-print_r($_SESSION);
 
 if (isset($_POST['submit'])) {
   $imgbukti = $_FILES["imgbukti"];

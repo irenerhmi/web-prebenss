@@ -494,7 +494,6 @@ require "../koneksidb.php";
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         
@@ -538,7 +537,7 @@ require "../koneksidb.php";
                                     </tfoot>
                                 </table>
                             </div>
-                        <form method="POST">
+                        
                             <div class="payment_method">
                                 <div class="default-form-box">
                                     <br> <label>Durasi Sewa (Hari)</label>
@@ -627,7 +626,7 @@ require "../koneksidb.php";
                             $totaltrans = $total + $ongkir;  
 
                             //menyimpan data ke table transaski
-                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, status_trans, tarif, total_trans, jenis_trans) VALUES ('" . $tanggal_trans . "', 'Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', 'sewa')");
+                            $resulttr = mysqli_query($conn,"INSERT INTO transaksi (tgl_transaksi, status_trans, tarif, total_trans, jenis_trans, id_pelanggan) VALUES ('" . $tanggal_trans . "', 'Menunggu Pembayaran', '" . $ongkir . "', '" . $totaltrans . "', 'sewa', '" . $id_pelanggan . "')");
 
                             //menyimpan data ke table detail dilakukan
                             $id_baruse = $conn->insert_id; 
@@ -647,9 +646,19 @@ require "../koneksidb.php";
                                 $resultd = mysqli_query($conn,$dilakukan);
 
                                 if ($resultd === TRUE){
-                                    echo "<script>
-                                            window.alert('checkout berhasil!')
+
+                                    $stok = mysqli_query($conn, "UPDATE produk SET stok=stok - $qty where id_produk='".$ids."'");
+
+                                    if ($stok === TRUE) {
+                                        echo "<script>
+                                            window.alert(' checkout berhasil!')
                                           </script>";
+
+                                    } else {
+
+                                        echo $stok;
+                                    }
+                                    
                                 } else {
 
                                     echo $dilakukan;

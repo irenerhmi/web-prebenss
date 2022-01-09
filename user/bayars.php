@@ -11,9 +11,6 @@ require "../koneksidb.php";
 <?php
 $idtrans = $_GET['id'];
 $_SESSION['cekbayar'] = $idtrans;
-
-print_r($_SESSION);
-echo $idtrans;
 ?>
 <head>
     <meta charset="UTF-8" />

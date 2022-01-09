@@ -7,13 +7,15 @@ if(!isset($_SESSION['username'])){
 }
 
 require "../koneksidb.php";
-$ids = $_GET['ids'];
+$idpro = $_GET['idpro'];
+$_SESSION['idrevs'] = $idpro;
+print_r($_SESSION);
 ?>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prebens - Product Details</title>
+    <title>Prebens - Review</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
@@ -417,12 +419,12 @@ $ids = $_GET['ids'];
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
-                        <h3 class="breadcrumb-title">Product Details</h3>
+                        <h3 class="breadcrumb-title">Review</h3>
                         <div class="breadcrumb-nav">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
-                                    <li class="active" aria-current="page">Product Details</li>
+                                    <li class="active" aria-current="page">Review</li>
                                 </ul>
                             </nav>
                         </div>
@@ -432,300 +434,33 @@ $ids = $_GET['ids'];
         </div>
     </div> <!-- ...:::: End Breadcrumb Section:::... -->
 
-    <!-- Start Product Details Section -->
-    <div class="product-details-section">
-        <div class="container">
-            <div class="row">
-                <?php
-                $result = mysqli_query($conn,"SELECT * from produk WHERE id_produk='$ids'");
-                $row = mysqli_fetch_array($result);
-                $tnamapro = $row['nama_produk'];
-                $tdeskripsi = $row['deskripsi'];
-                $thargapro = $row['harga'];
-                $tstok = $row['stok'];
-                $timgpro = $row['image'];     
-                $sup = $row['id_supplier'];                                         
-                ?>
-                <div class="col-md-6">
-                    <div class="product-details-gallery-area" data-aos="fade-up"  data-aos-delay="0">
-                        <div class="product-large-image product-large-image-horaizontal">
-                            <div class="product-image-large-single zoom-image-hover">
-                                <img src="../image/seller/<?php echo $timgpro ?>" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="product-details-content-area" data-aos="fade-up"  data-aos-delay="200">
-                        <!-- Start  Product Details Text Area-->
-                        <div class="product-details-text">
-                            <h4 class="title"><?php echo $tnamapro; ?></h4>
-                            <div class="d-flex align-items-center">
-                                <div class="product-review">
-                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                    <span class="review-fill"><i class="fa fa-star"></i></span>
-                                    <span class="review-empty"><i class="fa fa-star"></i></span>
-                                </div>
-                                <a href="#" class="customer-review">(customer review )</a>
-                            </div>
-                            <div class="price">Rp. <?php echo number_format($thargapro); ?></div>
-                            <p>Stok: <?php echo $tstok; ?></p>
-                            <p><?php echo $tdeskripsi; ?></p>
-                        </div> <!-- End  Product Details Text Area-->
-                        <!-- Start Product Variable Area -->
-                        <div class="product-details-variable">
-                            <h4 class="title">Available Options</h4>
-                            <!-- Product Variable Single Item -->
-                            <form method="POST">
-                                <div class="d-flex align-items-center">
-                                    <div class="variable-single-item ">
-                                        <span>Quantity</span>
-                                        <div class="product-variable-quantity">
-                                            <input min="1" max="<?php echo $tstok; ?>" value="" type="number" name="jumlah">
-                                        </div>
-                                    </div>
-
-                                    <div class="product-add-to-cart-btn">
-                                        <button class="btn btn-dark" name="sewa">Masukkan Keranjang</button>                           
-                                    </div>
-                                </div>
-                            </form>
-                            <?php
-
-                            if (isset($_POST["sewa"])) 
-                            {
-                                # jumlah
-                                $qtys = $_POST['jumlah'];
-                                #masukkab ke keranjang
-                                 $_SESSION['cart'][$ids]+=$qtys;
-                                 //pindah ke halaman cart
-                                echo "<script>
-                                        window.alert('produk berhasil dimasukkan ke keranjang !'); 
-                                        window.location ='dashuser.php'; 
-                                      </script>";
-                            }
-                            
-                            ?>
-                        </div> <!-- End Product Variable Area -->
-                        <!-- Start  Product Details Meta Area-->
-                        <!-- End  Product Details Meta Area-->
-                        <!-- Start  Product Details Social Area-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End Product Details Section -->
-
     <!-- Start Product Content Tab Section -->
     <div class="product-details-content-tab-section section-inner-bg section-top-gap-100">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="product-details-content-tab-wrapper" data-aos="fade-up"  data-aos-delay="0">
-
-                        <!-- Start Product Details Tab Button -->
-                        <ul class="nav tablist product-details-content-tab-btn d-flex justify-content-center">
-                            <li><a class="nav-link active" data-bs-toggle="tab" href="#description">
-                                    <h5>Description</h5>
-                                </a></li>
-                            <li><a class="nav-link" data-bs-toggle="tab" href="#review">
-                                    <h5>Reviews</h5>
-                                </a></li>
-                        </ul> <!-- End Product Details Tab Button -->
-
-                        <!-- Start Product Details Tab Content -->
-                        <div class="product-details-content-tab">
-                            <div class="tab-content">
-                                <!-- Start Product Details Tab Content Singel -->
-                                <div class="tab-pane active show" id="description">
-                                    <div class="single-tab-content-item">
-                                        <p><?php echo $tdeskripsi; ?></p>
-                                    </div>
-                                </div> <!-- End Product Details Tab Content Singel -->
-                
-                                <!-- Start Product Details Tab Content Singel -->
-                                <div class="tab-pane" id="review">
-                                    <?php
-                                    // perulangan menampilkan review dan rating 
-                                    $ambil = $conn->query("SELECT * from merating where id_produk=$ids"); ?>
-                                    <?php while($perproduk = $ambil->fetch_assoc()){
-                                        
-                                    ?>
-                                    <div class="single-tab-content-item">
-                                        <!-- Start - Review Comment -->
-                                        <ul class="comment">
-                                            <!-- Start - Review Comment list-->
-                                            <li class="comment-list">
-                                                <div class="comment-wrapper">
-                                                    <?php
-                                                    $idrat=$perproduk['id_rating'];
-                                                    // mengambil username dan foto pelanggan
-                                                    $sql = "SELECT * from pelanggan WHERE id_pelanggan='".$perproduk["id_pelanggan"]."'";
-                                                    $result = mysqli_query($conn,$sql);
-                                                    $row = mysqli_fetch_array($result);
-
-                                                    $sql1 = "SELECT * from user WHERE u_username='".$row['u_username']."'";
-                                                    $result1 = mysqli_query($conn,$sql1);
-                                                    $row1 = mysqli_fetch_array($result1);
-
-                                                    // perulangan untuk menampilkan jumlah rating
-                                                    $star_list = str_repeat('<span class="review-fill"><i class="fa fa-star"></i></span>', $perproduk['nilai']);
-
-                                                    ?>
-                                                    <div class="comment-img">
-                                                        <img src="../image/user/<?php echo $row1['u_image'] ?>" alt="">
-                                                    </div>
-                                                    <div class="comment-content">
-                                                        <div class="comment-content-top">
-                                                            <div class="comment-content-left">
-                                                                <h6 class="comment-name"><?php echo $row['u_username']; ?></h6>
-                                                                <div class="product-review">
-                                                                    <?php
-                                                                    echo $star_list;
-                                                                    ?>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <?php
-                                                        $sql2 = "SELECT * from mereview WHERE id_produk='".$perproduk["id_produk"]."' AND id_pelanggan='".$perproduk["id_pelanggan"]."' ";
-                                                        $result2 = mysqli_query($conn,$sql2);
-                                                        $row2 = mysqli_fetch_array($result2);
-                                                        $idrev = $row2['id_review'];
-                                                        ?> -->
-                                                        <div class="para-content">
-                                                            <p><?php echo $perproduk['isi']; ?></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Start - Review Comment Reply-->
-                                                
-                                                <ul class="comment-reply">
-                                                    <?php
-                                                    $sqlp = "SELECT id_supplier from produk WHERE id_produk='".$perproduk["id_produk"]."' and id_supplier='".$_SESSION['id_supplier']."'";
-                                                    $resultp = mysqli_query($conn,$sqlp);
-                                                    $rowp = mysqli_fetch_array($resultp);
-                                                    if ($rowp > 0) { ?>
-                                                        <div class="comment-content-right">
-                                                            <a href="reply.php?idrat=<?php echo $idrat;?>"><i class="fa fa-reply"></i>Reply</a>
-                                                        </div>
-                                                        <br>
-                                                    <?php 
-                                                    } ?>
-                                                    <li class="comment-reply-list">
-                                                        <?php 
-                                                        $ambilre = $conn->query("SELECT * from mereply where id_rating=$idrat "); ?>
-
-                                                        <?php
-                                                        while($perprodukre = $ambilre->fetch_assoc())
-                                                        {
-                                                        ?>
-                                                            <div class="comment-wrapper">
-                                                                <?php
-                                                                // mengambil username dan foto supplier
-                                                                $sqlsup = "SELECT * from supplier WHERE id_supplier='" . $perprodukre['id_supplier'] . "'";
-                                                                $resultsup = mysqli_query($conn,$sqlsup);
-                                                                $rowsup = mysqli_fetch_array($resultsup);
-
-                                                                $sqlsup2 = "SELECT * from user WHERE u_username='".$rowsup['u_username']."'";
-                                                                $resultsup2 = mysqli_query($conn,$sqlsup2);
-                                                                $rowsup2 = mysqli_fetch_array($resultsup2);
-                                                                ?>
-                                                                <div class="comment-img">
-                                                                    <img src="../image/user/<?php echo $rowsup2['u_image'] ?>" alt="">
-                                                                </div>
-                                                                <div class="comment-content">
-                                                                    <div class="comment-content-top">
-                                                                        <div class="comment-content-left">
-                                                                            <h6 class="comment-name"><?php echo $rowsup2['u_username']; ?></h6>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="para-content">
-                                                                        <p> <?php echo $perprodukre['isi_r']?> </p>
-                                                                    </div>
-                                                                    <br>
-                                                                </div>
-                                                            </div>
-                                                            <br>
-                                                        <?php 
-                                                        } ?>
-                                                    </li>
-                                                </ul> <!-- End - Review Comment Reply-->
-                                            </li> <!-- End - Review Comment list-->
-                                        </ul> <!-- End - Review Comment -->
-                                    </div>
-                                <?php }?>
-                                </div> <!-- End Product Details Tab Content Singel -->
-                            </div>
-                        </div> <!-- End Product Details Tab Content -->
-                    </div>
+            <div class="review-form" >
+                <div class="review-form-text-top">
+                    <h5>Berikan Review</h5>
                 </div>
+
+                <form action="uploadrev1s.php" method="POST">
+                    <div class="default-form-box">
+                        <label>Masukkan Rating (Range 1-5)<span>*</span></label>
+                        <input type="number" value="" min=1 max=5 name="rating" placeholder="Masukkan Rating">
+                        <br>
+                        <label>Masukkan Review <span>*</span></label>
+                        <input type="text" value="" name="isirev" placeholder="Masukkan Review" >
+                    </div>
+                    <div class="order_button pt-7">
+                        <button type="submit" name="review">Submit Review</button>
+                    </div>
+                    <br>
+                </form>
+                
             </div>
         </div>
     </div> <!-- End Product Content Tab Section -->
 
     <!-- ...:::: Start Product  Section:::... -->
-    <div class="product-tab-section section-top-gap-100">
-        <!-- Start Section Content -->
-        <div class="section-content-gap">
-            <div class="container">
-                <div class="row">
-                    <div class="section-content d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column">
-                        <h3 class="section-title" data-aos="fade-up" data-aos-delay="0">Produk Lain Dari Toko</h3>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- End Section Content -->
-
-        <!-- Start Tab Wrapper -->
-        <div class="product-tab-wrapper" data-aos="fade-up"  data-aos-delay="50">
-            <div class="container">
-                <div class="row g-5">
-                    <?php $ambil = $conn->query("SELECT * from produk where id_supplier=$sup and id_jenis=1"); ?>
-                    <?php while($perproduk = $ambil->fetch_assoc()){?>
-                    <div class="col-4">
-                        <div class="tab-content tab-animate-zoom">
-                            <div class="tab-pane show active">
-                                <div class="product-default-slider product-default-slider-1rows">
-                                    <!-- Start Product Defautlt Single -->
-                                    <div class="product-default-single border-around">
-                                        <div class="product-img-warp">
-                                            <a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>" class="product-default-img-link">
-                                                <img src="../image/seller/<?php echo $perproduk['image'] ?>" width="320px" height="400px">
-                                            </a>
-                                            <div class="product-action-icon-link">
-                                                <ul>
-                                                    <li><a type="button" href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><i class="icon-eye"></i></a></li>
-                                                    <li><a type="button" href="beli.php?id=<?php echo $perproduk['id_produk'];?>&qty=1"><i class="icon-shopping-cart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-default-content">
-                                            <h6 class="product-default-link"><a href="product-details.php?id=<?php echo $perproduk['id_produk'];?>"><?php echo $perproduk['nama_produk'] ?></a></h6>
-                                            <span class="product-default-price">Rp <?php echo $perproduk['harga']
-                                            ?>
-                                            </span>
-                                        </div> 
-                                    </div> <!-- End Product Defautlt Single -->
-                                      <!-- Start Product Defautlt Single -->
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="Sewa">
-                                <div class="product-default-slider product-default-slider-4grids-1row">
-                                    <!-- Start Product Defautlt Single -->
-                                     <!-- End Product Defautlt Single -->   
-                                </div>
-                            </div>                            
-                        </div>
-                    </div>
-                <?php } ?>
-                </div>
-            </div>
-        </div> <!-- End Catagory Wrapper -->
-    </div>
-    
-    <!-- ...:::: End Product Section:::... -->
 
     <!-- ...:::: Start Footer Section:::... -->
     <?php require "footer.php"; ?>

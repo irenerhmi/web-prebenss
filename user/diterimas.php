@@ -16,7 +16,7 @@ if ($conn->query($sql) === TRUE) {
 
 	 echo "<script>
             window.alert('Pesanan Diterima');
-            window.location='riwayat.php';
+            window.location='riwayats.php';
           </script>";
 
 } else {
