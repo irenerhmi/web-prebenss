@@ -80,7 +80,7 @@ require "../koneksidb.php";
                     <!-- Nav tabs -->
                     <div class="dashboard_tab_button" >
                         <ul  class="nav flex-column dashboard-list">
-                            <li><a href="#account-details"  class="nav-link active">Profile User</a></li>
+                            <li><a href="#account-details"  class="nav-link active">Profile</a></li>
                             <li><a href="riwayat.php"  class="nav-link">Riwayat Beli</a></li>
                             <li><a href="riwayats.php"  class="nav-link">Riwayat Sewa</a></li>
                             <li><a href="ajukan-jual.php"  class="nav-link">Toko</a></li>
