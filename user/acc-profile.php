@@ -92,7 +92,7 @@ require "../koneksidb.php";
                     <!-- Tab panes -->
                     <div class="tab-content dashboard_content" data-aos="fade-up"  data-aos-delay="200" >
                         <div class="tab-pane fade show active " id="account-details">
-                                    <h3>Profile </h3> <br>
+                                    <h3>Profile User</h3> <br>
                                     <div class="login">
                                         <div class="login_form_container">
                                             <div class="account_login_form">
